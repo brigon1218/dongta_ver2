@@ -1,0 +1,206 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  REGISTRY: docker.io
+  IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/dongta-api
+  DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+  DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+  DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+
+jobs:
+  lint-and-test:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11']
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_DB: dongta_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run linting (flake8)
+        run: |
+          pip install flake8
+          flake8 dongta-django/apps dongta-django/config --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: Run tests with pytest
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/dongta_test
+          REDIS_URL: redis://localhost:6379/0
+          SECRET_KEY: test-secret-key
+          DEBUG: 'False'
+          ALLOWED_HOSTS: localhost,127.0.0.1
+        run: |
+          cd dongta-django
+          python manage.py migrate
+          pytest apps/ --cov=apps --cov-report=xml -v
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+          flags: unittests
+          fail_ci_if_error: false
+
+  build:
+    name: Build & Push Docker Image
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./dongta-django
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
+
+  deploy:
+    name: Deploy to Production Server
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ env.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy via SSH
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ env.DEPLOY_USER }}@${{ env.DEPLOY_HOST }} << 'EOF'
+            set -e
+            cd /app/dongta-django
+
+            # Pull latest code
+            git pull origin main
+
+            # Update environment
+            cat > .env.prod << 'ENVEOF'
+            DJANGO_SETTINGS_MODULE=config.settings.production
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            REDIS_URL=${{ secrets.REDIS_URL }}
+            MYSQL_DATABASE_URL=${{ secrets.MYSQL_DATABASE_URL }}
+            ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}
+            SENTRY_DSN=${{ secrets.SENTRY_DSN }}
+            DANAL_CPID=${{ secrets.DANAL_CPID }}
+            DANAL_KEY=${{ secrets.DANAL_KEY }}
+            AWS_STORAGE_BUCKET_NAME=${{ secrets.AWS_STORAGE_BUCKET_NAME }}
+            AWS_S3_REGION_NAME=${{ secrets.AWS_S3_REGION_NAME }}
+            AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            LOG_FILE_PATH=/var/log/django/dongta.log
+            SENTRY_TRACES_SAMPLE_RATE=0.1
+            ENVEOF
+
+            # Start services
+            docker-compose -f docker-compose.prod.yml pull
+            docker-compose -f docker-compose.prod.yml up -d
+
+            # Run migrations
+            docker-compose -f docker-compose.prod.yml exec -T web python manage.py migrate
+            docker-compose -f docker-compose.prod.yml exec -T web python manage.py collectstatic --noinput
+
+            # Health check
+            sleep 5
+            curl -f http://localhost:8000/health/ || exit 1
+
+            echo "✅ Deployment successful"
+          EOF
+
+      - name: Cleanup SSH
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
+
+  notify:
+    name: Send Notification
+    runs-on: ubuntu-latest
+    needs: [lint-and-test, build, deploy]
+    if: always()
+
+    steps:
+      - name: Determine status
+        id: status
+        run: |
+          if [ "${{ needs.deploy.result }}" == "success" ]; then
+            echo "status=✅ Deployment successful" >> $GITHUB_OUTPUT
+            echo "color=00FF00" >> $GITHUB_OUTPUT
+          else
+            echo "status=❌ Deployment failed" >> $GITHUB_OUTPUT
+            echo "color=FF0000" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Slack notification
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          text: ${{ steps.status.outputs.status }}
+          webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+          fields: repo,message,commit,author
+        continue-on-error: true
