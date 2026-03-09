@@ -1,14 +1,35 @@
 {
   "version": "1.0",
-  "enabled": false,
+  "enabled": true,
   "teamName": "",
   "feature": "마이그레이션",
   "pdcaPhase": "act",
   "orchestrationPattern": "leader",
   "ctoAgent": "opus",
-  "startedAt": "2026-03-09T03:30:02.357Z",
-  "lastUpdated": "2026-03-09T03:41:42.373Z",
-  "teammates": [],
+  "startedAt": "2026-03-09T04:07:35.554Z",
+  "lastUpdated": "2026-03-09T04:31:07.678Z",
+  "teammates": [
+    {
+      "name": "acaf10fa0ffe6a924",
+      "role": "bkit:product-manager",
+      "model": "sonnet",
+      "status": "completed",
+      "currentTask": null,
+      "taskId": null,
+      "startedAt": "2026-03-09T04:07:35.555Z",
+      "lastActivityAt": "2026-03-09T04:09:40.261Z"
+    },
+    {
+      "name": "a3546b1c84431bb68",
+      "role": "bkit:frontend-architect",
+      "model": "sonnet",
+      "status": "completed",
+      "currentTask": null,
+      "taskId": null,
+      "startedAt": "2026-03-09T04:27:02.749Z",
+      "lastActivityAt": "2026-03-09T04:31:07.677Z"
+    }
+  ],
   "progress": {
     "totalTasks": 0,
     "completedTasks": 0,
