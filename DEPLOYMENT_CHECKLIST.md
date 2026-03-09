@@ -28,7 +28,7 @@ SECRET_KEY=<generate-new-django-secret>
 DATABASE_URL=postgresql://user:pass@host:5432/db
 REDIS_URL=redis://host:6379/0
 MYSQL_DATABASE_URL=mysql://user:pass@host:3306/db
-ALLOWED_HOSTS=dongta.com,www.dongta.com
+ALLOWED_HOSTS=dongta.theuit.info,www.dongta.theuit.info
 SENTRY_DSN=<your-sentry-dsn>
 DANAL_CPID=<danal-merchant-id>
 DANAL_KEY=<danal-api-key>
@@ -86,8 +86,8 @@ docker-compose -f docker-compose.prod.yml exec -T web python manage.py collectst
 ```
 
 **검증:**
-- [ ] Health check 성공: `curl https://www.dongta.com/health/`
-- [ ] API 응답 확인: `curl https://www.dongta.com/api/v1/`
+- [ ] Health check 성공: `curl https://dongta.theuit.info/health/`
+- [ ] API 응답 확인: `curl https://dongta.theuit.info/api/v1/`
 - [ ] Sentry 오류 모니터링 작동 확인
 - [ ] 로그 파일 생성 확인: `tail -f /var/log/django/dongta.log`
 
@@ -109,8 +109,8 @@ docker-compose -f docker-compose.prod.yml exec -T web python manage.py collectst
 
 ### Phase 7: 최종 검증
 
-**운영 환경 점검:**
-- [ ] 웹사이트 접속 가능 (dongta.com)
+**테스트 환경 점검:**
+- [ ] 웹사이트 접속 가능 (dongta.theuit.info)
 - [ ] HTTPS 보안 연결 (초록 자물쇠)
 - [ ] 모든 API 엔드포인트 응답 확인
   - [ ] 인증 (회원가입, 로그인)

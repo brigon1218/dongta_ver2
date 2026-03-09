@@ -19,7 +19,7 @@ GitHub 저장소 Settings → Secrets and variables → Actions 에서 다음 �
 | `DATABASE_URL` | PostgreSQL 연결 URL | `postgresql://user:pass@host:5432/db` |
 | `REDIS_URL` | Redis 연결 URL | `redis://host:6379/0` |
 | `MYSQL_DATABASE_URL` | MySQL 연결 URL (하이브리드) | `mysql://user:pass@host:3306/db` |
-| `ALLOWED_HOSTS` | 허용할 호스트 | `dongta.com,www.dongta.com` |
+| `ALLOWED_HOSTS` | 허용할 호스트 | `dongta.theuit.info,www.dongta.theuit.info` |
 | `SENTRY_DSN` | Sentry DSN URL | 오류 추적용 |
 | `DANAL_CPID` | 다날 상점 ID | 결제 연동용 |
 | `DANAL_KEY` | 다날 API 키 | 결제 연동용 |
@@ -94,7 +94,7 @@ upstream dongta_app {
 
 server {
     listen 80;
-    server_name dongta.com www.dongta.com;
+    server_name dongta.theuit.info www.dongta.theuit.info;
 
     # HTTP → HTTPS 리디렉트
     return 301 https://$server_name$request_uri;
@@ -102,11 +102,11 @@ server {
 
 server {
     listen 443 ssl http2;
-    server_name dongta.com www.dongta.com;
+    server_name dongta.theuit.info www.dongta.theuit.info;
 
     # SSL 인증서 (Let's Encrypt 권장)
-    ssl_certificate /etc/letsencrypt/live/dongta.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/dongta.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/dongta.theuit.info/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/dongta.theuit.info/privkey.pem;
 
     # SSL 보안 설정
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -149,7 +149,7 @@ sudo systemctl restart nginx
 
 # 5. SSL 인증서 (Let's Encrypt)
 sudo apt install -y certbot python3-certbot-nginx
-sudo certbot certonly --nginx -d dongta.com -d www.dongta.com
+sudo certbot certonly --nginx -d dongta.theuit.info -d www.dongta.theuit.info
 ```
 
 ---
@@ -203,10 +203,10 @@ EOF
 
 ```bash
 # Health check
-curl https://www.dongta.com/health/
+curl https://dongta.theuit.info/health/
 
 # API 응답 확인
-curl -H "Content-Type: application/json" https://www.dongta.com/api/v1/accounts/me/
+curl -H "Content-Type: application/json" https://dongta.theuit.info/api/v1/accounts/me/
 
 # 로그 확인
 ssh -i your-key.pem ubuntu@your-server-ip tail -f /var/log/django/dongta.log
