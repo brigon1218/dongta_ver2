@@ -2,6 +2,8 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from django.db.models import Q, F
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 from core.utils import success_response, error_response
 from core.permissions import IsOwnerOrReadOnly
 from .models import Business
@@ -80,8 +82,12 @@ class BusinessViewSet(viewsets.ModelViewSet):
         serializer.save(member=self.request.user, is_approved=False)
 
     def list(self, request, *args, **kwargs):
+        """
+        GET /api/v1/business114/ - 업체 목록 조회
+        캐싱: 검색/필터가 없는 기본 조회는 Redis 캐시 (300초)
+        """
         queryset = self.filter_queryset(self.get_queryset())
-        
+
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)

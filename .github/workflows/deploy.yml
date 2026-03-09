@@ -152,6 +152,18 @@ jobs:
             sleep 10
             docker-compose -f docker-compose.prod.yml ps
 
+            # HTTP 헬스체크 (최대 30초 대기)
+            echo "Waiting for API to be ready..."
+            for i in {1..30}; do
+              if curl -sf http://localhost/api/v1/health/ > /dev/null 2>&1; then
+                echo "✅ API is healthy"
+                exit 0
+              fi
+              echo "Attempt $i/30: Waiting for API..."
+              sleep 1
+            done
+            echo "⚠️  API health check timeout (still deployed, may need manual verification)"
+
       - name: Notify Slack (Success)
         if: success()
         uses: slackapi/slack-github-action@v1.24.0

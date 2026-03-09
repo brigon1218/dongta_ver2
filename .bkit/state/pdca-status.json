@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-09T12:00:00.000Z",
+  "lastUpdated": "2026-03-09T03:46:44.587Z",
   "activeFeatures": [
     "마이그레이션",
     "config",
@@ -125,9 +125,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T10:43:16.900Z",
-        "lastUpdated": "2026-03-06T07:09:00.335Z"
+        "lastUpdated": "2026-03-09T03:46:44.587Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/business114/urls.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/business114/views.py"
     },
     "recruit": {
       "phase": "do",
@@ -219,7 +219,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-09T03:20:38.742Z"
+    "lastActivity": "2026-03-09T03:46:44.587Z"
   },
   "history": [
     {
@@ -789,6 +789,24 @@
     {
       "timestamp": "2026-03-09T03:20:38.742Z",
       "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-09T03:46:12.918Z",
+      "feature": "business114",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-09T03:46:34.150Z",
+      "feature": "business114",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-09T03:46:44.587Z",
+      "feature": "business114",
       "phase": "do",
       "action": "updated"
     }
