@@ -1,0 +1,7 @@
+CREATE USER '아이디'@'접속호스트' IDENTIFIED BY '비밀번호';
+create user brigon@localhost identified by 'brigon0';
+
+create database DongtaDB;
+grant all on DongtaDB.* to admin_user@localhost;
+
+flush privileges;

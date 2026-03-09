@@ -1,0 +1,9 @@
+IP : 52.79.148.197
+ID: ubuntu
+KEY:/Users/yonghwanahn/Downloads/dongta_ver2.pem
+
+# 웹서버 루트 디렉토리
+DOCUMENT ROOT DIR: /home/ubuntu/work_01
+
+# test server name
+dongta.theuit.info

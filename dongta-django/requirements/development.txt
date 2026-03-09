@@ -1,0 +1,11 @@
+-r base.txt
+
+pytest>=7.4
+pytest-django>=4.7
+factory-boy>=3.3
+faker>=20.0
+coverage>=7.3
+black>=23.0
+flake8>=6.0
+django-debug-toolbar>=4.2
+ipython>=8.0

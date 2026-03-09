@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "enabled": true,
+  "teamName": "",
+  "feature": "마이그레이션",
+  "pdcaPhase": "act",
+  "orchestrationPattern": "leader",
+  "ctoAgent": "opus",
+  "startedAt": "2026-03-09T03:30:02.357Z",
+  "lastUpdated": "2026-03-09T03:37:11.149Z",
+  "teammates": [
+    {
+      "name": "aa1dea6b094662a4c",
+      "role": "bkit:report-generator",
+      "model": "sonnet",
+      "status": "completed",
+      "currentTask": null,
+      "taskId": null,
+      "startedAt": "2026-03-09T03:30:02.358Z",
+      "lastActivityAt": "2026-03-09T03:32:33.336Z"
+    },
+    {
+      "name": "a24ba6dcbd7baf2b2",
+      "role": "bkit:gap-detector",
+      "model": "sonnet",
+      "status": "completed",
+      "currentTask": null,
+      "taskId": null,
+      "startedAt": "2026-03-09T03:32:38.206Z",
+      "lastActivityAt": "2026-03-09T03:37:11.148Z"
+    }
+  ],
+  "progress": {
+    "totalTasks": 0,
+    "completedTasks": 0,
+    "inProgressTasks": 0,
+    "failedTasks": 0,
+    "pendingTasks": 0
+  },
+  "recentMessages": [],
+  "sessionId": "35619201-c64f-4509-90a8-a4d07dded201"
+}

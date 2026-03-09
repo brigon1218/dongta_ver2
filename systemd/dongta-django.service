@@ -1,0 +1,37 @@
+[Unit]
+Description=Dongta Django Gunicorn Server
+After=network.target
+Requires=dongta-django.socket
+
+[Service]
+Type=notify
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/dongta-django
+
+# Environment variables
+Environment="PATH=/var/www/dongta-django/venv/bin"
+Environment="DJANGO_SETTINGS_MODULE=config.settings.production"
+EnvironmentFile=/var/www/dongta-django/.env
+
+# Gunicorn command
+ExecStart=/var/www/dongta-django/venv/bin/gunicorn \
+    --workers 3 \
+    --worker-class sync \
+    --worker-tmp-dir /dev/shm \
+    --timeout 30 \
+    --access-logfile - \
+    --error-logfile - \
+    --log-level info \
+    --bind unix:/var/run/dongta-django.sock \
+    config.wsgi:application
+
+# Process management
+Restart=on-failure
+RestartSec=5s
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=dongta-django
+
+[Install]
+WantedBy=multi-user.target

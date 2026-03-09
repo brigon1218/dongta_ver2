@@ -1,0 +1,109 @@
+version: '3.9'
+
+x-celery-common: &celery-common
+  build: .
+  volumes:
+    - .:/app
+  env_file:
+    - .env
+  environment:
+    - DATABASE_URL=postgresql://dongta:dongta_dev_pass@db:5432/dongtadb
+    - REDIS_URL=redis://redis:6379/0
+    - CELERY_BROKER_URL=redis://redis:6379/0
+    - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    - DJANGO_SETTINGS_MODULE=config.settings.development
+  depends_on:
+    db:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+
+services:
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: dongtadb
+      POSTGRES_USER: dongta
+      POSTGRES_PASSWORD: dongta_dev_pass
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dongta -d dongtadb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://dongta:dongta_dev_pass@db:5432/dongtadb
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - DJANGO_SETTINGS_MODULE=config.settings.development
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ---------------------------------------------------------------------------
+  # Celery Workers
+  # ---------------------------------------------------------------------------
+
+  # sync 큐 Worker: MySQL → PostgreSQL 회원/업체 동기화 (2 replicas)
+  celery-sync:
+    <<: *celery-common
+    command: celery -A config worker -l info -Q sync -c 2 -n celery-sync@%h
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+
+  # payment 큐 Worker: 결제 데이터 동기화 (1 replica)
+  celery-payment:
+    <<: *celery-common
+    command: celery -A config worker -l info -Q payment -c 1 -n celery-payment@%h
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+
+  # Celery Beat: 스케줄 작업 (poll_pending_events 5분, verify_sync_integrity 1시간)
+  celery-beat:
+    <<: *celery-common
+    command: celery -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+
+volumes:
+  postgres_data:

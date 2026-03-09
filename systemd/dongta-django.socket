@@ -1,0 +1,15 @@
+[Unit]
+Description=Dongta Django Gunicorn Socket
+Before=dongta-django.service
+
+[Socket]
+ListenStream=/var/run/dongta-django.sock
+SocketUser=www-data
+SocketGroup=www-data
+SocketMode=0660
+
+# Accept connections
+Accept=no
+
+[Install]
+WantedBy=sockets.target

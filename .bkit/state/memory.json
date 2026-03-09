@@ -1,0 +1,21 @@
+{
+  "sessionCount": 11,
+  "lastSession": {
+    "startedAt": "2026-03-09T03:29:24.324Z",
+    "platform": "claude",
+    "level": "Starter"
+  },
+  "currentFeature": "마이그레이션",
+  "currentPhase": "plan",
+  "projectContext": {
+    "name": "dongta.com",
+    "description": "PHP+MySQL 레거시 → Python/Django+PostgreSQL 하이브리드 마이그레이션",
+    "sourceDir": "dongta.com/",
+    "stats": {
+      "phpFiles": 451,
+      "phtmlFiles": 200,
+      "totalFiles": 14356,
+      "totalLines": 216458
+    }
+  }
+}
