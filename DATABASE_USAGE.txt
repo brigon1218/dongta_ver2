@@ -1,0 +1,54 @@
+📦 대용량 데이터베이스 파일 위치 안내
+=====================================
+
+현재 프로젝트의 대용량 MySQL 데이터베이스 파일들은 Git에서 제외되었습니다.
+다음 위치에서 파일을 가져와서 사용하세요.
+
+🌐 AWS Server Location
+=====================
+Host: 52.79.148.197
+User: ubuntu
+Path: /home/ubuntu/work_01/database_dumps/
+
+Key: /Users/yonghwanahn/Downloads/dongta_ver2.pem
+
+📂 Files
+=========
+1. dongta_1022.sql (1.1GB) - 동타 MySQL 전체 덤프
+2. mysql_data.tar.gz (428MB) - MySQL 데이터 압축
+3. mysql_dongta_dump.sql (1.1GB) - MySQL 백업본
+
+🚀 빠른 시작
+=============
+
+1️⃣ AWS에서 파일 다운로드:
+   scp -i /Users/yonghwanahn/Downloads/dongta_ver2.pem \
+     -r ubuntu@52.79.148.197:/home/ubuntu/work_01/database_dumps/* \
+     dongta.mysql/
+
+2️⃣ Local MySQL 시작:
+   docker run -d --name mysql-dongta -p 3306:3306 \
+     -e MYSQL_ROOT_PASSWORD=root mysql:8.0
+
+3️⃣ 데이터 복원:
+   mysql -u root -p < dongta.mysql/dongta_1022.sql
+
+4️⃣ Django 마이그레이션:
+   cd dongta-django/
+   python manage.py migrate
+
+📚 자세한 설명
+===============
+- DATABASE_SETUP.md - 상세한 설정 가이드
+- DATABASE_MIRRORS.md - 파일 위치 및 동기화 방법
+
+⚠️ 주의사항
+===========
+- 이 파일들은 .gitignore에 의해 Git에서 제외됩니다
+- 파일 크기가 크므로 안정적인 네트워크에서 작업하세요
+- AWS 업로드 전에 항상 로컬 백업을 보관하세요
+- SSH 키 권한: chmod 600 dongta_ver2.pem
+
+🔗 연락처
+==========
+문제 발생 시: DATABASE_SETUP.md의 트러블슈팅 섹션 참고
