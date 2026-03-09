@@ -14,12 +14,28 @@ SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', default=True)
 SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
+
+# Cloudflare SSL 무한 리다이렉션 방지
+# Cloudflare Full Strict SSL을 사용하는 경우, X-Forwarded-Proto 헤더를 신뢰
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# 또는 Cloudflare CF-Visitor 헤더 사용 (더 안전)
+# SECURE_PROXY_SSL_HEADER = ('HTTP_CF_VISITOR', '{"scheme":"https"}')
 
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = 'Lax'
+
+# Cloudflare 도메인 신뢰 설정 (CSRF 토큰 검증)
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[
+    'https://dongta.theuit.info',
+    'https://www.dongta.theuit.info',
+    'https://api.dongta.theuit.info',
+])
 
 # 세션 및 캐시 최적화 (Redis 사용)
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
