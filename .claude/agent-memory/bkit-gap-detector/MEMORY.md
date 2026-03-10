@@ -42,3 +42,10 @@
 - apps/payment/ fully implemented (models, views, serializers, tasks, danal/client.py, danal/config.py, tests, urls)
 - Design uses simplified column names (NO_MEMB, ID_MEMBER) but actual DB uses memb_idx, memb_id etc.
 - Implementation improved Design's boolean `processed` to 5-state EventStatus enum
+- 2026-03-10 v1.0: 마이그레이션_부가기능 gap analysis - Overall 90%
+  - Password Reset: 2-step flow implemented (design only had 1 endpoint)
+  - Social Login: Design GET x2 -> Implementation POST x1 unified (better)
+  - P1: Celery Beat schedule missing for cleanup task, FRONTEND_URL not in .env.example
+  - P2: Email enumeration, rate limit on reset, unused allauth/social-auth deps
+  - Details: `docs/03-analysis/features/마이그레이션_부가기능.analysis.md`
+  - apps/accounts/ now has: models, serializers, views, urls, tasks, hashers, migrations(0001+0002), tests, templates

@@ -180,6 +180,15 @@ CELERY_WORKER_PREFETCH_MULTIPLIER = 1
 CELERY_TASK_SOFT_TIME_LIMIT = 300
 CELERY_TASK_TIME_LIMIT = 360
 
+# Celery Beat Schedule (주기적 작업)
+from celery.schedules import crontab
+CELERY_BEAT_SCHEDULE = {
+    'cleanup-expired-password-reset-tokens': {
+        'task': 'apps.accounts.tasks.cleanup_expired_password_reset_tokens',
+        'schedule': crontab(minute=0),  # 매시간
+    },
+}
+
 # MySQL 동기화 설정 (하이브리드 기간)
 SYNC_BATCH_SIZE = env.int('SYNC_BATCH_SIZE', default=500)
 SYNC_STALE_HOURS = env.int('SYNC_STALE_HOURS', default=1)
@@ -236,3 +245,8 @@ RATELIMIT_USE_CACHE = 'default'
 DANAL_MERCHANT_ID = env('DANAL_MERCHANT_ID', default='')
 DANAL_MERCHANT_KEY = env('DANAL_MERCHANT_KEY', default='')
 DANAL_RETURN_URL = env('DANAL_RETURN_URL', default='')
+
+# =============================================================================
+# 프론트엔드 설정
+# =============================================================================
+FRONTEND_URL = env('FRONTEND_URL', default='http://localhost:3000')

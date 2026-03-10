@@ -1,9 +1,10 @@
 IP : 52.79.148.197
 ID: ubuntu
-KEY:/Users/yonghwanahn/Downloads/dongta_ver2.pem
+MacOSKEY:/Users/yonghwanahn/Downloads/dongta_ver2.pem
+WindowsKEY:C:\Users\안용환\workspace\aws\vibe_coding\keystore\dongta_ver2.pem
 
 # 웹서버 루트 디렉토리
 DOCUMENT ROOT DIR: /home/ubuntu/work_01
 
-# test server name
+# test server name cloudeflare 에서 ssl 리다렉팅(포워딩)함.
 dongta.theuit.info

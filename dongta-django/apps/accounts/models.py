@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
+from django.utils import timezone
+from datetime import timedelta
 from core.models import BaseModel
+import secrets
 
 
 class MemberManager(BaseUserManager):
@@ -99,3 +102,46 @@ class MemberDormant(BaseModel):
     class Meta:
         db_table = 'accounts_member_dormant'
         verbose_name = '휴면회원'
+
+
+class PasswordResetToken(BaseModel):
+    """비밀번호 재설정 토큰 (유효시간: 1시간)"""
+    member = models.ForeignKey(
+        Member,
+        on_delete=models.CASCADE,
+        related_name='password_reset_tokens',
+        verbose_name='회원'
+    )
+    token = models.CharField(max_length=128, unique=True, verbose_name='토큰')
+    expires_at = models.DateTimeField(verbose_name='만료시간')
+    is_used = models.BooleanField(default=False, verbose_name='사용여부')
+    used_at = models.DateTimeField(null=True, blank=True, verbose_name='사용시간')
+
+    class Meta:
+        db_table = 'accounts_password_reset_token'
+        verbose_name = '비밀번호재설정토큰'
+        indexes = [
+            models.Index(fields=['token'], name='idx_reset_token'),
+            models.Index(fields=['member'], name='idx_reset_member'),
+        ]
+
+    @staticmethod
+    def create_token(member):
+        """비밀번호 재설정 토큰 생성"""
+        token = secrets.token_urlsafe(96)
+        expires_at = timezone.now() + timedelta(hours=1)
+        return PasswordResetToken.objects.create(
+            member=member,
+            token=token,
+            expires_at=expires_at
+        )
+
+    def is_valid(self):
+        """토큰 유효성 확인"""
+        return not self.is_used and timezone.now() < self.expires_at
+
+    def mark_used(self):
+        """토큰을 사용한 것으로 표시"""
+        self.is_used = True
+        self.used_at = timezone.now()
+        self.save()

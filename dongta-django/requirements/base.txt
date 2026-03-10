@@ -17,3 +17,6 @@ django-storages>=1.14
 django-celery-beat>=2.5
 kombu>=5.3
 pymysql>=1.1
+django-allauth>=0.61.1
+python-social-auth[django]>=4.0.2
+PyJWT>=2.8.0

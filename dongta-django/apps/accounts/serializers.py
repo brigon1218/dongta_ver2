@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
-from .models import Member
+from .models import Member, PasswordResetToken
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -63,4 +63,50 @@ class PasswordChangeSerializer(serializers.Serializer):
         user = self.context['request'].user
         if not user.check_password(value):
             raise serializers.ValidationError('현재 비밀번호가 올바르지 않습니다.')
+        return value
+
+
+class PasswordResetRequestSerializer(serializers.Serializer):
+    """비밀번호 재설정 요청"""
+    email = serializers.EmailField()
+
+    def validate_email(self, value):
+        if not Member.objects.filter(email=value, is_deleted=False).exists():
+            raise serializers.ValidationError('등록되지 않은 이메일입니다.')
+        return value
+
+
+class PasswordResetConfirmSerializer(serializers.Serializer):
+    """비밀번호 재설정 확인"""
+    token = serializers.CharField(write_only=True)
+    new_password = serializers.CharField(write_only=True, validators=[validate_password])
+    new_password_confirm = serializers.CharField(write_only=True)
+
+    def validate(self, attrs):
+        if attrs['new_password'] != attrs['new_password_confirm']:
+            raise serializers.ValidationError({'new_password': '새 비밀번호가 일치하지 않습니다.'})
+
+        # 토큰 검증
+        try:
+            reset_token = PasswordResetToken.objects.get(
+                token=attrs['token'],
+                is_used=False
+            )
+            if not reset_token.is_valid():
+                raise serializers.ValidationError({'token': '만료된 토큰입니다.'})
+        except PasswordResetToken.DoesNotExist:
+            raise serializers.ValidationError({'token': '유효하지 않은 토큰입니다.'})
+
+        attrs['reset_token'] = reset_token
+        return attrs
+
+
+class SocialLoginSerializer(serializers.Serializer):
+    """소셜 로그인"""
+    provider = serializers.ChoiceField(choices=['google', 'naver'])
+    access_token = serializers.CharField(write_only=True)
+
+    def validate_provider(self, value):
+        if value not in ['google', 'naver']:
+            raise serializers.ValidationError('지원하지 않는 소셜 로그인입니다.')
         return value

@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-09T03:46:44.587Z",
+  "lastUpdated": "2026-03-10T08:42:26.666Z",
   "activeFeatures": [
     "마이그레이션",
     "config",
@@ -14,7 +14,10 @@
     "payment",
     "scripts",
     "sync",
-    "board"
+    "board",
+    "tests",
+    "migrations",
+    "dongta_ver2"
   ],
   "primaryFeature": "마이그레이션",
   "features": {
@@ -60,9 +63,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.558Z",
-        "lastUpdated": "2026-03-07T11:15:20.637Z"
+        "lastUpdated": "2026-03-10T08:21:19.921Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/settings/production.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\aws\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\config\\settings\\base.py"
     },
     "core": {
       "phase": "do",
@@ -86,9 +89,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:28:10.437Z",
-        "lastUpdated": "2026-03-02T10:45:52.207Z"
+        "lastUpdated": "2026-03-10T08:18:02.473Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/accounts/views.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\aws\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\accounts\\tasks.py"
     },
     "dongta-django": {
       "phase": "do",
@@ -209,6 +212,45 @@
         "lastUpdated": "2026-03-09T03:20:38.741Z"
       },
       "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/board/tests/test_views.py"
+    },
+    "tests": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-10T08:18:22.727Z",
+        "lastUpdated": "2026-03-10T08:18:31.008Z"
+      },
+      "lastFile": "C:\\Users\\안용환\\workspace\\aws\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\accounts\\tests\\test_auth.py"
+    },
+    "migrations": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-10T08:18:40.692Z",
+        "lastUpdated": "2026-03-10T08:18:40.692Z"
+      },
+      "lastFile": "C:\\Users\\안용환\\workspace\\aws\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\accounts\\migrations\\0002_passwordresettoken.py"
+    },
+    "dongta_ver2": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-10T08:38:39.721Z",
+        "lastUpdated": "2026-03-10T08:42:26.666Z"
+      },
+      "lastFile": "C:\\Users\\안용환\\workspace\\aws\\vibe_coding\\work_01\\dongta_ver2\\deploy-aws.ps1"
     }
   },
   "pipeline": {
@@ -219,7 +261,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-09T03:46:44.587Z"
+    "lastActivity": "2026-03-10T08:42:26.666Z"
   },
   "history": [
     {
@@ -807,6 +849,96 @@
     {
       "timestamp": "2026-03-09T03:46:44.587Z",
       "feature": "business114",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:17:19.139Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:17:25.328Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:17:28.564Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:17:35.321Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:17:39.707Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:17:51.909Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:17:56.522Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:18:02.473Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:18:16.857Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:18:22.727Z",
+      "feature": "tests",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:18:31.009Z",
+      "feature": "tests",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:18:40.692Z",
+      "feature": "migrations",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:21:19.921Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:38:39.721Z",
+      "feature": "dongta_ver2",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-10T08:42:26.666Z",
+      "feature": "dongta_ver2",
       "phase": "do",
       "action": "updated"
     }
