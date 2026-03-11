@@ -1,8 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from apps.core.views import LandingPageView
 
 urlpatterns = [
+    path('', LandingPageView.as_view(), name='landing'),
+
     path('admin/', admin.site.urls),
 
     # API v1
