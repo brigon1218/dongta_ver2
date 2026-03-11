@@ -67,3 +67,9 @@ dongta.mysql/
 node_modules/
 .claude/
 .bkit/snapshots/
+
+# Sensitive configuration files
+aws_server.txt
+server_config.txt
+*.pem
+*.key
