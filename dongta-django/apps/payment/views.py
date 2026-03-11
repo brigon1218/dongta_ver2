@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.db import transaction
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
-from ratelimit.decorators import ratelimit
+from django_ratelimit.decorators import ratelimit
 from core.utils import success_response, error_response
 from .models import PointAccount, PaymentHistory, PaymentStatus
 from .serializers import (
