@@ -11,7 +11,7 @@ x-celery-common: &celery-common
     - REDIS_URL=redis://redis:6379/0
     - CELERY_BROKER_URL=redis://redis:6379/0
     - CELERY_RESULT_BACKEND=redis://redis:6379/0
-    - DJANGO_SETTINGS_MODULE=config.settings.development
+    - DJANGO_SETTINGS_MODULE=config.settings.production
   depends_on:
     db:
       condition: service_healthy
@@ -61,7 +61,7 @@ services:
       - REDIS_URL=redis://redis:6379/0
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - DJANGO_SETTINGS_MODULE=config.settings.development
+      - DJANGO_SETTINGS_MODULE=config.settings.production
     depends_on:
       db:
         condition: service_healthy
