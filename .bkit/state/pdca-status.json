@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-10T08:42:26.666Z",
+  "lastUpdated": "2026-03-11T13:17:21.408Z",
   "activeFeatures": [
     "마이그레이션",
     "config",
@@ -63,9 +63,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.558Z",
-        "lastUpdated": "2026-03-10T08:21:19.921Z"
+        "lastUpdated": "2026-03-11T13:10:11.437Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\aws\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\config\\settings\\base.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/settings/production.py"
     },
     "core": {
       "phase": "do",
@@ -89,9 +89,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:28:10.437Z",
-        "lastUpdated": "2026-03-10T08:18:02.473Z"
+        "lastUpdated": "2026-03-11T13:17:21.408Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\aws\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\accounts\\tasks.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/accounts/migrations/0002_passwordresettoken.py"
     },
     "dongta-django": {
       "phase": "do",
@@ -154,9 +154,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T10:43:49.480Z",
-        "lastUpdated": "2026-03-07T13:41:52.560Z"
+        "lastUpdated": "2026-03-11T13:12:05.458Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/payment/migrations/0001_initial.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/payment/views.py"
     },
     "scripts": {
       "phase": "do",
@@ -261,7 +261,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-10T08:42:26.666Z"
+    "lastActivity": "2026-03-11T13:17:21.408Z"
   },
   "history": [
     {
@@ -939,6 +939,30 @@
     {
       "timestamp": "2026-03-10T08:42:26.666Z",
       "feature": "dongta_ver2",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-11T13:10:11.437Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-11T13:12:05.458Z",
+      "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-11T13:17:03.320Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-11T13:17:21.408Z",
+      "feature": "accounts",
       "phase": "do",
       "action": "updated"
     }
