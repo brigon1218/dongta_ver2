@@ -1,8 +1,7 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-11T14:02:38.518Z",
+  "lastUpdated": "2026-03-11T15:29:25.563Z",
   "activeFeatures": [
-    "마이그레이션",
     "config",
     "settings",
     "core",
@@ -20,27 +19,15 @@
     "dongta_ver2",
     "work_01"
   ],
-  "primaryFeature": "마이그레이션",
+  "primaryFeature": null,
   "features": {
     "마이그레이션": {
-      "phase": "act",
-      "status": "in_progress",
-      "startedAt": "2026-03-02T09:00:00.000Z",
-      "lastUpdated": "2026-03-02T09:45:00.000Z",
+      "phase": "archived",
       "matchRate": 77,
       "iterationCount": 0,
-      "documents": {
-        "plan": "docs/01-plan/features/마이그레이션.plan.md",
-        "design": "docs/02-design/features/마이그레이션.design.md",
-        "analysis": "docs/03-analysis/features/마이그레이션.analysis.md",
-        "report": null
-      },
-      "phaseNumber": 5,
-      "previousPhase": "check",
-      "autoAdvanced": true,
-      "timestamps": {
-        "lastUpdated": "2026-03-02T09:41:55.332Z"
-      }
+      "startedAt": "2026-03-02T09:00:00.000Z",
+      "archivedAt": "2026-03-12T00:00:00.000Z",
+      "archivedTo": "docs/archive/2026-03/마이그레이션/"
     },
     "config": {
       "phase": "do",
@@ -262,9 +249,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-11T13:52:55.317Z",
-        "lastUpdated": "2026-03-11T14:02:38.518Z"
+        "lastUpdated": "2026-03-11T15:29:25.563Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/API_INTEGRATION_TEST.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/server_control.sh"
     }
   },
   "pipeline": {
@@ -275,7 +262,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-11T14:02:38.518Z"
+    "lastActivity": "2026-03-11T15:29:25.563Z"
   },
   "history": [
     {
@@ -1072,6 +1059,12 @@
     },
     {
       "timestamp": "2026-03-11T14:02:38.518Z",
+      "feature": "work_01",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-11T15:29:25.563Z",
       "feature": "work_01",
       "phase": "do",
       "action": "updated"
