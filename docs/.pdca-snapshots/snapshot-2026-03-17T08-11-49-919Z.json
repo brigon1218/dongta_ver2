@@ -92,10 +92,10 @@
     "phaseHistory": []
   },
   "session": {
-    "startedAt": "2026-03-06T16:07:15.107Z",
+    "startedAt": "2026-03-17T03:07:32.741Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-03-06T16:07:15.107Z"
+    "lastActivity": "2026-03-17T03:07:32.741Z"
   },
-  "_snapshotTimestamp": "2026-03-07T10:58:58.061Z",
+  "_snapshotTimestamp": "2026-03-17T08:11:49.920Z",
   "_reason": "pre-compress"
 }

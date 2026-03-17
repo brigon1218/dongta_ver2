@@ -49,3 +49,12 @@
   - P2: Email enumeration, rate limit on reset, unused allauth/social-auth deps
   - Details: `docs/03-analysis/features/마이그레이션_부가기능.analysis.md`
   - apps/accounts/ now has: models, serializers, views, urls, tasks, hashers, migrations(0001+0002), tests, templates
+- 2026-03-17 v3.0: 마이그레이션 full re-analysis - Overall 88%
+  - Added S6(Error Handling), S9(Clean Architecture), S10(Convention) categories
+  - Architecture: 93%, Data Model: 97%, API: 90%, Security: 95%
+  - Test Coverage: 65% (strict: 3 apps completely untested - business114, recruit, mypage)
+  - All Design S4.2 accounts APIs now implemented (password reset + social login)
+  - Admin REST APIs remain as Django Admin actions only (4 endpoints not exposed as REST)
+  - MyFolder/MyData models still empty in mypage/models.py
+  - P1: Add tests for 3 apps, MyFolder/MyData models, PaymentAdmin, verify.py, Admin APIs
+  - Details: `docs/03-analysis/features/마이그레이션.analysis.md`

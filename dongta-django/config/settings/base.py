@@ -7,11 +7,19 @@ import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+# =============================================================================
+# 환경 설정 (Environ)
+# =============================================================================
 env = environ.Env(
     DEBUG=(bool, False),
     ALLOWED_HOSTS=(list, []),
 )
+# OS에 관계없이 .env 파일을 프로젝트 루트에서 로드
 environ.Env.read_env(BASE_DIR / '.env')
+
+# 프로젝트 루트 기반 경로 도우미
+def root_path(*paths):
+    return BASE_DIR.joinpath(*paths)
 
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
