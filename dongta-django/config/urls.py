@@ -16,6 +16,7 @@ urlpatterns = [
     path('api/v1/board/', include('apps.board.urls')),
     path('api/v1/mypage/', include('apps.mypage.urls')),
     path('api/v1/sync/', include('apps.sync.urls')),
+    path('api/v1/monitoring/', include('apps.monitoring.urls')),  # Phase 2.1: 모니터링
 
     # API 문서
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

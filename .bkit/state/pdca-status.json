@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-17T09:04:43.394Z",
+  "lastUpdated": "2026-03-17T09:09:46.618Z",
   "activeFeatures": [
     "마이그레이션",
     "config",
@@ -18,7 +18,8 @@
     "tests",
     "migrations",
     "dongta_ver2",
-    "mypage"
+    "mypage",
+    "monitoring"
   ],
   "primaryFeature": "마이그레이션",
   "features": {
@@ -51,9 +52,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.016Z",
-        "lastUpdated": "2026-03-06T08:41:33.361Z"
+        "lastUpdated": "2026-03-17T09:09:31.116Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/celery.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\config\\urls.py"
     },
     "settings": {
       "phase": "do",
@@ -64,9 +65,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.558Z",
-        "lastUpdated": "2026-03-17T09:04:43.393Z"
+        "lastUpdated": "2026-03-17T09:09:19.902Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\config\\settings/base.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\config\\settings\\base.py"
     },
     "core": {
       "phase": "do",
@@ -223,9 +224,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-10T08:18:22.727Z",
-        "lastUpdated": "2026-03-17T08:34:58.974Z"
+        "lastUpdated": "2026-03-17T09:09:46.617Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\mypage\\tests\\test_views.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\monitoring/tests/test_monitoring.py"
     },
     "migrations": {
       "phase": "do",
@@ -236,9 +237,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-10T08:18:40.692Z",
-        "lastUpdated": "2026-03-17T08:37:08.736Z"
+        "lastUpdated": "2026-03-17T09:07:19.535Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\mypage\\migrations\\0001_initial.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\monitoring\\migrations/__init__.py"
     },
     "dongta_ver2": {
       "phase": "do",
@@ -265,6 +266,19 @@
         "lastUpdated": "2026-03-17T08:37:20.104Z"
       },
       "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\mypage\\admin.py"
+    },
+    "monitoring": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-17T09:07:14.950Z",
+        "lastUpdated": "2026-03-17T09:08:49.034Z"
+      },
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\monitoring/admin.py"
     }
   },
   "pipeline": {
@@ -275,7 +289,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-17T09:04:43.394Z"
+    "lastActivity": "2026-03-17T09:09:46.618Z"
   },
   "history": [
     {
@@ -1091,6 +1105,84 @@
     {
       "timestamp": "2026-03-17T09:04:43.393Z",
       "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:07:14.950Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:07:19.535Z",
+      "feature": "migrations",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:07:22.263Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:07:27.245Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:07:37.501Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:08:25.568Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:08:41.547Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:08:49.034Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:09:04.114Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:09:19.902Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:09:31.116Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:09:38.920Z",
+      "feature": "tests",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:09:46.617Z",
+      "feature": "tests",
       "phase": "do",
       "action": "updated"
     }

@@ -52,6 +52,7 @@ LOCAL_APPS = [
     'apps.board',
     'apps.mypage',
     'apps.sync',
+    'apps.monitoring',  # Phase 2.1: 모니터링
     'core',
 ]
 
@@ -61,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'apps.accounts.middleware.RequestIDMiddleware',  # Phase 2.1: Request ID
-    # 'apps.monitoring.middleware.RoutingStatsMiddleware',  # Phase 2.1: 통계 (TODO: Step 3)
+    'apps.monitoring.middleware.RoutingStatsMiddleware',  # Phase 2.1: 통계
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
