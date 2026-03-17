@@ -493,6 +493,139 @@ def verify_sync_integrity() -> dict[str, Any]:
 
 @shared_task(
     queue='sync',
+    name='apps.sync.tasks.process_php_events',
+    acks_late=True,
+)
+def process_php_events() -> dict[str, Any]:
+    """
+    MySQL TBL_EVENT_OUTBOX에서 PHP 시스템이 생성한 이벤트를 폴링하여 처리한다.
+    (PHP → Django 방향 동기화)
+
+    MySQL에는 triggers와 프로시저에 의해 이벤트가 삽입되고,
+    이 태스크가 이들을 주기적으로 확인한다.
+
+    Returns:
+        처리 결과: {'processed': N, 'failed': M}
+    """
+    from django.db import connections
+
+    processed = 0
+    failed = 0
+
+    try:
+        with connections['legacy'].cursor() as cursor:
+            # MySQL의 TBL_EVENT_OUTBOX에서 미처리 이벤트 조회
+            # (상세 쿼리는 MySQL DDL에서 정의)
+            cursor.execute("""
+                SELECT
+                    event_id,
+                    event_type,
+                    aggregate_type,
+                    aggregate_id,
+                    payload_json,
+                    created_at
+                FROM TBL_EVENT_OUTBOX
+                WHERE status = 'PENDING'
+                  AND created_at > NOW() - INTERVAL 24 HOUR
+                ORDER BY created_at ASC
+                LIMIT 100
+            """)
+
+            rows = cursor.fetchall()
+
+            for row in rows:
+                event_id, event_type, agg_type, agg_id, payload_str, created_at = row
+                try:
+                    import json
+                    payload = json.loads(payload_str) if isinstance(payload_str, str) else payload_str
+
+                    # PostgreSQL EventOutbox 매핑
+                    # MySQL TBL_EVENT_OUTBOX → PostgreSQL sync_event_outbox
+                    outbox = _create_outbox_from_mysql(
+                        event_type=event_type,
+                        aggregate_type=agg_type,
+                        aggregate_id=agg_id,
+                        payload=payload,
+                        mysql_event_id=event_id,
+                    )
+
+                    # EventOutbox processing task 발행
+                    if outbox:
+                        process_event_outbox.apply_async(args=[outbox.id], queue='sync')
+                        processed += 1
+
+                        # MySQL에서 이벤트 상태 업데이트 (선택사항)
+                        cursor.execute(
+                            "UPDATE TBL_EVENT_OUTBOX SET status = %s WHERE event_id = %s",
+                            ['PROCESSED', event_id]
+                        )
+
+                except Exception as e:
+                    failed += 1
+                    logger.exception('process_php_events: event_id=%s error=%s', event_id, str(e))
+
+        logger.info('process_php_events: processed=%d failed=%d', processed, failed)
+        return {'processed': processed, 'failed': failed}
+
+    except Exception as e:
+        logger.exception('process_php_events 작업 실패: %s', str(e))
+        return {'processed': 0, 'failed': -1, 'error': str(e)}
+
+
+def _create_outbox_from_mysql(
+    event_type: str,
+    aggregate_type: str,
+    aggregate_id: int,
+    payload: dict[str, Any],
+    mysql_event_id: int,
+) -> Any:
+    """
+    MySQL TBL_EVENT_OUTBOX의 이벤트를 PostgreSQL EventOutbox로 매핑한다.
+
+    Args:
+        event_type: 'member.insert', 'member.update', etc.
+        aggregate_type: 'member', 'recruit', 'payment', etc.
+        aggregate_id: 원본 레코드 ID
+        payload: 이벤트 페이로드 (JSON)
+        mysql_event_id: MySQL의 event_id (추적용)
+
+    Returns:
+        생성된 EventOutbox 인스턴스 또는 None (중복이면 None)
+    """
+    from apps.sync.models import EventOutbox, EventSource
+
+    # 중복 체크: correlation_id로 mysql_event_id를 사용하여 중복 방지
+    existing = EventOutbox.objects.filter(
+        correlation_id=f'mysql:{mysql_event_id}',
+        aggregate_id=aggregate_id,
+    ).exists()
+
+    if existing:
+        logger.debug('Duplicate event skipped: mysql_event_id=%s', mysql_event_id)
+        return None
+
+    try:
+        outbox = EventOutbox.objects.create(
+            event_type=event_type,
+            aggregate_type=aggregate_type,
+            aggregate_id=aggregate_id,
+            payload=payload,
+            source=EventSource.MYSQL,
+            correlation_id=f'mysql:{mysql_event_id}',
+        )
+        logger.info(
+            'EventOutbox created from MySQL: id=%s type=%s',
+            outbox.id,
+            event_type,
+        )
+        return outbox
+    except Exception as e:
+        logger.exception('_create_outbox_from_mysql failed: %s', str(e))
+        return None
+
+
+@shared_task(
+    queue='sync',
     name='apps.sync.tasks.clean_old_event_logs',
     acks_late=True,
 )

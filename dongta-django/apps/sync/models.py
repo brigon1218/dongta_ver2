@@ -18,6 +18,12 @@ from django.utils import timezone
 logger = logging.getLogger(__name__)
 
 
+class EventSource(models.TextChoices):
+    """이벤트 발생 시스템"""
+    DJANGO = 'django', 'Django 시스템'
+    MYSQL = 'mysql', 'MySQL 레거시 시스템'
+
+
 class EventStatus(models.TextChoices):
     PENDING = 'pending', '대기'
     PROCESSING = 'processing', '처리중'
@@ -65,6 +71,20 @@ class EventOutbox(models.Model):
     payload = models.JSONField(
         verbose_name='이벤트 페이로드',
         help_text='MySQL 원본 데이터 (JSON)',
+    )
+    source = models.CharField(
+        max_length=20,
+        choices=EventSource.choices,
+        default=EventSource.MYSQL,
+        verbose_name='이벤트 발생 시스템',
+        db_index=True,
+    )
+    correlation_id = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name='상관 ID (추적용)',
+        db_index=True,
+        help_text='요청 추적을 위한 X-Request-ID',
     )
     status = models.CharField(
         max_length=20,

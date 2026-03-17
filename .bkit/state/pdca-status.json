@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-17T09:09:46.618Z",
+  "lastUpdated": "2026-03-17T09:18:08.897Z",
   "activeFeatures": [
     "마이그레이션",
     "config",
@@ -65,7 +65,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.558Z",
-        "lastUpdated": "2026-03-17T09:09:19.902Z"
+        "lastUpdated": "2026-03-17T09:17:32.323Z"
       },
       "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\config\\settings\\base.py"
     },
@@ -182,9 +182,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-06T08:30:25.518Z",
-        "lastUpdated": "2026-03-06T08:41:22.774Z"
+        "lastUpdated": "2026-03-17T09:16:55.377Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/sync/tasks.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\sync\\tasks.py"
     },
     "하이브리드_연동": {
       "phase": "archived",
@@ -224,9 +224,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-10T08:18:22.727Z",
-        "lastUpdated": "2026-03-17T09:09:46.617Z"
+        "lastUpdated": "2026-03-17T09:18:08.896Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\monitoring/tests/test_monitoring.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\sync\\tests\\test_event_logging.py"
     },
     "migrations": {
       "phase": "do",
@@ -237,9 +237,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-10T08:18:40.692Z",
-        "lastUpdated": "2026-03-17T09:07:19.535Z"
+        "lastUpdated": "2026-03-17T09:16:36.334Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\monitoring\\migrations/__init__.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\sync\\migrations\\0002_eventsource_fields.py"
     },
     "dongta_ver2": {
       "phase": "do",
@@ -289,7 +289,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-17T09:09:46.618Z"
+    "lastActivity": "2026-03-17T09:18:08.897Z"
   },
   "history": [
     {
@@ -1182,6 +1182,54 @@
     },
     {
       "timestamp": "2026-03-17T09:09:46.617Z",
+      "feature": "tests",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:12:57.162Z",
+      "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:15:36.829Z",
+      "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:15:53.222Z",
+      "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:16:00.009Z",
+      "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:16:36.334Z",
+      "feature": "migrations",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:16:55.377Z",
+      "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:17:32.323Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:18:08.896Z",
       "feature": "tests",
       "phase": "do",
       "action": "updated"

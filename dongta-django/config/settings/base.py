@@ -199,6 +199,22 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'apps.accounts.tasks.cleanup_expired_password_reset_tokens',
         'schedule': crontab(minute=0),  # 매시간
     },
+    'poll-pending-events': {
+        'task': 'apps.sync.tasks.poll_pending_events',
+        'schedule': crontab(minute='*/5'),  # 5분마다 (PostgreSQL 이벤트 폴링)
+    },
+    'process-php-events': {
+        'task': 'apps.sync.tasks.process_php_events',
+        'schedule': crontab(minute='*/5'),  # 5분마다 (MySQL 이벤트 폴링)
+    },
+    'verify-sync-integrity': {
+        'task': 'apps.sync.tasks.verify_sync_integrity',
+        'schedule': crontab(minute=0),  # 매시간 (동기화 무결성 검증)
+    },
+    'clean-old-event-logs': {
+        'task': 'apps.sync.tasks.clean_old_event_logs',
+        'schedule': crontab(hour=2, minute=0),  # 매일 오전 2시 (7일 이상 된 로그 정리)
+    },
 }
 
 # MySQL 동기화 설정 (하이브리드 기간)
