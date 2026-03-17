@@ -60,9 +60,12 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'apps.accounts.middleware.RequestIDMiddleware',  # Phase 2.1: Request ID
+    # 'apps.monitoring.middleware.RoutingStatsMiddleware',  # Phase 2.1: 통계 (TODO: Step 3)
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'apps.accounts.middleware.SessionBridgeMiddleware',  # Phase 2.1: 세션 브리지 (인증 전)
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -258,3 +261,24 @@ DANAL_RETURN_URL = env('DANAL_RETURN_URL', default='')
 # 프론트엔드 설정
 # =============================================================================
 FRONTEND_URL = env('FRONTEND_URL', default='http://localhost:3000')
+
+# =============================================================================
+# Phase 2.1: PHP ↔ Django 하이브리드 연동
+# =============================================================================
+BRIDGE_AUTH_ENABLED = env('BRIDGE_AUTH_ENABLED', default=True)
+BRIDGE_CACHE_TTL = env('BRIDGE_CACHE_TTL', default=900)  # 15분
+BRIDGE_JWT_TTL_MINUTES = env('BRIDGE_JWT_TTL_MINUTES', default=60)  # 1시간
+
+# Legacy DB 연결 (MySQL)
+DATABASES['legacy'] = {
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': env('LEGACY_DB_NAME', default='dongta_legacy'),
+    'USER': env('LEGACY_DB_USER', default='root'),
+    'PASSWORD': env('LEGACY_DB_PASSWORD', default=''),
+    'HOST': env('LEGACY_DB_HOST', default='localhost'),
+    'PORT': env('LEGACY_DB_PORT', default='3306'),
+    'OPTIONS': {
+        'charset': 'utf8mb4',
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    }
+}

@@ -294,3 +294,126 @@ class SocialLoginView(generics.GenericAPIView):
         except Exception:
             pass
         return None
+
+
+# =====================================================================
+# Phase 2.1: PHP ↔ Django 하이브리드 연동
+# =====================================================================
+
+class BridgeAuthView(generics.GenericAPIView):
+    """
+    POST /api/v1/auth/bridge/
+    PHP 세션 쿠키 -> Django JWT 명시적 발급
+
+    SessionBridgeMiddleware는 자동 처리를 담당하고,
+    이 View는 클라이언트가 명시적으로 JWT를 요청할 때 사용한다.
+    """
+    permission_classes = [permissions.AllowAny]
+    throttle_scope = 'bridge'
+
+    def post(self, request):
+        from apps.accounts.middleware import SessionBridgeMiddleware
+        from django.core.cache import cache
+
+        php_session_id = (
+            request.data.get('php_session_id')
+            or request.COOKIES.get('PHPSESSID')
+        )
+
+        if not php_session_id:
+            return error_response(
+                'BRIDGE_001',
+                'PHP 세션이 유효하지 않습니다',
+                details={
+                    'session_id_present': False,
+                    'hint': 'Cookie에 PHPSESSID가 포함되어 있는지 확인하세요'
+                },
+                http_status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        # PHP 세션 -> 회원 정보 조회
+        member_info = SessionBridgeMiddleware._query_php_session(php_session_id)
+        if not member_info:
+            return error_response(
+                'BRIDGE_002',
+                '세션에 해당하는 회원을 찾을 수 없습니다',
+                http_status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        # Django Member 매핑
+        try:
+            member = Member.objects.get(
+                username=member_info['id_member'],
+                is_deleted=False,
+            )
+        except Member.DoesNotExist:
+            return error_response(
+                'BRIDGE_003',
+                'Django 회원 매핑에 실패했습니다',
+                details={'php_username': member_info['id_member']},
+                http_status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        # JWT 발급
+        refresh = RefreshToken.for_user(member)
+
+        # 패스워드 업그레이드 필요 여부 확인
+        password_upgrade_needed = (
+            member.password.startswith('md5$')
+            if member.password else False
+        )
+
+        # 브리지 성공 통계 기록
+        cache_key = f'bridge:success:{timezone.now().strftime("%Y-%m-%d")}'
+        current_count = cache.get(cache_key, 0)
+        cache.set(cache_key, current_count + 1, 86400)  # 24시간
+
+        return success_response({
+            'access': str(refresh.access_token),
+            'refresh': str(refresh),
+            'user': MemberSerializer(member).data,
+            'bridge_info': {
+                'php_session_valid': True,
+                'password_upgrade_needed': password_upgrade_needed,
+            },
+        })
+
+
+class BridgeRevokeView(generics.GenericAPIView):
+    """
+    POST /api/v1/auth/bridge/revoke/
+    JWT 토큰 무효화 (Redis 블랙리스트)
+
+    PHP 로그아웃 시 Django JWT도 함께 무효화하기 위해 사용.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        from django.core.cache import cache
+
+        token = request.data.get('token')
+        if not token:
+            return error_response(
+                'BRIDGE_004',
+                '토큰이 제공되지 않았습니다',
+                http_status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+            # 토큰을 블랙리스트에 추가
+            cache_key = f'bridge:revoked:{token[:20]}'
+            cache.set(cache_key, True, 86400)  # 24시간 보관
+
+            # 브리지 성공 통계 기록
+            cache_key = f'bridge:revoke:{timezone.now().strftime("%Y-%m-%d")}'
+            current_count = cache.get(cache_key, 0)
+            cache.set(cache_key, current_count + 1, 86400)
+
+            return success_response({'message': '토큰이 무효화되었습니다'})
+        except Exception as e:
+            return error_response(
+                'BRIDGE_005',
+                '토큰 무효화에 실패했습니다',
+                details={'error': str(e)},
+                http_status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )

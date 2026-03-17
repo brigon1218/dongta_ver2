@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-17T08:43:23.634Z",
+  "lastUpdated": "2026-03-17T09:04:43.394Z",
   "activeFeatures": [
     "마이그레이션",
     "config",
@@ -64,9 +64,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.558Z",
-        "lastUpdated": "2026-03-11T13:10:11.437Z"
+        "lastUpdated": "2026-03-17T09:04:43.393Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/settings/production.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\config\\settings/base.py"
     },
     "core": {
       "phase": "do",
@@ -90,9 +90,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:28:10.437Z",
-        "lastUpdated": "2026-03-11T13:17:21.408Z"
+        "lastUpdated": "2026-03-17T09:04:06.388Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/accounts/migrations/0002_passwordresettoken.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\accounts\\urls.py"
     },
     "dongta-django": {
       "phase": "do",
@@ -275,7 +275,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-17T08:43:23.634Z"
+    "lastActivity": "2026-03-17T09:04:43.394Z"
   },
   "history": [
     {
@@ -1061,6 +1061,36 @@
     {
       "timestamp": "2026-03-17T08:43:23.634Z",
       "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:03:05.905Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:03:54.956Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:04:06.388Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:04:28.696Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:04:43.393Z",
+      "feature": "settings",
       "phase": "do",
       "action": "updated"
     }
