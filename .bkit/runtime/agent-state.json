@@ -1,14 +1,25 @@
 {
   "version": "1.0",
-  "enabled": false,
+  "enabled": true,
   "teamName": "",
   "feature": "마이그레이션",
   "pdcaPhase": "act",
   "orchestrationPattern": "leader",
   "ctoAgent": "opus",
-  "startedAt": "2026-03-17T08:49:49.120Z",
-  "lastUpdated": "2026-03-17T09:01:53.202Z",
-  "teammates": [],
+  "startedAt": "2026-03-17T09:22:31.511Z",
+  "lastUpdated": "2026-03-17T09:26:56.801Z",
+  "teammates": [
+    {
+      "name": "ac1c4229e336eefbd",
+      "role": "bkit:gap-detector",
+      "model": "sonnet",
+      "status": "completed",
+      "currentTask": null,
+      "taskId": null,
+      "startedAt": "2026-03-17T09:22:31.517Z",
+      "lastActivityAt": "2026-03-17T09:26:56.786Z"
+    }
+  ],
   "progress": {
     "totalTasks": 0,
     "completedTasks": 0,

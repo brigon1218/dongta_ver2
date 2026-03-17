@@ -41,6 +41,9 @@
 - apps/sync/ fully implemented (models, tasks, views, serializers, urls, management command, migration)
 - apps/payment/ fully implemented (models, views, serializers, tasks, danal/client.py, danal/config.py, tests, urls)
 - Design uses simplified column names (NO_MEMB, ID_MEMBER) but actual DB uses memb_idx, memb_id etc.
+- Phase 2.1 design structure: S2=Architecture, S3=Data Model, S4=API Spec, S5=Auth Bridge, S6=Event Logging, S7=Monitoring, S8=Nginx, S9=Security, S10=Test Plan, S11=Impl Order, S13=Env Vars
+- apps/monitoring/ fully implemented (apps.py, middleware.py, views.py, urls.py, permissions.py, tests/test_monitoring.py)
+- BridgeRevokeView implementation diverges from design (IsAuthenticated vs AllowAny, different body params)
 - Implementation improved Design's boolean `processed` to 5-state EventStatus enum
 - 2026-03-10 v1.0: 마이그레이션_부가기능 gap analysis - Overall 90%
   - Password Reset: 2-step flow implemented (design only had 1 endpoint)
@@ -58,3 +61,15 @@
   - MyFolder/MyData models still empty in mypage/models.py
   - P1: Add tests for 3 apps, MyFolder/MyData models, PaymentAdmin, verify.py, Admin APIs
   - Details: `docs/03-analysis/features/마이그레이션.analysis.md`
+- 2026-03-17 v1.0: PHP_Django_하이브리드_연동_2.1 gap analysis - Overall 83%
+  - API Spec: 72% (bridge/refresh missing, monitoring/auth URL mismatch, event retry in wrong app)
+  - Data Model: 90% (EventSource 'php' vs 'mysql' naming, MySQL DDL lacks source/correlation_id)
+  - Middleware/Auth: 92% (near complete, bonus features added)
+  - Monitoring: 68% (simplified responses vs rich design spec)
+  - Event Logging: 88% (richer payload than design, recruit triggers missing from SQL)
+  - Test Coverage: 70% (bridge tests completely absent - P0)
+  - Architecture: 100%, Convention: 93%
+  - P0: Bridge unit tests, BridgeRevokeView permission/contract mismatch
+  - P1: bridge/refresh URL, MySQL DDL update, recruit triggers, sync admin.py
+  - Projected 93% after P0+P1 fixes
+  - Details: `docs/03-analysis/features/PHP_Django_하이브리드_연동_2.1.analysis.md`

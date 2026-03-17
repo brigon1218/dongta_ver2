@@ -385,26 +385,36 @@ class BridgeRevokeView(generics.GenericAPIView):
     JWT 토큰 무효화 (Redis 블랙리스트)
 
     PHP 로그아웃 시 Django JWT도 함께 무효화하기 위해 사용.
+    Permission: AllowAny (PHP 로그아웃 콜백에서 호출)
     """
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         from django.core.cache import cache
 
-        token = request.data.get('token')
-        if not token:
+        # Design: {refresh, php_session_id} 형식 지원
+        refresh_token = request.data.get('refresh')
+        php_session_id = request.data.get('php_session_id')
+
+        if not refresh_token:
             return error_response(
                 'BRIDGE_004',
-                '토큰이 제공되지 않았습니다',
+                'Refresh 토큰이 제공되지 않았습니다',
                 http_status=status.HTTP_400_BAD_REQUEST,
             )
 
         try:
-            # 토큰을 블랙리스트에 추가
-            cache_key = f'bridge:revoked:{token[:20]}'
-            cache.set(cache_key, True, 86400)  # 24시간 보관
+            # Refresh 토큰을 블랙리스트에 추가
+            token = RefreshToken(refresh_token)
+            token.blacklist()
 
-            # 브리지 성공 통계 기록
+            # PHP 세션 매핑 캐시 삭제 (선택사항)
+            if php_session_id:
+                BRIDGE_CACHE_PREFIX = 'session:bridge:'
+                cache_key = f'{BRIDGE_CACHE_PREFIX}{php_session_id}'
+                cache.delete(cache_key)
+
+            # 브리지 revoke 통계 기록
             cache_key = f'bridge:revoke:{timezone.now().strftime("%Y-%m-%d")}'
             current_count = cache.get(cache_key, 0)
             cache.set(cache_key, current_count + 1, 86400)

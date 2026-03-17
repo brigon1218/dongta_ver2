@@ -14,5 +14,6 @@ urlpatterns = [
     path('social/login/', views.SocialLoginView.as_view(), name='auth-social-login'),
     # Phase 2.1: 하이브리드 연동
     path('bridge/', views.BridgeAuthView.as_view(), name='auth-bridge'),
+    path('bridge/refresh/', TokenRefreshView.as_view(), name='auth-bridge-refresh'),
     path('bridge/revoke/', views.BridgeRevokeView.as_view(), name='auth-bridge-revoke'),
 ]

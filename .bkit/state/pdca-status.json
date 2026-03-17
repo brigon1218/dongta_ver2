@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-17T09:18:08.897Z",
+  "lastUpdated": "2026-03-17T09:28:13.878Z",
   "activeFeatures": [
     "마이그레이션",
     "config",
@@ -91,9 +91,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:28:10.437Z",
-        "lastUpdated": "2026-03-17T09:04:06.388Z"
+        "lastUpdated": "2026-03-17T09:27:33.074Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\accounts\\urls.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\accounts/urls.py"
     },
     "dongta-django": {
       "phase": "do",
@@ -182,9 +182,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-06T08:30:25.518Z",
-        "lastUpdated": "2026-03-17T09:16:55.377Z"
+        "lastUpdated": "2026-03-17T09:28:13.877Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\sync\\tasks.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\sync\\admin.py"
     },
     "하이브리드_연동": {
       "phase": "archived",
@@ -224,9 +224,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-10T08:18:22.727Z",
-        "lastUpdated": "2026-03-17T09:18:08.896Z"
+        "lastUpdated": "2026-03-17T09:27:57.306Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\sync\\tests\\test_event_logging.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\accounts\\tests\\test_bridge.py"
     },
     "migrations": {
       "phase": "do",
@@ -289,7 +289,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-17T09:18:08.897Z"
+    "lastActivity": "2026-03-17T09:28:13.878Z"
   },
   "history": [
     {
@@ -1231,6 +1231,36 @@
     {
       "timestamp": "2026-03-17T09:18:08.896Z",
       "feature": "tests",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:27:21.542Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:27:29.176Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:27:33.074Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:27:57.306Z",
+      "feature": "tests",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:28:13.877Z",
+      "feature": "sync",
       "phase": "do",
       "action": "updated"
     }
