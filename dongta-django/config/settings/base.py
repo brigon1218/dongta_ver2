@@ -285,6 +285,12 @@ FRONTEND_URL = env('FRONTEND_URL', default='http://localhost:3000')
 BRIDGE_AUTH_ENABLED = env('BRIDGE_AUTH_ENABLED', default=True)
 BRIDGE_CACHE_TTL = env('BRIDGE_CACHE_TTL', default=900)  # 15분
 BRIDGE_JWT_TTL_MINUTES = env('BRIDGE_JWT_TTL_MINUTES', default=60)  # 1시간
+# Design S13: PHP 세션 저장소 유형 (file | mysql | redis)
+PHP_SESSION_STORAGE = env('PHP_SESSION_STORAGE', default='mysql')
+# Design S13: 이벤트 로깅 활성화 여부
+EVENT_LOG_ENABLED = env('EVENT_LOG_ENABLED', default=True)
+# Design S13: 모니터링 API 어드민 전용 여부
+MONITORING_ADMIN_ONLY = env('MONITORING_ADMIN_ONLY', default=True)
 
 # Legacy DB 연결 (MySQL)
 DATABASES['legacy'] = {

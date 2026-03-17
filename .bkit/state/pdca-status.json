@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-17T09:28:13.878Z",
+  "lastUpdated": "2026-03-17T09:38:13.217Z",
   "activeFeatures": [
     "마이그레이션",
     "config",
@@ -65,7 +65,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.558Z",
-        "lastUpdated": "2026-03-17T09:17:32.323Z"
+        "lastUpdated": "2026-03-17T09:34:13.680Z"
       },
       "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\config\\settings\\base.py"
     },
@@ -182,9 +182,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-06T08:30:25.518Z",
-        "lastUpdated": "2026-03-17T09:28:13.877Z"
+        "lastUpdated": "2026-03-17T09:36:02.780Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\sync\\admin.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\sync\\signals.py"
     },
     "하이브리드_연동": {
       "phase": "archived",
@@ -224,7 +224,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-10T08:18:22.727Z",
-        "lastUpdated": "2026-03-17T09:27:57.306Z"
+        "lastUpdated": "2026-03-17T09:38:13.216Z"
       },
       "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\accounts\\tests\\test_bridge.py"
     },
@@ -276,9 +276,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-17T09:07:14.950Z",
-        "lastUpdated": "2026-03-17T09:08:49.034Z"
+        "lastUpdated": "2026-03-17T09:33:38.551Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\monitoring/admin.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\monitoring\\views.py"
     }
   },
   "pipeline": {
@@ -289,7 +289,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-17T09:28:13.878Z"
+    "lastActivity": "2026-03-17T09:38:13.217Z"
   },
   "history": [
     {
@@ -1261,6 +1261,96 @@
     {
       "timestamp": "2026-03-17T09:28:13.877Z",
       "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:32:03.392Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:32:18.318Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:32:33.981Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:32:45.942Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:33:08.584Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:33:38.551Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:34:13.680Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:35:15.052Z",
+      "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:35:22.912Z",
+      "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:35:29.685Z",
+      "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:35:41.085Z",
+      "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:36:02.780Z",
+      "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:37:12.788Z",
+      "feature": "tests",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:37:36.605Z",
+      "feature": "tests",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-17T09:38:13.216Z",
+      "feature": "tests",
       "phase": "do",
       "action": "updated"
     }

@@ -454,3 +454,109 @@ class EventLoggingIntegrationTestCase(APITestCase):
             aggregate_id=50,
         ).count()
         self.assertEqual(member_events, 1)
+
+
+class PostDeleteSignalTestCase(TestCase):
+    """post_delete 시그널 핸들러 테스트"""
+
+    def setUp(self):
+        self.member = Member.objects.create_user(
+            username='testuser',
+            email='test@example.com',
+            password='testpass123',
+            name='Test User',
+        )
+        self.company = Company.objects.create(
+            member=self.member,
+            company_name='Test Company',
+        )
+        self.job_notice = JobNotice.objects.create(
+            member=self.member,
+            company=self.company,
+            title='Test Job',
+            employment_type='Full-time',
+        )
+        # 이전 이벤트 제거
+        EventOutbox.objects.all().delete()
+
+    def test_member_hard_delete_creates_event(self):
+        """Member 하드 삭제 시 delete 이벤트 생성"""
+        member_id = self.member.id
+        self.member.delete()
+
+        delete_events = EventOutbox.objects.filter(
+            event_type='member.delete',
+            aggregate_id=member_id,
+        )
+        self.assertEqual(delete_events.count(), 1)
+        event = delete_events.first()
+        self.assertEqual(event.aggregate_type, 'member')
+        self.assertEqual(event.source, EventSource.DJANGO)
+        self.assertIn('deleted_at', event.payload)
+
+    def test_job_notice_hard_delete_creates_event(self):
+        """JobNotice 하드 삭제 시 delete 이벤트 생성"""
+        notice_id = self.job_notice.id
+        self.job_notice.delete()
+
+        delete_events = EventOutbox.objects.filter(
+            event_type='recruit.delete',
+            aggregate_id=notice_id,
+        )
+        self.assertEqual(delete_events.count(), 1)
+        event = delete_events.first()
+        self.assertEqual(event.aggregate_type, 'recruit')
+        self.assertEqual(event.source, EventSource.DJANGO)
+        self.assertIn('notice_title', event.payload)
+        self.assertIn('deleted_at', event.payload)
+
+    def test_event_log_disabled_skips_delete_event(self):
+        """EVENT_LOG_ENABLED=False 시 delete 이벤트 미생성"""
+        from django.test import override_settings
+
+        with override_settings(EVENT_LOG_ENABLED=False):
+            member_id = self.member.id
+            self.member.delete()
+
+        delete_events = EventOutbox.objects.filter(
+            event_type='member.delete',
+            aggregate_id=member_id,
+        )
+        self.assertEqual(delete_events.count(), 0)
+
+
+class EventLogEnabledToggleTestCase(TestCase):
+    """EVENT_LOG_ENABLED 설정 토글 테스트"""
+
+    def test_event_log_disabled_skips_save_event(self):
+        """EVENT_LOG_ENABLED=False 시 save 이벤트 미생성"""
+        from django.test import override_settings
+
+        with override_settings(EVENT_LOG_ENABLED=False):
+            Member.objects.create_user(
+                username='noevtuser',
+                email='noevt@example.com',
+                password='testpass123',
+                name='No Event User',
+            )
+
+        events = EventOutbox.objects.filter(aggregate_type='member')
+        self.assertEqual(events.count(), 0)
+
+    def test_event_log_enabled_creates_event(self):
+        """EVENT_LOG_ENABLED=True(기본) 시 이벤트 정상 생성"""
+        from django.test import override_settings
+
+        with override_settings(EVENT_LOG_ENABLED=True):
+            member = Member.objects.create_user(
+                username='evtuser',
+                email='evt@example.com',
+                password='testpass123',
+                name='Event User',
+            )
+
+        events = EventOutbox.objects.filter(
+            aggregate_type='member',
+            aggregate_id=member.id,
+        )
+        self.assertEqual(events.count(), 1)

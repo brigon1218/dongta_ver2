@@ -304,3 +304,122 @@ class BridgeIntegrationTestCase(APITestCase):
         # 응답에 X-Request-ID 포함
         self.assertIn('X-Request-ID', response)
         # (요청 흐름 추적 확인)
+
+
+class SessionBridgeMiddlewareCacheTestCase(TestCase):
+    """SessionBridgeMiddleware 캐시 동작 테스트"""
+
+    def setUp(self):
+        from django.core.cache import cache as django_cache
+        django_cache.clear()
+        self.factory = RequestFactory()
+        self.member = Member.objects.create_user(
+            username='cacheuser',
+            email='cache@example.com',
+            password='testpass123',
+            name='Cache User',
+        )
+
+    def test_middleware_sets_bridge_jwt_in_response(self):
+        """캐시 HIT 시 X-Bridge-Token 응답 헤더 설정"""
+        from django.core.cache import cache as django_cache
+        from apps.accounts.middleware import BRIDGE_CACHE_PREFIX
+
+        # 캐시에 member_pk 저장 (SessionBridgeMiddleware 캐시 HIT 시뮬레이션)
+        cache_key = f'{BRIDGE_CACHE_PREFIX}test-php-session-cached'
+        django_cache.set(cache_key, {'member_pk': self.member.pk}, 900)
+
+        request = self.factory.get('/', HTTP_COOKIE='PHPSESSID=test-php-session-cached')
+        request.COOKIES['PHPSESSID'] = 'test-php-session-cached'
+
+        def mock_get_response(r):
+            from django.http import HttpResponse
+            return HttpResponse()
+
+        middleware = SessionBridgeMiddleware(mock_get_response)
+        response = middleware(request)
+
+        # 캐시 HIT이면 JWT가 생성되어 헤더에 설정됨
+        self.assertIn('X-Bridge-Token', response)
+        self.assertIn('X-Bridge-Refresh', response)
+
+    def test_middleware_clears_invalid_cache(self):
+        """존재하지 않는 member_pk 캐시 MISS 시 캐시 삭제"""
+        from django.core.cache import cache as django_cache
+        from apps.accounts.middleware import BRIDGE_CACHE_PREFIX
+
+        # 존재하지 않는 member_pk를 캐시에 저장
+        cache_key = f'{BRIDGE_CACHE_PREFIX}stale-session'
+        django_cache.set(cache_key, {'member_pk': 99999}, 900)
+
+        request = self.factory.get('/')
+        request.COOKIES['PHPSESSID'] = 'stale-session'
+
+        def mock_get_response(r):
+            from django.http import HttpResponse
+            return HttpResponse()
+
+        middleware = SessionBridgeMiddleware(mock_get_response)
+        response = middleware(request)
+
+        # 존재하지 않는 member → 캐시 삭제 → X-Bridge-Token 없음
+        self.assertNotIn('X-Bridge-Token', response)
+        # 캐시도 삭제됨
+        self.assertIsNone(django_cache.get(cache_key))
+
+
+class BridgeRevokeSessionCacheTestCase(APITestCase):
+    """BridgeRevokeView 세션 캐시 삭제 테스트"""
+
+    def setUp(self):
+        self.client = Client()
+        self.member = Member.objects.create_user(
+            username='revokeuser',
+            email='revoke@example.com',
+            password='testpass123',
+            name='Revoke User',
+        )
+
+    def test_revoke_clears_session_cache(self):
+        """php_session_id 포함 시 세션 캐시도 삭제됨"""
+        from django.core.cache import cache as django_cache
+        from apps.accounts.middleware import BRIDGE_CACHE_PREFIX
+        from rest_framework_simplejwt.tokens import RefreshToken
+
+        # 캐시에 세션 저장
+        php_session_id = 'test-session-to-revoke'
+        cache_key = f'{BRIDGE_CACHE_PREFIX}{php_session_id}'
+        django_cache.set(cache_key, {'member_pk': self.member.pk}, 900)
+
+        # 유효한 refresh 토큰 발급
+        refresh = RefreshToken.for_user(self.member)
+
+        # Revoke 호출 (php_session_id 포함)
+        response = self.client.post(
+            '/api/v1/auth/bridge/revoke/',
+            data={
+                'refresh': str(refresh),
+                'php_session_id': php_session_id,
+            },
+            content_type='application/json'
+        )
+
+        self.assertEqual(response.status_code, 200)
+        # 캐시가 삭제됨
+        self.assertIsNone(django_cache.get(cache_key))
+
+    def test_revoke_response_structure(self):
+        """Revoke 성공 응답 구조 검증"""
+        from rest_framework_simplejwt.tokens import RefreshToken
+
+        refresh = RefreshToken.for_user(self.member)
+        response = self.client.post(
+            '/api/v1/auth/bridge/revoke/',
+            data={'refresh': str(refresh)},
+            content_type='application/json'
+        )
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn('data', data)
+        self.assertIn('message', data['data'])
