@@ -2,12 +2,12 @@
   "version": "1.0",
   "enabled": false,
   "teamName": "",
-  "feature": "마이그레이션",
-  "pdcaPhase": "act",
+  "feature": "core",
+  "pdcaPhase": "do",
   "orchestrationPattern": "leader",
   "ctoAgent": "opus",
-  "startedAt": "2026-03-10T08:51:05.130Z",
-  "lastUpdated": "2026-03-11T13:54:49.556Z",
+  "startedAt": "2026-03-21T07:06:30.487Z",
+  "lastUpdated": "2026-03-21T07:13:09.489Z",
   "teammates": [],
   "progress": {
     "totalTasks": 0,
@@ -17,5 +17,5 @@
     "pendingTasks": 0
   },
   "recentMessages": [],
-  "sessionId": "0d2bee4a-e108-4a8b-9743-065ca6658ee5"
+  "sessionId": "8edb6ff1-d286-44d5-b25a-48fba489bc93"
 }

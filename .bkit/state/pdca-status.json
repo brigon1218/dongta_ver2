@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-11T15:29:25.563Z",
+  "lastUpdated": "2026-03-21T04:54:36.141Z",
   "activeFeatures": [
     "config",
     "settings",
@@ -17,9 +17,10 @@
     "tests",
     "migrations",
     "dongta_ver2",
-    "work_01"
+    "work_01",
+    "mypage"
   ],
-  "primaryFeature": null,
+  "primaryFeature": "core",
   "features": {
     "마이그레이션": {
       "phase": "archived",
@@ -64,7 +65,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:55.221Z",
-        "lastUpdated": "2026-03-11T13:39:21.446Z"
+        "lastUpdated": "2026-03-12T02:05:33.117Z"
       },
       "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/core/views.py"
     },
@@ -252,6 +253,14 @@
         "lastUpdated": "2026-03-11T15:29:25.563Z"
       },
       "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/server_control.sh"
+    },
+    "mypage": {
+      "phase": "archived",
+      "matchRate": 91,
+      "iterationCount": 1,
+      "startedAt": "2026-03-21T04:53:23.965Z",
+      "archivedAt": "2026-03-21T16:05:00.000Z",
+      "archivedTo": "docs/archive/2026-03/마이페이지_고도화/"
     }
   },
   "pipeline": {
@@ -262,7 +271,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-11T15:29:25.563Z"
+    "lastActivity": "2026-03-21T04:54:36.141Z"
   },
   "history": [
     {
@@ -1066,6 +1075,66 @@
     {
       "timestamp": "2026-03-11T15:29:25.563Z",
       "feature": "work_01",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-12T02:05:17.355Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-12T02:05:33.117Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T04:53:23.965Z",
+      "feature": "mypage",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T04:53:27.976Z",
+      "feature": "mypage",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T04:53:31.625Z",
+      "feature": "mypage",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T04:53:35.079Z",
+      "feature": "mypage",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T04:54:10.301Z",
+      "feature": "mypage",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T04:54:27.905Z",
+      "feature": "mypage",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T04:54:31.916Z",
+      "feature": "mypage",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-21T04:54:36.141Z",
+      "feature": "mypage",
       "phase": "do",
       "action": "updated"
     }
