@@ -67,6 +67,8 @@ dongta.mysql/
 node_modules/
 .claude/
 .bkit/snapshots/
+.bkit/runtime/
+.bkit/state/
 
 # Sensitive configuration files
 aws_server.txt

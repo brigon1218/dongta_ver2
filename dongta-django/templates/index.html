@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - B2B 온라인 플랫폼</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                        sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="dots" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="1200" height="600" fill="url(%23dots)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: slideInDown 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: slideInUp 0.8s ease;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-top: 4px solid #667eea;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* API Section */
+        .api-section {
+            padding: 4rem 2rem;
+            background: #f8f9fa;
+        }
+
+        .api-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .api-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border-left: 4px solid #667eea;
+        }
+
+        .api-card:hover {
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .api-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .api-endpoint {
+            padding: 0.5rem 0;
+            font-size: 0.85rem;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+
+        .api-endpoint:last-child {
+            border-bottom: none;
+        }
+
+        .api-method {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        .api-method.get { background: #61affe; color: white; }
+        .api-method.post { background: #49cc90; color: white; }
+        .api-method.put { background: #fca130; color: white; }
+        .api-method.delete { background: #f93e3e; color: white; }
+
+        /* Contact Section */
+        .contact {
+            padding: 4rem 2rem;
+            background: white;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        /* Animations */
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="/" class="logo">🚀 dongta.com</a>
+            <ul>
+                <li><a href="#features">기능</a></li>
+                <li><a href="#api">API</a></li>
+                <li><a href="#contact">연락처</a></li>
+                <li><a href="/api/docs/" target="_blank">개발자</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>{{ title }}</h1>
+            <p>{{ message }}</p>
+            <div class="hero-buttons">
+                <a href="/api/docs/" class="btn btn-primary">API 문서 보기</a>
+                <a href="/api/v1/business/" class="btn btn-secondary">시작하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">주요 기능</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏢</div>
+                    <h3>사업장 정보</h3>
+                    <p>114만개 이상의 국내 사업장 정보를 제공합니다. 검색, 필터링 및 상세 정보 조회가 가능합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3>채용 플랫폼</h3>
+                    <p>채용공고 등록 및 이력서 관리. 기업과 구직자를 연결하는 완전한 채용 솔루션입니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>커뮤니티</h3>
+                    <p>산업별 정보 공유 게시판. 사용자들이 경험과 정보를 나눌 수 있는 공간입니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3>포인트 시스템</h3>
+                    <p>서비스 이용 시 포인트 적립 및 사용. 포인트로 프리미엄 기능을 이용할 수 있습니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>모바일 지원</h3>
+                    <p>Responsive design으로 모든 디바이스에서 완벽하게 작동합니다. 언제 어디서나 접속 가능합니다.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>SSL 보안</h3>
+                    <p>Cloudflare Full Strict SSL 적용으로 모든 통신이 암호화됩니다. 최고 수준의 보안을 보장합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container stats-grid">
+            <div class="stat-item">
+                <h3>114만+</h3>
+                <p>사업장 정보</p>
+            </div>
+            <div class="stat-item">
+                <h3>0%</h3>
+                <p>다운타임</p>
+            </div>
+            <div class="stat-item">
+                <h3>V2.0</h3>
+                <p>Django 기반</p>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>안정 운영</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Endpoints Section -->
+    <section class="api-section" id="api">
+        <div class="container">
+            <h2 class="section-title">API 엔드포인트</h2>
+            <div class="api-cards">
+                <div class="api-card">
+                    <h3>인증 API</h3>
+                    <div class="api-endpoint">
+                        <span class="api-method post">POST</span> /api/v1/auth/signup/
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="api-method post">POST</span> /api/v1/auth/login/
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="api-method post">POST</span> /api/v1/auth/logout/
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="api-method post">POST</span> /api/v1/auth/refresh/
+                    </div>
+                </div>
+
+                <div class="api-card">
+                    <h3>사업장 API</h3>
+                    <div class="api-endpoint">
+                        <span class="api-method get">GET</span> /api/v1/business/
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="api-method post">POST</span> /api/v1/business/
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="api-method get">GET</span> /api/v1/business/{id}/
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="api-method get">GET</span> /api/v1/business/search/
+                    </div>
+                </div>
+
+                <div class="api-card">
+                    <h3>채용 API</h3>
+                    <div class="api-endpoint">
+                        <span class="api-method get">GET</span> /api/v1/recruit/
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="api-method post">POST</span> /api/v1/recruit/
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="api-method get">GET</span> /api/v1/recruit/{id}/
+                    </div>
+                </div>
+
+                <div class="api-card">
+                    <h3>결제 API</h3>
+                    <div class="api-endpoint">
+                        <span class="api-method get">GET</span> /api/v1/payment/balance/
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="api-method post">POST</span> /api/v1/payment/charge/
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="api-method post">POST</span> /api/v1/payment/use/
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="api-method get">GET</span> /api/v1/payment/history/
+                    </div>
+                </div>
+
+                <div class="api-card">
+                    <h3>게시판 API</h3>
+                    <div class="api-endpoint">
+                        <span class="api-method get">GET</span> /api/v1/board/
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="api-method post">POST</span> /api/v1/board/
+                    </div>
+                    <div class="api-endpoint">
+                        <span class="api-method get">GET</span> /api/v1/board/{id}/
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container contact-content">
+            <h2 class="section-title">연락처</h2>
+            <p>동타 플랫폼에 대해 궁금한 점이 있으신가요? 우리와 연락주세요.</p>
+            <div class="contact-links">
+                <a href="mailto:support@dongta.com" class="contact-link">📧 support@dongta.com</a>
+                <a href="tel:02-XXXX-XXXX" class="contact-link">📞 02-XXXX-XXXX</a>
+                <a href="https://github.com/brigon1218/dongta_ver2" target="_blank" class="contact-link">🔗 GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 dongta.com. 모든 권리 보유.</p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">PHP + MySQL (2004-2026) → Django + PostgreSQL (2026-)</p>
+        </div>
+    </footer>
+</body>
+</html>

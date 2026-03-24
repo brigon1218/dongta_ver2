@@ -7,7 +7,17 @@ from sentry_sdk.integrations.redis import RedisIntegration
 DEBUG = False
 
 # 운영 환경 호스트 설정
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['dongta.com', 'www.dongta.com'])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[
+    'dongta.com',
+    'www.dongta.com',
+    'dongta.theuit.info',
+    'www.dongta.theuit.info',
+    'api.dongta.theuit.info',
+    'testserver',  # Django test client
+    'localhost',
+    '127.0.0.1',
+    '52.79.148.197',  # AWS EC2 IP
+])
 
 # HTTPS 보안 강화
 SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', default=True)

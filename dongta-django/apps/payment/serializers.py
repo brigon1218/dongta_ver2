@@ -32,7 +32,12 @@ class PaymentHistorySerializer(serializers.ModelSerializer):
             'is_success', 'result_code', 'result_message',
             'danal_order_id', 'confirmed_at', 'created_at',
         ]
-        read_only_fields = '__all__'
+        read_only_fields = (
+            'id', 'amount', 'point_amount',
+            'pay_method_display',
+            'is_success', 'result_code', 'result_message',
+            'danal_order_id', 'confirmed_at', 'created_at',
+        )
 
 
 class PointUseSerializer(serializers.Serializer):

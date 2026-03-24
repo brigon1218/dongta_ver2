@@ -1,6 +1,8 @@
 from rest_framework import generics, permissions, status, views
 from django.db import transaction
 from django.utils import timezone
+from django_ratelimit.decorators import ratelimit
+from django.utils.decorators import method_decorator
 from core.utils import success_response, error_response
 from apps.accounts.models import Member
 from apps.payment.models import PaymentHistory, PointAccount
@@ -38,9 +40,10 @@ class ProfileView(generics.RetrieveUpdateAPIView):
         return success_response(serializer.data)
 
 
+@method_decorator(ratelimit(key='ip', rate='5/m', method='POST', block=True), name='post')
 class PasswordChangeView(views.APIView):
     """
-    POST /api/v1/mypage/password/ — 비밀번호 변경
+    POST /api/v1/mypage/password/ — 비밀번호 변경 (Rate Limit: 5회/분, IP 기준)
     """
     permission_classes = [permissions.IsAuthenticated]
 
@@ -59,9 +62,10 @@ class PasswordChangeView(views.APIView):
         return success_response({'message': '비밀번호가 성공적으로 변경되었습니다.'})
 
 
+@method_decorator(ratelimit(key='ip', rate='5/m', method='POST', block=True), name='post')
 class WithdrawalView(views.APIView):
     """
-    POST /api/v1/mypage/withdraw/ — 회원 탈퇴 (소프트 삭제)
+    POST /api/v1/mypage/withdraw/ — 회원 탈퇴 (소프트 삭제, Rate Limit: 5회/분, IP 기준)
     """
     permission_classes = [permissions.IsAuthenticated]
 
@@ -78,8 +82,9 @@ class WithdrawalView(views.APIView):
             # 소프트 삭제 처리
             user.soft_delete()
             user.is_active = False
+            user.want_quit = True
             user.quit_reason = serializer.validated_data.get('reason', '')
-            user.save(update_fields=['is_active', 'quit_reason'])
+            user.save(update_fields=['is_active', 'want_quit', 'quit_reason'])
 
         return success_response({'message': '회원 탈퇴가 완료되었습니다. 그동안 이용해 주셔서 감사합니다.'})
 

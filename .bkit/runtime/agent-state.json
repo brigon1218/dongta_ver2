@@ -1,25 +1,14 @@
 {
   "version": "1.0",
-  "enabled": true,
+  "enabled": false,
   "teamName": "",
-  "feature": "마이그레이션",
-  "pdcaPhase": "act",
+  "feature": "core",
+  "pdcaPhase": "do",
   "orchestrationPattern": "leader",
   "ctoAgent": "opus",
-  "startedAt": "2026-03-17T09:40:54.181Z",
-  "lastUpdated": "2026-03-17T09:43:41.657Z",
-  "teammates": [
-    {
-      "name": "a3ab4979245c9da1f",
-      "role": "bkit:report-generator",
-      "model": "sonnet",
-      "status": "completed",
-      "currentTask": null,
-      "taskId": null,
-      "startedAt": "2026-03-17T09:40:54.187Z",
-      "lastActivityAt": "2026-03-17T09:43:41.645Z"
-    }
-  ],
+  "startedAt": "2026-03-21T07:06:30.487Z",
+  "lastUpdated": "2026-03-21T07:13:09.489Z",
+  "teammates": [],
   "progress": {
     "totalTasks": 0,
     "completedTasks": 0,
@@ -28,5 +17,5 @@
     "pendingTasks": 0
   },
   "recentMessages": [],
-  "sessionId": "220415bb-7105-4b58-8c9b-7ad1a4920537"
+  "sessionId": "8edb6ff1-d286-44d5-b25a-48fba489bc93"
 }
