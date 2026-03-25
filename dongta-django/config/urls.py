@@ -20,4 +20,7 @@ urlpatterns = [
     # API 문서
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+
+    # Prometheus Metrics (Grafana/Prometheus scrape 용)
+    path('metrics/', include('django_prometheus.urls')),
 ]

@@ -1,0 +1,48 @@
+global:
+  scrape_interval: 15s           # 15초마다 메트릭 수집
+  evaluation_interval: 15s       # 15초마다 alert 평가
+  external_labels:
+    monitor: 'dongta-api'        # 모니터링 인스턴스 라벨
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - 'localhost:9093'   # AlertManager
+
+# Alert rules
+rule_files:
+  - "alert_rules.yml"
+
+scrape_configs:
+  # Django Application Metrics
+  - job_name: 'django'
+    static_configs:
+      - targets: ['localhost:8000']
+    metrics_path: '/metrics/'
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # PostgreSQL Database Metrics
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['localhost:9187']  # postgres_exporter
+    scrape_interval: 30s
+
+  # Redis Cache Metrics
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['localhost:9121']  # redis_exporter
+    scrape_interval: 30s
+
+  # System Resources (Node Exporter)
+  - job_name: 'node'
+    static_configs:
+      - targets: ['localhost:9100']  # node_exporter
+    scrape_interval: 30s
+
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    scrape_interval: 30s
