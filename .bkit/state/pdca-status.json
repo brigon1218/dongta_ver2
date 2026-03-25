@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-25T17:35:03.160Z",
+  "lastUpdated": "2026-03-25T17:38:25.737Z",
   "activeFeatures": [
     "config",
     "settings",
@@ -18,7 +18,8 @@
     "migrations",
     "dongta_ver2",
     "work_01",
-    "mypage"
+    "mypage",
+    "deploy"
   ],
   "primaryFeature": "core",
   "features": {
@@ -261,6 +262,19 @@
       "startedAt": "2026-03-21T04:53:23.965Z",
       "archivedAt": "2026-03-21T16:05:00.000Z",
       "archivedTo": "docs/archive/2026-03/마이페이지_고도화/"
+    },
+    "deploy": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-25T17:38:25.737Z",
+        "lastUpdated": "2026-03-25T17:38:25.737Z"
+      },
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/deploy/canary-deploy.sh"
     }
   },
   "pipeline": {
@@ -271,7 +285,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-25T17:35:03.160Z"
+    "lastActivity": "2026-03-25T17:38:25.737Z"
   },
   "history": [
     {
@@ -1225,6 +1239,12 @@
     {
       "timestamp": "2026-03-25T17:35:03.160Z",
       "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:38:25.737Z",
+      "feature": "deploy",
       "phase": "do",
       "action": "updated"
     }
