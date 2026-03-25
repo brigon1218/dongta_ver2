@@ -82,12 +82,21 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database - PostgreSQL
 DATABASES = {
-    'default': env.db('DATABASE_URL'),
+    'default': {
+        **env.db('DATABASE_URL'),
+        'CONN_MAX_AGE': env.int('DB_CONN_MAX_AGE', default=60),  # Connection pooling: 60초
+        'OPTIONS': {
+            'connect_timeout': env.int('DB_CONNECT_TIMEOUT', default=10),
+        }
+    }
 }
 
 # MySQL (하이브리드 기간 레거시 동기화)
 if env('MYSQL_DATABASE_URL', default=None):
-    DATABASES['legacy'] = env.db('MYSQL_DATABASE_URL')
+    DATABASES['legacy'] = {
+        **env.db('MYSQL_DATABASE_URL'),
+        'CONN_MAX_AGE': env.int('DB_CONN_MAX_AGE', default=60),
+    }
 
 # 커스텀 유저 모델
 AUTH_USER_MODEL = 'accounts.Member'

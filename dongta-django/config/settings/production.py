@@ -94,6 +94,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': False,
         },
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
         'apps.sync': {
             'handlers': ['console'],
             'level': 'INFO',
@@ -111,3 +116,7 @@ LOGGING = {
         },
     },
 }
+
+# Slow query 로깅 임계값 (ms)
+# PostgreSQL: log_min_duration_statement = 100ms
+SLOW_QUERY_LOG_THRESHOLD_MS = env.int('SLOW_QUERY_LOG_THRESHOLD_MS', default=100)

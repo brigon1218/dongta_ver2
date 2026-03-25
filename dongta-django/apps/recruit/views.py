@@ -3,6 +3,9 @@ from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.db.models import Q
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.core.cache import cache
 from core.utils import success_response, error_response
 from .models import Company, JobNotice, JobSeeker
 from .serializers import (
@@ -93,9 +96,15 @@ class JobNoticeViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(member=self.request.user)
 
+    @method_decorator(cache_page(timeout=300))
     def list(self, request, *args, **kwargs):
+        """
+        GET /api/v1/recruit/ - 채용 공고 목록 조회
+        캐싱: 300초 (5분) Redis 캐시
+        캐시 키: 요청 경로 + 쿼리 파라미터 자동 생성
+        """
         queryset = self.filter_queryset(self.get_queryset())
-        
+
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
@@ -110,7 +119,12 @@ class JobNoticeViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         return success_response(JobNoticeSerializer(serializer.instance).data, status=status.HTTP_201_CREATED)
 
+    @method_decorator(cache_page(timeout=600))
     def retrieve(self, request, *args, **kwargs):
+        """
+        GET /api/v1/recruit/{id}/ - 채용 공고 상세 조회
+        캐싱: 600초 (10분) Redis 캐시
+        """
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return success_response(serializer.data)
