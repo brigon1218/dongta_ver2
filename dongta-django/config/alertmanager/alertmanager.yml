@@ -1,0 +1,64 @@
+global:
+  resolve_timeout: 5m
+  # Slack 설정 (환경변수로 주입)
+  slack_api_url: '${SLACK_WEBHOOK_URL}'
+
+# 알림 라우팅 규칙
+route:
+  group_by: ['alertname', 'severity']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+  receiver: 'default-receiver'
+
+  routes:
+    # Critical 알림 → Slack #alerts-critical + 이메일
+    - match:
+        severity: critical
+      receiver: 'critical-receiver'
+      group_wait: 10s
+      repeat_interval: 1h
+
+    # Warning 알림 → Slack #alerts-warning
+    - match:
+        severity: warning
+      receiver: 'warning-receiver'
+      repeat_interval: 4h
+
+# 수신자 설정
+receivers:
+  - name: 'default-receiver'
+    slack_configs:
+      - channel: '#alerts'
+        title: '[Dongta] {{ .GroupLabels.alertname }}'
+        text: '{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}'
+
+  - name: 'critical-receiver'
+    slack_configs:
+      - channel: '#alerts-critical'
+        title: '[CRITICAL] {{ .GroupLabels.alertname }}'
+        text: '{{ range .Alerts }}{{ .Annotations.description }}{{ end }}'
+        send_resolved: true
+    email_configs:
+      - to: '${ALERT_EMAIL_TO}'
+        from: '${ALERT_EMAIL_FROM}'
+        smarthost: '${SMTP_HOST}:587'
+        auth_username: '${SMTP_USER}'
+        auth_password: '${SMTP_PASSWORD}'
+        require_tls: true
+        send_resolved: true
+
+  - name: 'warning-receiver'
+    slack_configs:
+      - channel: '#alerts-warning'
+        title: '[WARNING] {{ .GroupLabels.alertname }}'
+        text: '{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}'
+        send_resolved: true
+
+# 알림 억제 규칙 (critical이 발생하면 동일 인스턴스의 warning 억제)
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'instance']

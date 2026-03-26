@@ -12,15 +12,16 @@ from .models import Business
 def invalidate_business_cache_on_save(sender, instance, created, **kwargs):
     """
     Business 생성/수정 시 캐시 무효화
-    - 목록 캐시 삭제
-    - 해당 상세 캐시 삭제
+    - delete_pattern()으로 URL 기반 캐시 패턴 전체 삭제
     """
     try:
-        cache.delete('/api/v1/business114/')
-        cache.delete(f'/api/v1/business114/{instance.pk}/')
+        # @cache_page 는 해시된 키를 사용하므로 delete_pattern()으로 와일드카드 삭제
+        cache.delete_pattern('*business*')
+        cache.delete_pattern(f'*business*{instance.pk}*')
     except Exception as e:
-        # 캐시 삭제 실패는 로그만 남기고 진행
-        print(f"[Cache Warning] Business cache invalidation failed: {e}")
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.warning(f"[Cache Warning] Business cache invalidation failed: {e}")
 
 
 @receiver(post_delete, sender=Business)
@@ -29,7 +30,9 @@ def invalidate_business_cache_on_delete(sender, instance, **kwargs):
     Business 삭제 시 캐시 무효화
     """
     try:
-        cache.delete('/api/v1/business114/')
-        cache.delete(f'/api/v1/business114/{instance.pk}/')
+        cache.delete_pattern('*business*')
+        cache.delete_pattern(f'*business*{instance.pk}*')
     except Exception as e:
-        print(f"[Cache Warning] Business cache invalidation on delete failed: {e}")
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.warning(f"[Cache Warning] Business cache invalidation on delete failed: {e}")

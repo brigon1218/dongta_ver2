@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.core.middleware.CacheHitHeaderMiddleware',
     'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
@@ -90,6 +91,7 @@ DATABASES = {
         'CONN_MAX_AGE': env.int('DB_CONN_MAX_AGE', default=60),  # Connection pooling: 60초
         'OPTIONS': {
             'connect_timeout': env.int('DB_CONNECT_TIMEOUT', default=10),
+            'options': '-c statement_timeout=30000',  # 쿼리 타임아웃 30초 (ms 단위)
         }
     }
 }
@@ -206,12 +208,20 @@ SYNC_BATCH_SIZE = env.int('SYNC_BATCH_SIZE', default=500)
 SYNC_STALE_HOURS = env.int('SYNC_STALE_HOURS', default=1)
 
 # =============================================================================
-# Cache (Redis)
+# Cache (Redis) - django-redis 백엔드 사용 (cache.delete_pattern() 지원)
 # =============================================================================
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': env('REDIS_URL', default='redis://localhost:6379/1'),
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            'IGNORE_EXCEPTIONS': True,  # Redis 장애 시 캐시 오류가 앱 전체를 멈추지 않도록
+            'CONNECTION_POOL_KWARGS': {
+                'max_connections': 50,
+            },
+        },
+        'KEY_PREFIX': 'dongta',
     }
 }
 

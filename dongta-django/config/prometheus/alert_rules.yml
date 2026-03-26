@@ -1,0 +1,104 @@
+groups:
+  - name: dongta_availability
+    rules:
+      # Django 앱 다운 감지
+      - alert: DjangoAppDown
+        expr: up{job="django"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Django 앱이 응답하지 않습니다"
+          description: "Django 앱이 1분 이상 메트릭 수집에 실패했습니다."
+
+      # 높은 HTTP 에러율
+      - alert: HighHTTPErrorRate
+        expr: |
+          rate(django_http_responses_total_by_status_total{status=~"5.."}[5m])
+          /
+          rate(django_http_responses_total_by_status_total[5m]) > 0.05
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "HTTP 5xx 에러율이 5%를 초과했습니다"
+          description: "최근 5분간 5xx 에러율: {{ $value | humanizePercentage }}"
+
+  - name: dongta_performance
+    rules:
+      # 높은 응답 시간
+      - alert: HighResponseLatency
+        expr: |
+          histogram_quantile(0.95,
+            rate(django_http_requests_latency_seconds_by_view_method_bucket[5m])
+          ) > 2.0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "P95 응답시간이 2초를 초과했습니다"
+          description: "P95 레이턴시: {{ $value }}초"
+
+      # 낮은 캐시 히트율
+      - alert: LowCacheHitRate
+        expr: |
+          rate(dongta_cache_hits_total[5m])
+          /
+          (rate(dongta_cache_hits_total[5m]) + rate(dongta_cache_misses_total[5m]) + 0.001)
+          < 0.60
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "캐시 히트율이 60% 미만으로 떨어졌습니다"
+          description: "현재 캐시 히트율: {{ $value | humanizePercentage }}"
+
+      # DB 연결 포화
+      - alert: DatabaseConnectionPoolExhausted
+        expr: pg_stat_activity_count{datname="dongtadb_test"} > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "PostgreSQL 연결 수가 80개를 초과했습니다"
+          description: "현재 DB 연결 수: {{ $value }}"
+
+  - name: dongta_canary
+    rules:
+      # 카나리 배포 고 에러율
+      - alert: CanaryHighErrorRate
+        expr: |
+          dongta_canary_traffic_ratio > 0
+          and
+          rate(django_http_responses_total_by_status_total{status=~"5.."}[5m])
+          /
+          rate(django_http_responses_total_by_status_total[5m]) > 0.05
+        for: 3m
+        labels:
+          severity: critical
+        annotations:
+          summary: "카나리 배포 중 5xx 에러율이 5%를 초과했습니다 - 롤백 검토 필요"
+          description: "카나리 트래픽 비율: {{ $value }}, 에러율 초과"
+
+  - name: dongta_infrastructure
+    rules:
+      # 높은 CPU 사용률
+      - alert: HighCPUUsage
+        expr: |
+          100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 85
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "CPU 사용률이 85%를 초과했습니다"
+          description: "현재 CPU 사용률: {{ $value }}%"
+
+      # Redis 메모리 부족
+      - alert: RedisHighMemoryUsage
+        expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis 메모리 사용률이 85%를 초과했습니다"
+          description: "Redis 메모리 사용률: {{ $value | humanizePercentage }}"

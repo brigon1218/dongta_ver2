@@ -29,7 +29,7 @@ class BusinessViewSet(viewsets.ModelViewSet):
         return BusinessListSerializer
 
     def get_queryset(self):
-        queryset = Business.objects.filter(is_deleted=False)
+        queryset = Business.objects.filter(is_deleted=False).select_related('member')
         
         # 목록 조회 시에는 승인된 업체만 노출 (단, 본인 등록 업체는 미승인 상태도 노출)
         if self.action == 'list':
