@@ -55,3 +55,11 @@
 - 빈 파일(1줄)도 Read 필수 (Write 전 Read 규칙)
 - PointAccount는 BaseModel이 아닌 models.Model 상속 (디자인 스펙)
 - `select_for_update()`로 포인트 차감 시 race condition 방지
+
+### Production_배포_및_Go-Live Iteration 1 (2026-03-26)
+- 수정 전 Match Rate: 83% → 수정 후 예상: 93%+
+- .env.prod: ENVIRONMENT=staging → production, 주석 "테스트" → "운영"으로 통일
+- Dockerfile: HEALTHCHECK 추가 (curl /api/v1/health/), curl 패키지 추가
+- docker-compose.prod.yml: Prometheus, Grafana, AlertManager 서비스 추가; nginx certs 볼륨 추가
+- nginx/nginx.conf: dongta.theuit.info production server block 추가 (SSL /etc/nginx/certs/), OCSP trusted cert 경로를 dongta.theuit.info로 수정
+- Do 문서: health check 포트 5000→8000 수정, compose 파일명 staging→prod 수정, env 파일명 .env.production→.env.prod 통일, SSL 인증서 경로 명시, Canary 스크립트 $? 오류 수정

@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-25T17:56:36.794Z",
+  "lastUpdated": "2026-03-26T13:14:18.901Z",
   "activeFeatures": [
     "config",
     "settings",
@@ -40,7 +40,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.016Z",
-        "lastUpdated": "2026-03-25T17:56:01.882Z"
+        "lastUpdated": "2026-03-26T13:14:18.901Z"
       },
       "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/urls.py"
     },
@@ -58,17 +58,25 @@
       "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/settings/base.py"
     },
     "core": {
-      "phase": "do",
-      "phaseNumber": 3,
-      "matchRate": null,
-      "iterationCount": 0,
+      "phase": "archived",
+      "phaseNumber": 5,
+      "matchRate": 91,
+      "iterationCount": 1,
       "requirements": [],
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:55.221Z",
-        "lastUpdated": "2026-03-25T17:56:26.980Z"
+        "completed": "2026-03-26T12:58:00Z",
+        "archived": "2026-03-26T12:58:00Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/core/metrics.py"
+      "summary": {
+        "phase": "archived",
+        "matchRate": 91,
+        "iterationCount": 1,
+        "startedAt": "2026-03-02T09:27:55.221Z",
+        "archivedAt": "2026-03-26T12:58:00Z",
+        "archivedTo": "docs/archive/2026-03/Phase_5_배포후_성능_최적화/"
+      }
     },
     "accounts": {
       "phase": "do",
@@ -285,7 +293,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-25T17:56:36.794Z"
+    "lastActivity": "2026-03-26T13:14:18.901Z"
   },
   "history": [
     {
@@ -1305,6 +1313,12 @@
     {
       "timestamp": "2026-03-25T17:56:36.794Z",
       "feature": "business114",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-26T13:14:18.901Z",
+      "feature": "config",
       "phase": "do",
       "action": "updated"
     }

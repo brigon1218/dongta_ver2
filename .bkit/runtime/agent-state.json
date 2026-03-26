@@ -1,45 +1,14 @@
 {
   "version": "1.0",
-  "enabled": true,
+  "enabled": false,
   "teamName": "",
   "feature": "core",
-  "pdcaPhase": "do",
+  "pdcaPhase": "archived",
   "orchestrationPattern": "leader",
   "ctoAgent": "opus",
-  "startedAt": "2026-03-25T17:42:14.377Z",
-  "lastUpdated": "2026-03-25T17:58:16.934Z",
-  "teammates": [
-    {
-      "name": "ae12083768412f1fd",
-      "role": "bkit:gap-detector",
-      "model": "sonnet",
-      "status": "completed",
-      "currentTask": null,
-      "taskId": null,
-      "startedAt": "2026-03-25T17:42:14.377Z",
-      "lastActivityAt": "2026-03-25T17:47:35.230Z"
-    },
-    {
-      "name": "a0088e8e3401156ab",
-      "role": "bkit:pdca-iterator",
-      "model": "sonnet",
-      "status": "completed",
-      "currentTask": null,
-      "taskId": null,
-      "startedAt": "2026-03-25T17:54:21.186Z",
-      "lastActivityAt": "2026-03-25T17:58:05.574Z"
-    },
-    {
-      "name": "a4ecc75c28edc6d47",
-      "role": "bkit:gap-detector",
-      "model": "sonnet",
-      "status": "spawning",
-      "currentTask": null,
-      "taskId": null,
-      "startedAt": "2026-03-25T17:58:16.933Z",
-      "lastActivityAt": "2026-03-25T17:58:16.933Z"
-    }
-  ],
+  "startedAt": "2026-03-26T10:07:45.261Z",
+  "lastUpdated": "2026-03-26T13:10:58.802Z",
+  "teammates": [],
   "progress": {
     "totalTasks": 0,
     "completedTasks": 0,
