@@ -1,73 +1,195 @@
 {% extends "admin/base_site.html" %}
 {% load i18n %}
 
+{% block extrastyle %}
+<style>
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 20px 0 28px;
+}
+@media (max-width: 1200px) { .dashboard-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .dashboard-grid { grid-template-columns: 1fr; } }
+
+.stat-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.10);
+  padding: 20px 20px 16px;
+  border-top: 4px solid #79aec8;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card.c-blue   { border-top-color: #417690; }
+.stat-card.c-green  { border-top-color: #28a745; }
+.stat-card.c-orange { border-top-color: #e67e22; }
+.stat-card.c-purple { border-top-color: #8e44ad; }
+
+.stat-card__icon {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 28px;
+  opacity: .15;
+}
+.stat-card__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 10px;
+}
+.stat-card__rows { display: flex; flex-direction: column; gap: 6px; }
+.stat-card__row  { display: flex; justify-content: space-between; align-items: baseline; }
+.stat-card__name { font-size: 12px; color: #555; }
+.stat-card__val  { font-size: 20px; font-weight: 700; color: #213547; line-height: 1; }
+.stat-card__val.small { font-size: 14px; }
+.stat-card__sub  { font-size: 11px; color: #999; margin-top: 2px; }
+
+.status-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+.status-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 20px;
+  font-size: 12px; font-weight: 600;
+}
+.status-badge.ok  { background: #e8f5e9; color: #2e7d32; }
+.status-badge.err { background: #ffebee; color: #c62828; }
+.status-badge.na  { background: #f5f5f5; color: #9e9e9e; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+.status-dot.ok  { background: #2e7d32; }
+.status-dot.err { background: #c62828; }
+.status-dot.na  { background: #9e9e9e; }
+
+.dashboard-title {
+  font-size: 13px; font-weight: 600; color: #417690;
+  margin: 0 0 4px; letter-spacing: .03em;
+}
+.dashboard-updated { font-size: 11px; color: #bbb; margin: 0 0 16px; }
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 4px; height: 20px; width: 60%;
+}
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+</style>
+{% endblock %}
+
 {% block content %}
-<div id="dashboard-stats" style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px;">
-  <div class="stat-card" id="card-users" style="background:#fff;border:1px solid #ddd;border-radius:6px;padding:16px;">
-    <h3 style="margin:0 0 8px;font-size:14px;color:#666;">&#128101; 회원 / 사업장</h3>
-    <div id="stat-users-content" style="font-size:13px;color:#333;">로딩 중...</div>
+<p class="dashboard-title">플랫폼 현황</p>
+<p class="dashboard-updated" id="dash-updated">불러오는 중...</p>
+
+<div class="dashboard-grid">
+
+  <!-- 회원 -->
+  <div class="stat-card c-blue">
+    <span class="stat-card__icon">👥</span>
+    <p class="stat-card__label">회원</p>
+    <div class="stat-card__rows" id="card-users">
+      <div class="skeleton"></div>
+    </div>
   </div>
-  <div class="stat-card" id="card-businesses" style="background:#fff;border:1px solid #ddd;border-radius:6px;padding:16px;">
-    <h3 style="margin:0 0 8px;font-size:14px;color:#666;">&#128202; 결제 (오늘)</h3>
-    <div id="stat-payments-content" style="font-size:13px;color:#333;">로딩 중...</div>
+
+  <!-- 사업장 -->
+  <div class="stat-card c-orange">
+    <span class="stat-card__icon">🏢</span>
+    <p class="stat-card__label">사업장</p>
+    <div class="stat-card__rows" id="card-businesses">
+      <div class="skeleton"></div>
+    </div>
   </div>
-  <div class="stat-card" id="card-posts" style="background:#fff;border:1px solid #ddd;border-radius:6px;padding:16px;">
-    <h3 style="margin:0 0 8px;font-size:14px;color:#666;">&#128203; 게시판</h3>
-    <div id="stat-posts-content" style="font-size:13px;color:#333;">로딩 중...</div>
+
+  <!-- 결제 -->
+  <div class="stat-card c-green">
+    <span class="stat-card__icon">💳</span>
+    <p class="stat-card__label">결제 (오늘)</p>
+    <div class="stat-card__rows" id="card-payments">
+      <div class="skeleton"></div>
+    </div>
   </div>
-  <div class="stat-card" id="card-system" style="background:#fff;border:1px solid #ddd;border-radius:6px;padding:16px;">
-    <h3 style="margin:0 0 8px;font-size:14px;color:#666;">&#9881;&#65039; 시스템 상태</h3>
-    <div id="stat-system-content" style="font-size:13px;color:#333;">로딩 중...</div>
+
+  <!-- 시스템 -->
+  <div class="stat-card c-purple">
+    <span class="stat-card__icon">⚙️</span>
+    <p class="stat-card__label">시스템 상태</p>
+    <div id="card-system">
+      <div class="skeleton"></div>
+    </div>
   </div>
+
 </div>
 
 {{ block.super }}
 
 <script>
-(function() {
-  var controller = new AbortController();
-  var timer = setTimeout(function() { controller.abort(); }, 2000);
+(function () {
+  function row(name, val, unit) {
+    return '<div class="stat-card__row">'
+      + '<span class="stat-card__name">' + name + '</span>'
+      + '<span class="stat-card__val">' + val + '<span style="font-size:11px;font-weight:400;color:#999;margin-left:2px;">' + (unit || '') + '</span></span>'
+      + '</div>';
+  }
+  function badge(label, state) {
+    var cls = state === 'ok' ? 'ok' : (state === 'N/A' ? 'na' : 'err');
+    var dot  = '<span class="status-dot ' + cls + '"></span>';
+    return '<span class="status-badge ' + cls + '">' + dot + label + '</span>';
+  }
+  function fmt(n) { return (n === 'N/A' || n === undefined) ? 'N/A' : Number(n).toLocaleString(); }
 
-  fetch('/admin/dashboard-stats/', { signal: controller.signal, credentials: 'same-origin' })
-    .then(function(r) {
+  var ctrl = new AbortController();
+  var timer = setTimeout(function () { ctrl.abort(); }, 3000);
+
+  fetch('/admin/dashboard-stats/', { signal: ctrl.signal, credentials: 'same-origin' })
+    .then(function (r) {
       clearTimeout(timer);
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
     })
-    .then(function(data) {
-      var u = data.users || {};
-      var b = data.businesses || {};
-      var p = data.payments || {};
-      var po = data.posts || {};
-      var s = data.system || {};
+    .then(function (data) {
+      var u  = data.users      || {};
+      var b  = data.businesses || {};
+      var p  = data.payments   || {};
+      var po = data.posts      || {};
+      var s  = data.system     || {};
 
-      function status_icon(v) { return v === 'ok' ? '&#9989;' : (v === 'N/A' ? '&#8212;' : '&#10060;'); }
+      document.getElementById('card-users').innerHTML =
+        row('전체 회원', fmt(u.total), '명') +
+        row('활성 회원', fmt(u.active), '명') +
+        row('오늘 신규', fmt(u.today_new), '명');
 
-      document.getElementById('stat-users-content').innerHTML =
-        '회원 전체: <strong>' + (u.total !== undefined ? u.total : 'N/A') + '</strong>명&nbsp;&nbsp;' +
-        '오늘 신규: <strong>' + (u.today_new !== undefined ? u.today_new : 'N/A') + '</strong>명<br>' +
-        '사업장 전체: <strong>' + (b.total !== undefined ? b.total : 'N/A') + '</strong>개&nbsp;&nbsp;' +
-        '승인 대기: <strong>' + (b.pending_approval !== undefined ? b.pending_approval : 'N/A') + '</strong>개';
+      document.getElementById('card-businesses').innerHTML =
+        row('전체 사업장', fmt(b.total), '개') +
+        row('승인 대기', fmt(b.pending_approval), '개');
 
-      document.getElementById('stat-payments-content').innerHTML =
-        '오늘 건수: <strong>' + (p.today_count !== undefined ? p.today_count : 'N/A') + '</strong>건<br>' +
-        '오늘 금액: <strong>' + (p.today_amount !== undefined ? Number(p.today_amount).toLocaleString() : 'N/A') + '</strong>원';
+      document.getElementById('card-payments').innerHTML =
+        row('오늘 건수', fmt(p.today_count), '건') +
+        row('오늘 금액', fmt(p.today_amount), '원');
 
-      document.getElementById('stat-posts-content').innerHTML =
-        '게시글 전체: <strong>' + (po.total !== undefined ? po.total : 'N/A') + '</strong>개<br>' +
-        '오늘 신규: <strong>' + (po.today_new !== undefined ? po.today_new : 'N/A') + '</strong>개';
+      document.getElementById('card-posts').innerHTML =
+        row('전체 게시글', fmt(po.total), '개') +
+        row('오늘 신규', fmt(po.today_new), '개');
 
-      document.getElementById('stat-system-content').innerHTML =
-        status_icon(s.database) + ' DB&nbsp;&nbsp;' +
-        status_icon(s.cache) + ' Redis&nbsp;&nbsp;' +
-        status_icon(s.celery) + ' Celery';
+      document.getElementById('card-system').innerHTML =
+        '<div class="status-row">'
+        + badge('DB',     s.database)
+        + badge('Redis',  s.cache)
+        + badge('Celery', s.celery)
+        + '</div>';
+
+      var now = new Date();
+      document.getElementById('dash-updated').textContent =
+        '마지막 업데이트: ' + now.toLocaleTimeString('ko-KR');
     })
-    .catch(function() {
+    .catch(function () {
       clearTimeout(timer);
-      ['stat-users-content', 'stat-payments-content', 'stat-posts-content', 'stat-system-content'].forEach(function(id) {
+      ['card-users','card-businesses','card-payments','card-posts','card-system'].forEach(function (id) {
         var el = document.getElementById(id);
-        if (el) el.textContent = '데이터를 불러올 수 없습니다.';
+        if (el) el.innerHTML = '<span style="font-size:12px;color:#c62828;">데이터를 불러올 수 없습니다.</span>';
       });
+      document.getElementById('dash-updated').textContent = '업데이트 실패';
     });
 })();
 </script>
