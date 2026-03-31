@@ -1,6 +1,6 @@
 {
-  "version": "2.0",
-  "lastUpdated": "2026-03-26T13:14:18.901Z",
+  "version": "3.0",
+  "lastUpdated": "2026-03-31T06:32:41.765Z",
   "activeFeatures": [
     "config",
     "settings",
@@ -18,8 +18,7 @@
     "migrations",
     "dongta_ver2",
     "work_01",
-    "mypage",
-    "deploy"
+    "mypage"
   ],
   "primaryFeature": "core",
   "features": {
@@ -29,7 +28,24 @@
       "iterationCount": 0,
       "startedAt": "2026-03-02T09:00:00.000Z",
       "archivedAt": "2026-03-12T00:00:00.000Z",
-      "archivedTo": "docs/archive/2026-03/마이그레이션/"
+      "archivedTo": "docs/archive/2026-03/마이그레이션/",
+      "stateMachine": {
+        "currentState": "archived",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "config": {
       "phase": "do",
@@ -40,9 +56,26 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.016Z",
-        "lastUpdated": "2026-03-26T13:14:18.901Z"
+        "lastUpdated": "2026-03-31T06:32:18.906Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/urls.py"
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/config/urls.py",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "settings": {
       "phase": "do",
@@ -53,30 +86,56 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.558Z",
-        "lastUpdated": "2026-03-25T17:56:33.077Z"
+        "lastUpdated": "2026-03-11T13:55:48.540Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/settings/base.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/settings/production.py",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "core": {
-      "phase": "archived",
-      "phaseNumber": 5,
-      "matchRate": 91,
-      "iterationCount": 1,
+      "phase": "completed",
+      "phaseNumber": 3,
+      "matchRate": 90,
+      "iterationCount": 0,
       "requirements": [],
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:55.221Z",
-        "completed": "2026-03-26T12:58:00Z",
-        "archived": "2026-03-26T12:58:00Z"
+        "lastUpdated": "2026-03-31T15:30:00.000Z"
       },
-      "summary": {
-        "phase": "archived",
-        "matchRate": 91,
-        "iterationCount": 1,
-        "startedAt": "2026-03-02T09:27:55.221Z",
-        "archivedAt": "2026-03-26T12:58:00Z",
-        "archivedTo": "docs/archive/2026-03/Phase_5_배포후_성능_최적화/"
-      }
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/core/middleware.py",
+      "stateMachine": {
+        "currentState": "completed",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "accounts": {
       "phase": "do",
@@ -89,7 +148,24 @@
         "started": "2026-03-02T09:28:10.437Z",
         "lastUpdated": "2026-03-11T13:17:21.408Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/accounts/migrations/0002_passwordresettoken.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/accounts/migrations/0002_passwordresettoken.py",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "dongta-django": {
       "phase": "do",
@@ -102,7 +178,24 @@
         "started": "2026-03-02T09:29:29.832Z",
         "lastUpdated": "2026-03-02T09:29:29.832Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/manage.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/manage.py",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "data_migration": {
       "phase": "do",
@@ -115,7 +208,24 @@
         "started": "2026-03-02T09:29:54.786Z",
         "lastUpdated": "2026-03-02T09:29:54.786Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/data_migration/migrate_members.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/data_migration/migrate_members.py",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "business114": {
       "phase": "do",
@@ -126,9 +236,26 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T10:43:16.900Z",
-        "lastUpdated": "2026-03-25T17:56:36.794Z"
+        "lastUpdated": "2026-03-09T03:46:44.587Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/business114/views.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/business114/views.py",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "recruit": {
       "phase": "do",
@@ -139,9 +266,26 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T10:43:35.099Z",
-        "lastUpdated": "2026-03-25T17:55:32.739Z"
+        "lastUpdated": "2026-03-09T03:14:53.724Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/recruit/signals.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/recruit/migrations/0001_initial.py",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "payment": {
       "phase": "do",
@@ -154,7 +298,24 @@
         "started": "2026-03-02T10:43:49.480Z",
         "lastUpdated": "2026-03-11T14:01:29.129Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/payment/serializers.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/payment/serializers.py",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "scripts": {
       "phase": "do",
@@ -167,7 +328,24 @@
         "started": "2026-03-06T07:43:25.307Z",
         "lastUpdated": "2026-03-07T11:19:02.059Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/scripts/deploy-aws.sh"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/scripts/deploy-aws.sh",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "sync": {
       "phase": "do",
@@ -180,7 +358,24 @@
         "started": "2026-03-06T08:30:25.518Z",
         "lastUpdated": "2026-03-06T08:41:22.774Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/sync/tasks.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/sync/tasks.py",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "하이브리드_연동": {
       "phase": "archived",
@@ -188,7 +383,24 @@
       "iterationCount": 2,
       "startedAt": "2026-03-06T00:00:00.000Z",
       "archivedAt": "2026-03-06T14:58:00.000Z",
-      "archivedTo": "docs/archive/2026-03/하이브리드_연동/"
+      "archivedTo": "docs/archive/2026-03/하이브리드_연동/",
+      "stateMachine": {
+        "currentState": "archived",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "전체_최적화_및_배포": {
       "phase": "archived",
@@ -196,7 +408,24 @@
       "iterationCount": 0,
       "startedAt": "2026-03-07T00:00:00.000Z",
       "archivedAt": "2026-03-09T12:00:00.000Z",
-      "archivedTo": "docs/archive/2026-03/전체_최적화_및_배포/"
+      "archivedTo": "docs/archive/2026-03/전체_최적화_및_배포/",
+      "stateMachine": {
+        "currentState": "archived",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "board": {
       "phase": "do",
@@ -209,7 +438,24 @@
         "started": "2026-03-09T03:19:40.663Z",
         "lastUpdated": "2026-03-09T03:20:38.741Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/board/tests/test_views.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/board/tests/test_views.py",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "tests": {
       "phase": "do",
@@ -222,7 +468,24 @@
         "started": "2026-03-10T08:18:22.727Z",
         "lastUpdated": "2026-03-10T08:18:31.008Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\aws\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\accounts\\tests\\test_auth.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\aws\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\accounts\\tests\\test_auth.py",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "migrations": {
       "phase": "do",
@@ -235,7 +498,24 @@
         "started": "2026-03-10T08:18:40.692Z",
         "lastUpdated": "2026-03-10T08:18:40.692Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\aws\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\accounts\\migrations\\0002_passwordresettoken.py"
+      "lastFile": "C:\\Users\\안용환\\workspace\\aws\\vibe_coding\\work_01\\dongta_ver2\\dongta-django\\apps\\accounts\\migrations\\0002_passwordresettoken.py",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "dongta_ver2": {
       "phase": "do",
@@ -248,7 +528,24 @@
         "started": "2026-03-10T08:38:39.721Z",
         "lastUpdated": "2026-03-10T08:42:26.666Z"
       },
-      "lastFile": "C:\\Users\\안용환\\workspace\\aws\\vibe_coding\\work_01\\dongta_ver2\\deploy-aws.ps1"
+      "lastFile": "C:\\Users\\안용환\\workspace\\aws\\vibe_coding\\work_01\\dongta_ver2\\deploy-aws.ps1",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "work_01": {
       "phase": "do",
@@ -261,7 +558,24 @@
         "started": "2026-03-11T13:52:55.317Z",
         "lastUpdated": "2026-03-11T15:29:25.563Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/server_control.sh"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/server_control.sh",
+      "stateMachine": {
+        "currentState": "do",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     },
     "mypage": {
       "phase": "archived",
@@ -269,20 +583,24 @@
       "iterationCount": 1,
       "startedAt": "2026-03-21T04:53:23.965Z",
       "archivedAt": "2026-03-21T16:05:00.000Z",
-      "archivedTo": "docs/archive/2026-03/마이페이지_고도화/"
-    },
-    "deploy": {
-      "phase": "do",
-      "phaseNumber": 3,
-      "matchRate": null,
-      "iterationCount": 0,
-      "requirements": [],
-      "documents": {},
-      "timestamps": {
-        "started": "2026-03-25T17:38:25.737Z",
-        "lastUpdated": "2026-03-25T17:38:25.737Z"
+      "archivedTo": "docs/archive/2026-03/마이페이지_고도화/",
+      "stateMachine": {
+        "currentState": "archived",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/deploy/canary-deploy.sh"
+      "metrics": {
+        "qualityScore": null,
+        "conventionCompliance": null,
+        "apiCompliance": null,
+        "cycleTimeMs": null,
+        "iterationEfficiency": null
+      },
+      "phaseTimestamps": {},
+      "automationLevel": 2
     }
   },
   "pipeline": {
@@ -293,7 +611,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-26T13:14:18.901Z"
+    "lastActivity": "2026-03-31T06:32:41.765Z"
   },
   "history": [
     {
@@ -1161,166 +1479,44 @@
       "action": "updated"
     },
     {
-      "timestamp": "2026-03-25T17:30:26.918Z",
-      "feature": "recruit",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:30:43.558Z",
-      "feature": "recruit",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:30:56.186Z",
-      "feature": "recruit",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:31:18.125Z",
-      "feature": "business114",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:31:25.322Z",
-      "feature": "business114",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:31:38.019Z",
-      "feature": "business114",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:31:51.620Z",
-      "feature": "recruit",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:32:03.283Z",
-      "feature": "business114",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:32:13.300Z",
-      "feature": "recruit",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:32:17.229Z",
-      "feature": "business114",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:32:25.915Z",
-      "feature": "settings",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:32:34.944Z",
-      "feature": "settings",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:34:04.526Z",
-      "feature": "settings",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:34:11.359Z",
-      "feature": "settings",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:35:03.160Z",
+      "timestamp": "2026-03-31T06:32:18.909Z",
       "feature": "config",
       "phase": "do",
       "action": "updated"
     },
     {
-      "timestamp": "2026-03-25T17:38:25.737Z",
-      "feature": "deploy",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:55:22.193Z",
-      "feature": "settings",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:55:32.739Z",
-      "feature": "recruit",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:55:38.522Z",
-      "feature": "business114",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:55:51.743Z",
+      "timestamp": "2026-03-31T06:32:23.731Z",
       "feature": "core",
       "phase": "do",
       "action": "updated"
     },
     {
-      "timestamp": "2026-03-25T17:56:01.882Z",
-      "feature": "config",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:56:09.911Z",
+      "timestamp": "2026-03-31T06:32:34.983Z",
       "feature": "core",
       "phase": "do",
       "action": "updated"
     },
     {
-      "timestamp": "2026-03-25T17:56:16.162Z",
-      "feature": "settings",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:56:26.980Z",
+      "timestamp": "2026-03-31T06:32:41.765Z",
       "feature": "core",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:56:33.077Z",
-      "feature": "settings",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-25T17:56:36.794Z",
-      "feature": "business114",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-03-26T13:14:18.901Z",
-      "feature": "config",
       "phase": "do",
       "action": "updated"
     }
-  ]
+  ],
+  "stateMachine": {
+    "defaultWorkflow": "default",
+    "activeWorkflows": {},
+    "totalTransitions": 0
+  },
+  "automation": {
+    "globalLevel": 2,
+    "trustScore": 40,
+    "pendingApprovals": 0,
+    "lastGateResult": null
+  },
+  "team": {
+    "enabled": true,
+    "stateFile": ".bkit/runtime/agent-state.json",
+    "eventsFile": ".bkit/runtime/agent-events.jsonl"
+  }
 }

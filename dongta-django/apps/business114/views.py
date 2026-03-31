@@ -4,7 +4,6 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q, F
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
-from django.core.cache import cache
 from core.utils import success_response, error_response
 from core.permissions import IsOwnerOrReadOnly
 from .models import Business
@@ -29,7 +28,7 @@ class BusinessViewSet(viewsets.ModelViewSet):
         return BusinessListSerializer
 
     def get_queryset(self):
-        queryset = Business.objects.filter(is_deleted=False).select_related('member')
+        queryset = Business.objects.filter(is_deleted=False)
         
         # 목록 조회 시에는 승인된 업체만 노출 (단, 본인 등록 업체는 미승인 상태도 노출)
         if self.action == 'list':
@@ -82,12 +81,10 @@ class BusinessViewSet(viewsets.ModelViewSet):
         # 신규 등록 시에는 본인을 소유자로 지정하고 승인 대기 상태로 저장
         serializer.save(member=self.request.user, is_approved=False)
 
-    @method_decorator(cache_page(timeout=300))
     def list(self, request, *args, **kwargs):
         """
         GET /api/v1/business114/ - 업체 목록 조회
-        캐싱: 300초 (5분) Redis 캐시
-        캐시 키: 요청 경로 + 쿼리 파라미터 자동 생성
+        캐싱: 검색/필터가 없는 기본 조회는 Redis 캐시 (300초)
         """
         queryset = self.filter_queryset(self.get_queryset())
 
@@ -107,24 +104,16 @@ class BusinessViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         return success_response(
-            BusinessDetailSerializer(serializer.instance).data,
+            BusinessDetailSerializer(serializer.instance).data, 
             status=status.HTTP_201_CREATED
         )
 
-    @method_decorator(cache_page(timeout=600))
     def retrieve(self, request, *args, **kwargs):
-        """
-        GET /api/v1/business114/{id}/ - 업체 상세 조회
-        캐싱: 600초 (10분) Redis 캐시
-        주의: 조회수는 캐시되므로 실시간 집계가 아닙니다.
-              정확한 조회수를 원하면 Celery Task로 비동기 처리
-        """
         instance = self.get_object()
         # 조회수 증가 (F 객체 사용하여 Race Condition 방지)
-        # TODO: Celery Task로 변경하여 캐시된 응답에서도 조회수 증가
         Business.objects.filter(pk=instance.pk).update(view_count=F('view_count') + 1)
         instance.refresh_from_db(fields=['view_count'])
-
+        
         serializer = self.get_serializer(instance)
         return success_response(serializer.data)
 

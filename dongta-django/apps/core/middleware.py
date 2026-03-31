@@ -1,6 +1,9 @@
 """
 dongta 커스텀 미들웨어
 """
+import time
+
+from apps.core.metrics import record_request_latency
 
 
 class CacheHitHeaderMiddleware:
@@ -19,8 +22,19 @@ class CacheHitHeaderMiddleware:
     def __call__(self, request):
         # 요청 전: 캐시 히트 여부 마킹용 플래그 초기화
         request._cache_update_cache = True
+        start_time = time.monotonic()
 
         response = self.get_response(request)
+
+        # 요청 레이턴시 기록
+        duration = time.monotonic() - start_time
+        endpoint = request.path
+        record_request_latency(
+            method=request.method,
+            endpoint=endpoint,
+            status_code=response.status_code,
+            duration=duration,
+        )
 
         # 캐시 미들웨어가 히트한 경우: Django가 내부적으로 _cache_hit 속성 설정
         if getattr(response, '_cache_hit', False):
