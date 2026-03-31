@@ -2,12 +2,12 @@
   "version": "1.0",
   "enabled": false,
   "teamName": "",
-  "feature": "core",
-  "pdcaPhase": "do",
+  "feature": "관리자_대시보드",
+  "pdcaPhase": "design",
   "orchestrationPattern": "leader",
   "ctoAgent": "opus",
-  "startedAt": "2026-03-21T07:06:30.487Z",
-  "lastUpdated": "2026-03-21T07:13:09.489Z",
+  "startedAt": "2026-03-31T07:08:03.209Z",
+  "lastUpdated": "2026-03-31T08:00:42.719Z",
   "teammates": [],
   "progress": {
     "totalTasks": 0,
@@ -17,5 +17,5 @@
     "pendingTasks": 0
   },
   "recentMessages": [],
-  "sessionId": "8edb6ff1-d286-44d5-b25a-48fba489bc93"
+  "sessionId": "5e129d4b-3035-4d73-83f6-883c16a9b6bf"
 }

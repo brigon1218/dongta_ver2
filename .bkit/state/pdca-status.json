@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-03-31T07:07:13.224Z",
+  "lastUpdated": "2026-03-31T10:23:29.288Z",
   "activeFeatures": [
     "config",
     "settings",
@@ -138,9 +138,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:28:10.437Z",
-        "lastUpdated": "2026-03-11T13:17:21.408Z"
+        "lastUpdated": "2026-03-31T10:22:36.891Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/accounts/migrations/0002_passwordresettoken.py",
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/accounts/admin.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -228,9 +228,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T10:43:16.900Z",
-        "lastUpdated": "2026-03-09T03:46:44.587Z"
+        "lastUpdated": "2026-03-31T10:22:44.390Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/business114/views.py",
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/business114/admin.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -258,9 +258,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T10:43:35.099Z",
-        "lastUpdated": "2026-03-09T03:14:53.724Z"
+        "lastUpdated": "2026-03-31T10:23:14.497Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/recruit/migrations/0001_initial.py",
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/recruit/admin.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -288,9 +288,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T10:43:49.480Z",
-        "lastUpdated": "2026-03-11T14:01:29.129Z"
+        "lastUpdated": "2026-03-31T10:22:53.096Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/payment/serializers.py",
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/payment/admin.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -348,9 +348,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-06T08:30:25.518Z",
-        "lastUpdated": "2026-03-06T08:41:22.774Z"
+        "lastUpdated": "2026-03-31T10:23:29.284Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/sync/tasks.py",
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/sync/admin.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -428,7 +428,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-09T03:19:40.663Z",
-        "lastUpdated": "2026-03-31T07:02:29.696Z"
+        "lastUpdated": "2026-03-31T10:23:01.771Z"
       },
       "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/board/admin.py",
       "stateMachine": {
@@ -570,7 +570,7 @@
       "automationLevel": 2
     },
     "mypage": {
-      "phase": "archived",
+      "phase": "do",
       "matchRate": 91,
       "iterationCount": 1,
       "startedAt": "2026-03-21T04:53:23.965Z",
@@ -592,7 +592,12 @@
         "iterationEfficiency": null
       },
       "phaseTimestamps": {},
-      "automationLevel": 2
+      "automationLevel": 2,
+      "phaseNumber": 3,
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/mypage/admin.py",
+      "timestamps": {
+        "lastUpdated": "2026-03-31T10:23:21.763Z"
+      }
     },
     "관리자_대시보드": {
       "phase": "archived",
@@ -621,7 +626,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-31T07:02:40.720Z",
-        "lastUpdated": "2026-03-31T07:02:40.720Z"
+        "lastUpdated": "2026-03-31T07:25:01.415Z"
       },
       "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/monitoring/admin.py"
     }
@@ -634,7 +639,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-31T07:07:13.224Z"
+    "lastActivity": "2026-03-31T10:23:29.288Z"
   },
   "history": [
     {
@@ -1570,6 +1575,108 @@
     {
       "timestamp": "2026-03-31T07:07:13.223Z",
       "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T07:25:01.417Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T07:28:35.887Z",
+      "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:22:33.204Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:22:36.894Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:22:44.393Z",
+      "feature": "business114",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:22:46.540Z",
+      "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:22:53.099Z",
+      "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:22:54.738Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:23:00.254Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:23:01.773Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:23:07.810Z",
+      "feature": "recruit",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:23:09.520Z",
+      "feature": "recruit",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:23:14.500Z",
+      "feature": "recruit",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:23:16.064Z",
+      "feature": "mypage",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:23:21.766Z",
+      "feature": "mypage",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:23:23.560Z",
+      "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T10:23:29.287Z",
+      "feature": "sync",
       "phase": "do",
       "action": "updated"
     }
