@@ -2,6 +2,7 @@
 {% load i18n %}
 
 {% block extrastyle %}
+{{ block.super }}
 <style>
 .dashboard-grid {
   display: grid;
@@ -140,9 +141,18 @@
   function fmt(n) { return (n === 'N/A' || n === undefined) ? 'N/A' : Number(n).toLocaleString(); }
 
   var ctrl = new AbortController();
-  var timer = setTimeout(function () { ctrl.abort(); }, 3000);
+  var timer = setTimeout(function () { ctrl.abort(); }, 8000);
 
-  fetch('/admin/dashboard-stats/', { signal: ctrl.signal, credentials: 'same-origin' })
+  var csrfToken = document.cookie.split(';')
+    .map(function(c){ return c.trim(); })
+    .filter(function(c){ return c.startsWith('csrftoken='); })
+    .map(function(c){ return c.split('=')[1]; })[0] || '';
+
+  fetch('/admin/dashboard-stats/', {
+    signal: ctrl.signal,
+    credentials: 'same-origin',
+    headers: { 'X-CSRFToken': csrfToken }
+  })
     .then(function (r) {
       clearTimeout(timer);
       if (!r.ok) throw new Error('HTTP ' + r.status);
