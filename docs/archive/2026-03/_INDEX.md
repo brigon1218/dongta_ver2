@@ -4,6 +4,13 @@
 
 ### 📦 보관된 기능
 
+#### core (Prometheus 모니터링 활성화)
+- **Path**: `core/`
+- **Match Rate**: 90%
+- **Status**: ✅ COMPLETE
+- **Archived**: 2026-03-31
+- **Key Changes**: `__init__.py` 추가, metrics URL 활성화, request latency 수집 연결
+
 #### 1. 마이페이지_고도화 (마지막 모듈)
 - **Path**: `마이페이지_고도화/`
 - **Match Rate**: 91%
