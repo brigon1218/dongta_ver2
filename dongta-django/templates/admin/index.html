@@ -1,0 +1,74 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="dashboard-stats" style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px;">
+  <div class="stat-card" id="card-users" style="background:#fff;border:1px solid #ddd;border-radius:6px;padding:16px;">
+    <h3 style="margin:0 0 8px;font-size:14px;color:#666;">&#128101; 회원 / 사업장</h3>
+    <div id="stat-users-content" style="font-size:13px;color:#333;">로딩 중...</div>
+  </div>
+  <div class="stat-card" id="card-businesses" style="background:#fff;border:1px solid #ddd;border-radius:6px;padding:16px;">
+    <h3 style="margin:0 0 8px;font-size:14px;color:#666;">&#128202; 결제 (오늘)</h3>
+    <div id="stat-payments-content" style="font-size:13px;color:#333;">로딩 중...</div>
+  </div>
+  <div class="stat-card" id="card-posts" style="background:#fff;border:1px solid #ddd;border-radius:6px;padding:16px;">
+    <h3 style="margin:0 0 8px;font-size:14px;color:#666;">&#128203; 게시판</h3>
+    <div id="stat-posts-content" style="font-size:13px;color:#333;">로딩 중...</div>
+  </div>
+  <div class="stat-card" id="card-system" style="background:#fff;border:1px solid #ddd;border-radius:6px;padding:16px;">
+    <h3 style="margin:0 0 8px;font-size:14px;color:#666;">&#9881;&#65039; 시스템 상태</h3>
+    <div id="stat-system-content" style="font-size:13px;color:#333;">로딩 중...</div>
+  </div>
+</div>
+
+{{ block.super }}
+
+<script>
+(function() {
+  var controller = new AbortController();
+  var timer = setTimeout(function() { controller.abort(); }, 2000);
+
+  fetch('/admin/dashboard-stats/', { signal: controller.signal, credentials: 'same-origin' })
+    .then(function(r) {
+      clearTimeout(timer);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      var u = data.users || {};
+      var b = data.businesses || {};
+      var p = data.payments || {};
+      var po = data.posts || {};
+      var s = data.system || {};
+
+      function status_icon(v) { return v === 'ok' ? '&#9989;' : (v === 'N/A' ? '&#8212;' : '&#10060;'); }
+
+      document.getElementById('stat-users-content').innerHTML =
+        '회원 전체: <strong>' + (u.total !== undefined ? u.total : 'N/A') + '</strong>명&nbsp;&nbsp;' +
+        '오늘 신규: <strong>' + (u.today_new !== undefined ? u.today_new : 'N/A') + '</strong>명<br>' +
+        '사업장 전체: <strong>' + (b.total !== undefined ? b.total : 'N/A') + '</strong>개&nbsp;&nbsp;' +
+        '승인 대기: <strong>' + (b.pending_approval !== undefined ? b.pending_approval : 'N/A') + '</strong>개';
+
+      document.getElementById('stat-payments-content').innerHTML =
+        '오늘 건수: <strong>' + (p.today_count !== undefined ? p.today_count : 'N/A') + '</strong>건<br>' +
+        '오늘 금액: <strong>' + (p.today_amount !== undefined ? Number(p.today_amount).toLocaleString() : 'N/A') + '</strong>원';
+
+      document.getElementById('stat-posts-content').innerHTML =
+        '게시글 전체: <strong>' + (po.total !== undefined ? po.total : 'N/A') + '</strong>개<br>' +
+        '오늘 신규: <strong>' + (po.today_new !== undefined ? po.today_new : 'N/A') + '</strong>개';
+
+      document.getElementById('stat-system-content').innerHTML =
+        status_icon(s.database) + ' DB&nbsp;&nbsp;' +
+        status_icon(s.cache) + ' Redis&nbsp;&nbsp;' +
+        status_icon(s.celery) + ' Celery';
+    })
+    .catch(function() {
+      clearTimeout(timer);
+      ['stat-users-content', 'stat-payments-content', 'stat-posts-content', 'stat-system-content'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = '데이터를 불러올 수 없습니다.';
+      });
+    });
+})();
+</script>
+{% endblock %}

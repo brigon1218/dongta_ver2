@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-03-31T06:32:41.765Z",
+  "lastUpdated": "2026-03-31T07:07:13.224Z",
   "activeFeatures": [
     "config",
     "settings",
@@ -18,9 +18,10 @@
     "migrations",
     "dongta_ver2",
     "work_01",
-    "mypage"
+    "mypage",
+    "monitoring"
   ],
-  "primaryFeature": "core",
+  "primaryFeature": "관리자_대시보드",
   "features": {
     "마이그레이션": {
       "phase": "archived",
@@ -56,7 +57,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.016Z",
-        "lastUpdated": "2026-03-31T06:32:18.906Z"
+        "lastUpdated": "2026-03-31T07:07:13.221Z"
       },
       "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/config/urls.py",
       "stateMachine": {
@@ -108,34 +109,25 @@
       "automationLevel": 2
     },
     "core": {
-      "phase": "completed",
-      "phaseNumber": 3,
+      "phase": "do",
       "matchRate": 90,
-      "iterationCount": 0,
-      "requirements": [],
-      "documents": {},
-      "timestamps": {
-        "started": "2026-03-02T09:27:55.221Z",
-        "lastUpdated": "2026-03-31T15:30:00.000Z"
-      },
-      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/core/middleware.py",
+      "iterationCount": 1,
+      "startedAt": "2026-03-02T09:27:55.221Z",
+      "archivedAt": "2026-03-31T15:40:00.000Z",
+      "archivedTo": "docs/archive/2026-03/core/",
       "stateMachine": {
-        "currentState": "completed",
-        "previousState": null,
+        "currentState": "archived",
+        "previousState": "completed",
         "stateHistory": [],
         "retryCount": 0,
         "maxRetries": 5,
         "circuitBreakerOpen": false
       },
-      "metrics": {
-        "qualityScore": null,
-        "conventionCompliance": null,
-        "apiCompliance": null,
-        "cycleTimeMs": null,
-        "iterationEfficiency": null
-      },
-      "phaseTimestamps": {},
-      "automationLevel": 2
+      "phaseNumber": 3,
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/core/views.py",
+      "timestamps": {
+        "lastUpdated": "2026-03-31T07:07:08.080Z"
+      }
     },
     "accounts": {
       "phase": "do",
@@ -436,9 +428,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-09T03:19:40.663Z",
-        "lastUpdated": "2026-03-09T03:20:38.741Z"
+        "lastUpdated": "2026-03-31T07:02:29.696Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/board/tests/test_views.py",
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/board/admin.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -601,6 +593,37 @@
       },
       "phaseTimestamps": {},
       "automationLevel": 2
+    },
+    "관리자_대시보드": {
+      "phase": "archived",
+      "matchRate": 100,
+      "iterationCount": 1,
+      "timestamps": {
+        "started": "2026-03-31T07:00:00.000Z",
+        "lastUpdated": "2026-03-31T07:00:00.000Z"
+      },
+      "stateMachine": {
+        "currentState": "design",
+        "previousState": null,
+        "stateHistory": [],
+        "retryCount": 0,
+        "maxRetries": 5,
+        "circuitBreakerOpen": false
+      },
+      "archivedTo": "docs/archive/2026-03/관리자_대시보드/"
+    },
+    "monitoring": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-31T07:02:40.720Z",
+        "lastUpdated": "2026-03-31T07:02:40.720Z"
+      },
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/monitoring/admin.py"
     }
   },
   "pipeline": {
@@ -611,7 +634,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-31T06:32:41.765Z"
+    "lastActivity": "2026-03-31T07:07:13.224Z"
   },
   "history": [
     {
@@ -1499,6 +1522,54 @@
     {
       "timestamp": "2026-03-31T06:32:41.765Z",
       "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T07:01:30.077Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T07:01:45.614Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T07:01:50.649Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T07:01:55.021Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T07:02:29.698Z",
+      "feature": "board",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T07:02:40.723Z",
+      "feature": "monitoring",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T07:07:08.082Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-31T07:07:13.223Z",
+      "feature": "config",
       "phase": "do",
       "action": "updated"
     }

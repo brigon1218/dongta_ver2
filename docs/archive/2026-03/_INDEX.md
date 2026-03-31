@@ -48,5 +48,21 @@
 
 ---
 
-**Archive Created**: 2026-03-21
-**Archive Managed**: PDCA v1.5.8
+#### 2. 관리자_대시보드 (Django Admin 통계 대시보드)
+- **Path**: `관리자_대시보드/`
+- **Match Rate**: 100%
+- **Status**: ✅ COMPLETE
+- **Archived**: 2026-03-31
+- **Key Changes**: AdminDashboardStatsView, admin/index.html 통계 카드, EventOutbox Admin, delete_posts 액션
+
+**구현 내용**:
+- 1개 Stats API 엔드포인트 (`/admin/dashboard-stats/`)
+- 4개 통계 카드 (회원/사업장/결제/시스템)
+- EventOutbox Admin + retry 액션
+- 게시글 삭제 액션
+
+---
+
+**Archive Created**: 2026-03-21  
+**Archive Updated**: 2026-03-31  
+**Archive Managed**: PDCA v2.0.8
