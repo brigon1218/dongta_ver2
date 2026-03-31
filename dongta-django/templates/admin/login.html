@@ -1,0 +1,197 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+body.login {
+  background: #f0f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* 기본 헤더/푸터 숨기기 */
+body.login #header,
+body.login #footer { display: none; }
+
+body.login #container {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  min-height: unset;
+}
+
+body.login #content-main {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,.10);
+  padding: 40px 36px 32px;
+}
+
+/* 로고/타이틀 영역 */
+.login-logo {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.login-logo__icon {
+  width: 56px; height: 56px;
+  background: #417690;
+  border-radius: 14px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  margin-bottom: 12px;
+}
+.login-logo__title {
+  font-size: 22px; font-weight: 700; color: #213547;
+  margin: 0 0 4px;
+}
+.login-logo__sub {
+  font-size: 12px; color: #888;
+  margin: 0;
+}
+
+/* 폼 */
+#login-form .form-row {
+  margin-bottom: 16px;
+}
+#login-form label {
+  display: block;
+  font-size: 12px; font-weight: 600;
+  color: #555;
+  margin-bottom: 6px;
+  letter-spacing: .03em;
+}
+#login-form input[type="text"],
+#login-form input[type="password"] {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #dde3ea;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #213547;
+  background: #fafbfc;
+  box-sizing: border-box;
+  transition: border-color .2s;
+  outline: none;
+}
+#login-form input[type="text"]:focus,
+#login-form input[type="password"]:focus {
+  border-color: #417690;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(65,118,144,.12);
+}
+
+/* 로그인 버튼 */
+#login-form .submit-row {
+  margin-top: 24px;
+}
+#login-form input[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: #417690;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s;
+  letter-spacing: .03em;
+}
+#login-form input[type="submit"]:hover {
+  background: #2f5a6e;
+}
+
+/* 에러 메시지 */
+.errornote {
+  background: #fff0f0;
+  border: 1px solid #f5c2c2;
+  border-radius: 8px;
+  color: #c0392b;
+  font-size: 13px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+.errorlist {
+  color: #c0392b;
+  font-size: 12px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 비밀번호 찾기 링크 */
+.password-reset-link {
+  text-align: right;
+  margin-top: 6px;
+}
+.password-reset-link a {
+  font-size: 12px;
+  color: #417690;
+  text-decoration: none;
+}
+.password-reset-link a:hover { text-decoration: underline; }
+</style>
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+{% block usertools %}{% endblock %}
+{% block nav-global %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+{% block content_title %}{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block content %}
+{% if form.errors and not form.non_field_errors %}
+<p class="errornote">아이디 또는 비밀번호가 올바르지 않습니다.</p>
+{% endif %}
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<p class="errornote">{{ error }}</p>
+{% endfor %}
+{% endif %}
+
+<div id="content-main">
+
+  <div class="login-logo">
+    <div class="login-logo__icon">🏢</div>
+    <p class="login-logo__title">동타 관리자</p>
+    <p class="login-logo__sub">Dongta Admin Dashboard</p>
+  </div>
+
+  {% if user.is_authenticated %}
+  <p class="errornote">
+    현재 <strong>{{ username }}</strong> 계정으로 로그인되어 있으나 접근 권한이 없습니다.
+  </p>
+  {% endif %}
+
+  <form action="{{ app_path }}" method="post" id="login-form">
+    {% csrf_token %}
+    <div class="form-row">
+      {{ form.username.errors }}
+      <label for="{{ form.username.id_for_label }}">아이디</label>
+      {{ form.username }}
+    </div>
+    <div class="form-row">
+      {{ form.password.errors }}
+      <label for="{{ form.password.id_for_label }}">비밀번호</label>
+      {{ form.password }}
+      <input type="hidden" name="next" value="{{ next }}">
+    </div>
+    {% url 'admin_password_reset' as password_reset_url %}
+    {% if password_reset_url %}
+    <div class="password-reset-link">
+      <a href="{{ password_reset_url }}">비밀번호를 잊으셨나요?</a>
+    </div>
+    {% endif %}
+    <div class="submit-row">
+      <input type="submit" value="로그인">
+    </div>
+  </form>
+
+</div>
+{% endblock %}
