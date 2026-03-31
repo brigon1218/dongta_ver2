@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-21T04:54:36.141Z",
+  "lastUpdated": "2026-03-26T13:14:18.901Z",
   "activeFeatures": [
     "config",
     "settings",
@@ -18,7 +18,8 @@
     "migrations",
     "dongta_ver2",
     "work_01",
-    "mypage"
+    "mypage",
+    "deploy"
   ],
   "primaryFeature": "core",
   "features": {
@@ -39,7 +40,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.016Z",
-        "lastUpdated": "2026-03-11T13:39:04.931Z"
+        "lastUpdated": "2026-03-26T13:14:18.901Z"
       },
       "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/urls.py"
     },
@@ -52,22 +53,30 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.558Z",
-        "lastUpdated": "2026-03-11T13:55:48.540Z"
+        "lastUpdated": "2026-03-25T17:56:33.077Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/settings/production.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/settings/base.py"
     },
     "core": {
-      "phase": "do",
-      "phaseNumber": 3,
-      "matchRate": null,
-      "iterationCount": 0,
+      "phase": "archived",
+      "phaseNumber": 5,
+      "matchRate": 91,
+      "iterationCount": 1,
       "requirements": [],
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:55.221Z",
-        "lastUpdated": "2026-03-12T02:05:33.117Z"
+        "completed": "2026-03-26T12:58:00Z",
+        "archived": "2026-03-26T12:58:00Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/core/views.py"
+      "summary": {
+        "phase": "archived",
+        "matchRate": 91,
+        "iterationCount": 1,
+        "startedAt": "2026-03-02T09:27:55.221Z",
+        "archivedAt": "2026-03-26T12:58:00Z",
+        "archivedTo": "docs/archive/2026-03/Phase_5_배포후_성능_최적화/"
+      }
     },
     "accounts": {
       "phase": "do",
@@ -117,7 +126,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T10:43:16.900Z",
-        "lastUpdated": "2026-03-09T03:46:44.587Z"
+        "lastUpdated": "2026-03-25T17:56:36.794Z"
       },
       "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/business114/views.py"
     },
@@ -130,9 +139,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T10:43:35.099Z",
-        "lastUpdated": "2026-03-09T03:14:53.724Z"
+        "lastUpdated": "2026-03-25T17:55:32.739Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/recruit/migrations/0001_initial.py"
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/recruit/signals.py"
     },
     "payment": {
       "phase": "do",
@@ -261,6 +270,19 @@
       "startedAt": "2026-03-21T04:53:23.965Z",
       "archivedAt": "2026-03-21T16:05:00.000Z",
       "archivedTo": "docs/archive/2026-03/마이페이지_고도화/"
+    },
+    "deploy": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-25T17:38:25.737Z",
+        "lastUpdated": "2026-03-25T17:38:25.737Z"
+      },
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/deploy/canary-deploy.sh"
     }
   },
   "pipeline": {
@@ -271,7 +293,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-21T04:54:36.141Z"
+    "lastActivity": "2026-03-26T13:14:18.901Z"
   },
   "history": [
     {
@@ -1135,6 +1157,168 @@
     {
       "timestamp": "2026-03-21T04:54:36.141Z",
       "feature": "mypage",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:30:26.918Z",
+      "feature": "recruit",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:30:43.558Z",
+      "feature": "recruit",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:30:56.186Z",
+      "feature": "recruit",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:31:18.125Z",
+      "feature": "business114",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:31:25.322Z",
+      "feature": "business114",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:31:38.019Z",
+      "feature": "business114",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:31:51.620Z",
+      "feature": "recruit",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:32:03.283Z",
+      "feature": "business114",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:32:13.300Z",
+      "feature": "recruit",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:32:17.229Z",
+      "feature": "business114",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:32:25.915Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:32:34.944Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:34:04.526Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:34:11.359Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:35:03.160Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:38:25.737Z",
+      "feature": "deploy",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:55:22.193Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:55:32.739Z",
+      "feature": "recruit",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:55:38.522Z",
+      "feature": "business114",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:55:51.743Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:56:01.882Z",
+      "feature": "config",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:56:09.911Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:56:16.162Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:56:26.980Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:56:33.077Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-25T17:56:36.794Z",
+      "feature": "business114",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-26T13:14:18.901Z",
+      "feature": "config",
       "phase": "do",
       "action": "updated"
     }

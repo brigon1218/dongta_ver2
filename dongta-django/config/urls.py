@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from apps.core.views import LandingPageView
+from apps.core.views import LandingPageView, HealthCheckView
 
 urlpatterns = [
     path('', LandingPageView.as_view(), name='landing'),
@@ -18,7 +18,13 @@ urlpatterns = [
     path('api/v1/sync/', include('apps.sync.urls')),
     path('api/v1/monitoring/', include('apps.monitoring.urls')),  # Phase 2.1: 모니터링
 
+    # 헬스체크 (로드밸런서/모니터링용, 인증 불필요)
+    path('api/v1/health/', HealthCheckView.as_view(), name='health-check'),
+
     # API 문서
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+
+    # Prometheus Metrics (Grafana/Prometheus scrape 용) - 설정 필요
+    # path('metrics/', include('django_prometheus.urls')),
 ]

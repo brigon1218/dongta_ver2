@@ -1,0 +1,129 @@
+groups:
+  - name: django_alerts
+    interval: 30s
+    rules:
+      # 높은 응답시간 경고 (P95 > 500ms)
+      - alert: HighResponseTime
+        expr: |
+          histogram_quantile(0.95, rate(django_http_request_duration_seconds_bucket[5m])) > 0.5
+        for: 5m
+        labels:
+          severity: warning
+          service: django
+        annotations:
+          summary: "높은 응답시간 감지"
+          description: "Django P95 응답시간이 500ms를 초과했습니다 (현재: {{ $value | humanize }})"
+
+      # 매우 높은 응답시간 경고 (P99 > 1s)
+      - alert: CriticalResponseTime
+        expr: |
+          histogram_quantile(0.99, rate(django_http_request_duration_seconds_bucket[5m])) > 1.0
+        for: 2m
+        labels:
+          severity: critical
+          service: django
+        annotations:
+          summary: "매우 높은 응답시간 감지"
+          description: "Django P99 응답시간이 1초를 초과했습니다 (현재: {{ $value | humanize }})"
+
+      # 높은 오류율 경고 (5xx > 1%)
+      - alert: HighErrorRate
+        expr: |
+          (rate(django_http_requests_total{status=~"5.."}[5m]) / rate(django_http_requests_total[5m])) > 0.01
+        for: 5m
+        labels:
+          severity: warning
+          service: django
+        annotations:
+          summary: "높은 5xx 오류율 감지"
+          description: "5xx 오류율이 1%를 초과했습니다 (현재: {{ $value | humanizePercentage }})"
+
+      # 매우 높은 오류율 경고 (5xx > 5%)
+      - alert: CriticalErrorRate
+        expr: |
+          (rate(django_http_requests_total{status=~"5.."}[5m]) / rate(django_http_requests_total[5m])) > 0.05
+        for: 2m
+        labels:
+          severity: critical
+          service: django
+        annotations:
+          summary: "매우 높은 5xx 오류율 감지"
+          description: "5xx 오류율이 5%를 초과했습니다 (현재: {{ $value | humanizePercentage }})"
+
+  - name: database_alerts
+    interval: 30s
+    rules:
+      # DB 연결 풀 거의 가득 참
+      - alert: HighDBConnections
+        expr: |
+          pg_stat_activity_count > 15
+        for: 5m
+        labels:
+          severity: warning
+          service: postgresql
+        annotations:
+          summary: "높은 DB 연결 수 감지"
+          description: "활성 DB 연결이 15개를 초과했습니다 (현재: {{ $value }})"
+
+      # DB 연결 풀 한계
+      - alert: CriticalDBConnections
+        expr: |
+          pg_stat_activity_count > 18
+        for: 2m
+        labels:
+          severity: critical
+          service: postgresql
+        annotations:
+          summary: "DB 연결 풀 한계 도달"
+          description: "활성 DB 연결이 18개를 초과했습니다 (현재: {{ $value }})"
+
+      # Slow query 감지 (100ms 이상)
+      - alert: SlowQueriesDetected
+        expr: |
+          pg_stat_statements_mean_time > 100
+        for: 5m
+        labels:
+          severity: warning
+          service: postgresql
+        annotations:
+          summary: "Slow query 감지"
+          description: "평균 쿼리 시간이 100ms를 초과했습니다 (현재: {{ $value }}ms)"
+
+  - name: system_alerts
+    interval: 30s
+    rules:
+      # 높은 CPU 사용률
+      - alert: HighCPUUsage
+        expr: |
+          node_cpu_seconds_total > 0.7
+        for: 5m
+        labels:
+          severity: warning
+          service: system
+        annotations:
+          summary: "높은 CPU 사용률 감지"
+          description: "CPU 사용률이 70%를 초과했습니다 (현재: {{ $value | humanizePercentage }})"
+
+      # 높은 메모리 사용률
+      - alert: HighMemoryUsage
+        expr: |
+          (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) > 0.8
+        for: 5m
+        labels:
+          severity: warning
+          service: system
+        annotations:
+          summary: "높은 메모리 사용률 감지"
+          description: "메모리 사용률이 80%를 초과했습니다 (현재: {{ $value | humanizePercentage }})"
+
+      # 디스크 공간 부족
+      - alert: LowDiskSpace
+        expr: |
+          (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.1
+        for: 5m
+        labels:
+          severity: warning
+          service: system
+        annotations:
+          summary: "디스크 공간 부족"
+          description: "디스크 여유 공간이 10% 이하입니다 (현재: {{ $value | humanizePercentage }})"

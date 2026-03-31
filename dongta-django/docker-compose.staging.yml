@@ -83,8 +83,93 @@ services:
     environment:
       - DOMAIN=dongta.theuit.info
 
+  # Prometheus - 메트릭 수집 및 저장
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ../config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ../config/prometheus/alert_rules.yml:/etc/prometheus/alert_rules.yml:ro
+      - prometheus_staging_data:/prometheus
+    ports:
+      - "127.0.0.1:9090:9090"  # 외부 직접 접근 차단, SSH 터널 또는 Nginx 프록시 경유
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=15d'
+    depends_on:
+      - web
+    restart: always
+
+  # Grafana - 메트릭 시각화
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "127.0.0.1:3000:3000"  # 외부 직접 접근 차단, SSH 터널 또는 Nginx 프록시 경유
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_INSTALL_PLUGINS: redis-datasource
+    volumes:
+      - grafana_staging_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    restart: always
+
+  # Alertmanager - 알림 라우팅 (Slack/Email)
+  alertmanager:
+    image: prom/alertmanager:latest
+    volumes:
+      - ../config/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+    ports:
+      - "127.0.0.1:9093:9093"  # 외부 직접 접근 차단
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+    depends_on:
+      - prometheus
+    restart: always
+
+  # PostgreSQL Exporter - DB 메트릭 수집
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:latest
+    ports:
+      - "9187:9187"
+    environment:
+      DATA_SOURCE_NAME: "postgresql://dongta_user:test_password@db:5432/dongtadb_test?sslmode=disable"
+    depends_on:
+      - db
+    restart: always
+
+  # Redis Exporter - Redis 메트릭 수집
+  redis-exporter:
+    image: oliver006/redis_exporter:latest
+    ports:
+      - "9121:9121"
+    environment:
+      REDIS_ADDR: "redis://redis:6379"
+    depends_on:
+      - redis
+    restart: always
+
+  # Node Exporter - 시스템 리소스 메트릭
+  node-exporter:
+    image: prom/node-exporter:latest
+    ports:
+      - "9100:9100"
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    restart: always
+
 volumes:
   postgres_staging_data:
   redis_staging_data:
   static_staging_volume:
   media_staging_volume:
+  prometheus_staging_data:
+  grafana_staging_data:

@@ -1,0 +1,42 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    environment: staging
+
+# Alert rule 파일 로드
+rule_files:
+  - "alert_rules.yml"
+
+# Alertmanager 연동
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+scrape_configs:
+  # Django 앱 (django-prometheus /metrics 엔드포인트)
+  - job_name: 'django'
+    static_configs:
+      - targets:
+          - web:8000  # Docker DNS 서비스명 사용 (localhost:* 아님)
+    metrics_path: '/metrics'
+
+  # PostgreSQL Exporter
+  - job_name: 'postgres'
+    static_configs:
+      - targets:
+          - postgres-exporter:9187  # Docker DNS 서비스명
+
+  # Redis Exporter
+  - job_name: 'redis'
+    static_configs:
+      - targets:
+          - redis-exporter:9121  # Docker DNS 서비스명
+
+  # Node Exporter (호스트 시스템 메트릭)
+  - job_name: 'node'
+    static_configs:
+      - targets:
+          - node-exporter:9100  # Docker DNS 서비스명
