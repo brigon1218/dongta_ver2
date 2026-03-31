@@ -27,6 +27,7 @@ class EventOutboxAdmin(admin.ModelAdmin):
     )
     list_filter = ('status', 'event_type', 'aggregate_type', 'created_at')
     search_fields = ('event_type', 'aggregate_type', 'correlation_id')
+    list_per_page = 20
     readonly_fields = (
         'id',
         'event_type',
@@ -147,6 +148,7 @@ class SyncLogAdmin(admin.ModelAdmin):
     )
     list_filter = ('result', 'started_at')
     search_fields = ('task_id', 'detail')
+    list_per_page = 20
     readonly_fields = (
         'task_id',
         'started_at',

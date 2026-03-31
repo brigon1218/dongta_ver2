@@ -10,6 +10,7 @@ class BusinessAdmin(admin.ModelAdmin):
     ]
     list_filter = ['is_approved', 'industry_type', 'business_type', 'created_at']
     search_fields = ['corp_name', 'member__username', 'keywords', 'phone']
+    list_per_page = 20
     actions = ['approve_businesses']
 
     def approve_businesses(self, request, queryset):

@@ -8,6 +8,7 @@ class MemberAdmin(UserAdmin):
     list_display = ['username', 'name', 'email', 'level', 'region', 'login_count',
                     'is_active', 'is_deleted', 'created_at']
     list_filter = ['level', 'region', 'is_active', 'is_overseas', 'is_deleted']
+    list_per_page = 20
     search_fields = ['username', 'name', 'email', 'phone']
     ordering = ['-created_at']
 
@@ -34,3 +35,4 @@ class MemberAdmin(UserAdmin):
 class MemberDormantAdmin(admin.ModelAdmin):
     list_display = ['member', 'dormant_since', 'created_at']
     search_fields = ['member__username', 'member__name']
+    list_per_page = 20

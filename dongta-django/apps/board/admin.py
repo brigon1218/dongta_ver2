@@ -10,6 +10,7 @@ class PostAdmin(admin.ModelAdmin):
     ]
     list_filter = ['category', 'is_pinned', 'created_at']
     search_fields = ['title', 'content', 'member__username']
+    list_per_page = 20
     raw_id_fields = ['member']
     actions = ['delete_posts']
 
@@ -25,6 +26,7 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ['id', 'post', 'member', 'parent', 'created_at']
     list_filter = ['created_at']
     search_fields = ['content', 'member__username']
+    list_per_page = 20
     raw_id_fields = ['post', 'member', 'parent']
 
 
@@ -32,3 +34,4 @@ class CommentAdmin(admin.ModelAdmin):
 class PostLikeAdmin(admin.ModelAdmin):
     list_display = ['post', 'member', 'created_at']
     raw_id_fields = ['post', 'member']
+    list_per_page = 20

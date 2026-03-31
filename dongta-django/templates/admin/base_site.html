@@ -113,6 +113,16 @@ div.breadcrumbs a { color: #2d6a8a !important; }
   font-weight: 600 !important;
 }
 
+/* ── 레이아웃 유지 (flex 구조 명시적 보장) ── */
+.main {
+  display: flex !important;
+  align-items: flex-start !important;
+}
+.main > .content {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+}
+
 /* ── 메인 콘텐츠 ── */
 #content {
   background: #fff !important;
@@ -297,28 +307,76 @@ ul.messagelist li.error {
   margin: 0 2px !important;
 }
 
-/* ── 필터 사이드바 ── */
+/* ── 필터 — 수평 칩 방식 ── */
 #changelist-filter {
-  background: #fff !important;
+  float: none !important;
+  width: auto !important;
+  margin: 0 0 16px !important;
+  padding: 10px 14px !important;
+  background: #f8fafc !important;
   border: 1px solid #dde3ea !important;
   border-radius: 8px !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 6px 10px !important;
+  box-shadow: none !important;
 }
 #changelist-filter h2 {
-  background: #2d6a8a !important;
-  color: #fff !important;
-  font-size: 12px !important;
-  padding: 9px 14px !important;
-  border-radius: 7px 7px 0 0 !important;
+  width: 100% !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  color: #aaa !important;
+  text-transform: uppercase !important;
+  letter-spacing: .08em !important;
+  margin: 0 0 2px !important;
+  padding: 0 !important;
+  background: none !important;
+  border-radius: 0 !important;
 }
 #changelist-filter h3 {
   font-size: 11px !important;
   font-weight: 700 !important;
-  text-transform: uppercase !important;
   color: #7f8c8d !important;
-  letter-spacing: .05em !important;
-  padding: 10px 14px 4px !important;
+  text-transform: uppercase !important;
+  letter-spacing: .04em !important;
+  padding: 2px 4px 2px 0 !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  align-self: center !important;
 }
-#changelist-filter li a { font-size: 13px !important; color: #2d6a8a !important; }
-#changelist-filter li.selected a { color: #1e4f6b !important; font-weight: 700 !important; }
+#changelist-filter ul {
+  display: contents !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+#changelist-filter ul li {
+  display: inline-flex !important;
+  list-style: none !important;
+}
+#changelist-filter li a {
+  display: inline-block !important;
+  padding: 3px 11px !important;
+  border: 1px solid #dde3ea !important;
+  border-radius: 20px !important;
+  font-size: 12px !important;
+  color: #555 !important;
+  background: #fff !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  transition: all .15s !important;
+}
+#changelist-filter li a:hover {
+  background: #e8f4fd !important;
+  border-color: #2d6a8a !important;
+  color: #2d6a8a !important;
+}
+#changelist-filter li.selected a {
+  background: #2d6a8a !important;
+  border-color: #2d6a8a !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+}
 </style>
 {% endblock %}
