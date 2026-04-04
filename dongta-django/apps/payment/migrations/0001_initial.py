@@ -29,7 +29,8 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name': '포인트 계정',
                 'verbose_name_plural': '포인트 계정',
-                'db_table': 'PointAccount',
+                'db_table': 'payment_pointaccount',
+                'ordering': ['-updated_at'],
                 'indexes': [
                     models.Index(fields=['member'], name='member_idx'),
                 ],
@@ -62,7 +63,7 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name': '결제 내역',
                 'verbose_name_plural': '결제 내역',
-                'db_table': 'PaymentHistory',
+                'db_table': 'payment_paymenthistory',
                 'ordering': ['-created_at'],
                 'indexes': [
                     models.Index(fields=['member', 'created_at'], name='member_created_idx'),

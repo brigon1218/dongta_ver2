@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-03-31T10:23:29.288Z",
+  "lastUpdated": "2026-04-04T02:58:41.380Z",
   "activeFeatures": [
     "config",
     "settings",
@@ -124,9 +124,9 @@
         "circuitBreakerOpen": false
       },
       "phaseNumber": 3,
-      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/core/views.py",
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/core/views.py",
       "timestamps": {
-        "lastUpdated": "2026-03-31T07:07:08.080Z"
+        "lastUpdated": "2026-04-04T02:56:19.743Z"
       }
     },
     "accounts": {
@@ -288,9 +288,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T10:43:49.480Z",
-        "lastUpdated": "2026-03-31T10:22:53.096Z"
+        "lastUpdated": "2026-04-04T02:58:41.380Z"
       },
-      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/payment/admin.py",
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/payment/migrations/0003_rename_payment_tables.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -639,7 +639,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-03-31T10:23:29.288Z"
+    "lastActivity": "2026-04-04T02:58:41.380Z"
   },
   "history": [
     {
@@ -1677,6 +1677,30 @@
     {
       "timestamp": "2026-03-31T10:23:29.287Z",
       "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-04T02:56:19.743Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-04T02:58:28.623Z",
+      "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-04T02:58:33.971Z",
+      "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-04T02:58:41.380Z",
+      "feature": "payment",
       "phase": "do",
       "action": "updated"
     }
