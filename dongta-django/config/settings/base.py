@@ -29,6 +29,7 @@ ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 DJANGO_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.auth',
+    'jazzmin',  # Must come before django.contrib.admin
     'django.contrib.admin',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -272,6 +273,51 @@ AWS_STORAGE_BUCKET_NAME = env('AWS_S3_BUCKET_NAME', default='')
 AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME', default='ap-northeast-2')
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 AWS_DEFAULT_ACL = 'private'
+
+# =============================================================================
+# Jazzmin (Django Admin UI)
+# =============================================================================
+JAZZMIN_SETTINGS = {
+    "site_title": "dongta.com 관리자",
+    "site_header": "dongta.com",
+    "site_brand": "dongta",
+    "welcome_sign": "dongta.com 관리자 페이지에 오신 것을 환영합니다",
+    "copyright": "dongta.com 2024. 모든 권리 보유",
+    "search_model": ["auth.User", "accounts.Member"],
+    "topmenu_links": [
+        {"name": "홈", "url": "admin:index", "permissions": ["auth.add_user"]},
+        {"name": "API 문서", "url": "/api/schema/swagger/", "permissions": ["auth.add_user"]},
+        {"name": "사이트", "url": "/", "new_window": True},
+    ],
+    "usermenu_links": [
+        {
+            "model": "accounts.member"
+        }
+    ],
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "accounts.Member": "fas fa-user-tie",
+        "accounts.MemberDormant": "fas fa-user-slash",
+        "accounts.PasswordResetToken": "fas fa-key",
+        "business114.Business": "fas fa-store",
+        "recruit.Company": "fas fa-building",
+        "recruit.JobNotice": "fas fa-briefcase",
+        "recruit.JobSeeker": "fas fa-user-graduate",
+        "payment.PaymentHistory": "fas fa-credit-card",
+        "board.Post": "fas fa-newspaper",
+        "board.Comment": "fas fa-comments",
+        "board.PostLike": "fas fa-thumbs-up",
+    },
+    "default_icon_parents": "fas fa-chevron-right",
+    "default_icon_children": "fas fa-arrow-right",
+    "show_ui_builder": False,
+    "changeform_format": "single",
+    "language_chooser": False,
+}
 
 # =============================================================================
 # API 문서 (drf-spectacular)
