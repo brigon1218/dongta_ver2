@@ -23,7 +23,7 @@ class PointAccount(models.Model):
         return self.total_charged - self.total_used
 
     class Meta:
-        db_table = 'payment_point_account'
+        db_table = 'payment_pointaccount'
         verbose_name = '포인트계정'
         verbose_name_plural = '포인트계정 목록'
 
@@ -109,7 +109,7 @@ class PaymentHistory(BaseModel):
     confirmed_at = models.DateTimeField(null=True, blank=True, verbose_name='승인일시')
 
     class Meta:
-        db_table = 'payment_history'
+        db_table = 'payment_paymenthistory'
         verbose_name = '결제내역'
         verbose_name_plural = '결제내역 목록'
         indexes = [
