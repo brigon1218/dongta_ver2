@@ -79,18 +79,75 @@ docker-compose exec -T web python manage.py migrate
 docker-compose exec -T web python manage.py collectstatic --noinput
 ```
 
+## 🎨 Django Admin UI (Jazzmin)
+
+### Admin Panel
+- **URL**: https://dongta.theuit.info/admin
+- **Theme**: Jazzmin (Professional Admin UI)
+- **Features**:
+  - Modern responsive design
+  - Font Awesome icons for all models
+  - Search and filtering
+  - Customized navigation menu
+  - Korean language support
+
+### Quick Start
+```bash
+# After deployment
+ssh -i ~/.ssh/dongta_ver2.pem ubuntu@52.79.148.197
+cd /home/ubuntu/work_01/dongta-django
+
+# Restore member data from MySQL backup (500+ users)
+docker-compose exec -T web python manage.py restore_mysql_data --dry-run
+docker-compose exec -T web python manage.py restore_mysql_data
+
+# Access admin
+# https://dongta.theuit.info/admin
+```
+
+### Data Restoration
+- **Command**: `python manage.py restore_mysql_data`
+- **Backup Location**: `/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta.mysql/`
+- **Backup Files**:
+  - `dongta_1022.sql` (1.1GB) - Full dump
+  - `mysql_dongta_dump.sql` (1.1GB) - Backup copy
+- **Supported Options**:
+  - `--dry-run`: Preview only
+  - `--clear`: Clear test data first
+- **Data Mapped**:
+  - TBL_MEMB → Member (500+ users)
+  - MySQL fields auto-converted to Django fields
+  - Passwords auto-hashed (MD5 → bcrypt/argon2)
+
+---
+
 ## 📋 Deployment Checklist
 
 - [x] Docker images built
 - [x] PostgreSQL and Redis running
 - [x] Celery workers configured
 - [x] Environment variables set
-- [ ] Django web service verified
-- [ ] Static files collected
-- [ ] Admin panel accessible
+- [x] Django web service verified
+- [x] Static files collected
+- [ ] Admin panel accessible (Jazzmin)
+- [ ] Member data restored from MySQL
 - [ ] API endpoints tested
 
 ---
 
-**Last Updated**: 2026-03-11
-**Status**: Production Deployment in Progress
+## 📚 Documentation
+
+New documentation files created for Admin UI setup:
+
+1. **README_ADMIN_SETUP.md** - Quick start guide (5 min)
+2. **ADMIN_DEPLOYMENT_CHECKLIST.md** - Step-by-step server deployment
+3. **DATA_RESTORATION_GUIDE.md** - MySQL data restoration guide
+4. **CODE_CHANGES_DETAILED.md** - Detailed code changes
+5. **ADMIN_SETUP_SUMMARY.md** - Complete improvement summary
+
+Read `README_ADMIN_SETUP.md` first for quick overview.
+
+---
+
+**Last Updated**: 2026-04-04
+**Status**: Admin UI Complete, Ready for Server Deployment
