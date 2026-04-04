@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-04-04T03:00:03.210Z",
+  "lastUpdated": "2026-04-04T03:51:14.314Z",
   "activeFeatures": [
     "config",
     "settings",
@@ -138,9 +138,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:28:10.437Z",
-        "lastUpdated": "2026-03-31T10:22:36.891Z"
+        "lastUpdated": "2026-04-04T03:51:14.314Z"
       },
-      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/accounts/admin.py",
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/accounts/migrations/0001_initial.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -548,9 +548,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-11T13:52:55.317Z",
-        "lastUpdated": "2026-03-11T15:29:25.563Z"
+        "lastUpdated": "2026-04-04T03:21:30.103Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/server_control.sh",
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/admin_verification_test.sh",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -639,7 +639,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-04-04T03:00:03.210Z"
+    "lastActivity": "2026-04-04T03:51:14.314Z"
   },
   "history": [
     {
@@ -1713,6 +1713,18 @@
     {
       "timestamp": "2026-04-04T03:00:03.210Z",
       "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-04T03:21:30.103Z",
+      "feature": "work_01",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-04T03:51:14.314Z",
+      "feature": "accounts",
       "phase": "do",
       "action": "updated"
     }
