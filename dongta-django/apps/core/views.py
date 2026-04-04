@@ -84,7 +84,10 @@ class AdminDashboardStatsView(APIView):
     permission_classes = []
 
     def get(self, request, *args, **kwargs):
+        import logging
         from datetime import date
+
+        logger = logging.getLogger(__name__)
         today = date.today()
         stats = {}
 
@@ -101,9 +104,10 @@ class AdminDashboardStatsView(APIView):
                 'total': Business.objects.count(),
                 'pending_approval': Business.objects.filter(is_approved=False).count(),
             }
-        except Exception:
-            stats['users'] = {'total': 'N/A', 'today_new': 'N/A'}
-            stats['businesses'] = {'total': 'N/A', 'pending_approval': 'N/A'}
+        except Exception as e:
+            logger.error(f'Failed to fetch users/businesses stats: {str(e)}', exc_info=True)
+            stats['users'] = {'total': 0, 'today_new': 0, 'active': 0}
+            stats['businesses'] = {'total': 0, 'pending_approval': 0}
 
         # 결제 통계
         try:
@@ -117,8 +121,9 @@ class AdminDashboardStatsView(APIView):
                 'today_count': agg['count'] or 0,
                 'today_amount': int(agg['amount'] or 0),
             }
-        except Exception:
-            stats['payments'] = {'today_count': 'N/A', 'today_amount': 'N/A'}
+        except Exception as e:
+            logger.error(f'Failed to fetch payment stats: {str(e)}', exc_info=True)
+            stats['payments'] = {'today_count': 0, 'today_amount': 0}
 
         # 게시판 통계
         try:
@@ -127,8 +132,9 @@ class AdminDashboardStatsView(APIView):
                 'total': Post.objects.count(),
                 'today_new': Post.objects.filter(created_at__date=today).count(),
             }
-        except Exception:
-            stats['posts'] = {'total': 'N/A', 'today_new': 'N/A'}
+        except Exception as e:
+            logger.error(f'Failed to fetch post stats: {str(e)}', exc_info=True)
+            stats['posts'] = {'total': 0, 'today_new': 0}
 
         # 시스템 상태 (HealthCheckView 로직 재사용)
         system = {}
@@ -137,24 +143,33 @@ class AdminDashboardStatsView(APIView):
             with connection.cursor() as cursor:
                 cursor.execute('SELECT 1')
             system['database'] = 'ok'
-        except Exception:
+        except Exception as e:
+            logger.warning(f'Database health check failed: {str(e)}')
             system['database'] = 'error'
 
         try:
             from django.core.cache import cache
             cache.set('admin_stats_probe', '1', timeout=5)
             system['cache'] = 'ok' if cache.get('admin_stats_probe') == '1' else 'error'
-        except Exception:
+        except Exception as e:
+            logger.warning(f'Cache health check failed: {str(e)}')
             system['cache'] = 'error'
 
+        # Celery 체크는 optional - 실패해도 전체 응답 반환
         try:
-            from celery.app.control import Control
-            from config.celery import app as celery_app
-            inspector = celery_app.control.inspect(timeout=1.0)
-            active = inspector.active()
-            system['celery'] = 'ok' if active is not None else 'error'
-        except Exception:
-            system['celery'] = 'N/A'
+            from celery import current_app
+            from celery.app.control import Inspect
+            inspector = Inspect(app=current_app)
+            # 타임아웃이 발생할 수 있으므로 예외 처리
+            try:
+                stats_dict = inspector.stats(timeout=1.5)
+                system['celery'] = 'ok' if stats_dict else 'unknown'
+            except Exception as e:
+                logger.warning(f'Celery inspect timeout: {str(e)}')
+                system['celery'] = 'unknown'
+        except Exception as e:
+            logger.warning(f'Celery health check failed: {str(e)}')
+            system['celery'] = 'unknown'
 
         stats['system'] = system
         return Response(stats, status=status.HTTP_200_OK)

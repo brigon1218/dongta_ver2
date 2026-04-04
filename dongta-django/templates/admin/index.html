@@ -155,10 +155,13 @@
   })
     .then(function (r) {
       clearTimeout(timer);
-      if (!r.ok) throw new Error('HTTP ' + r.status);
+      if (!r.ok) {
+        throw new Error('HTTP ' + r.status + ' ' + r.statusText);
+      }
       return r.json();
     })
     .then(function (data) {
+      console.log('Dashboard stats loaded:', data);
       var u  = data.users      || {};
       var b  = data.businesses || {};
       var p  = data.payments   || {};
@@ -178,9 +181,13 @@
         row('오늘 건수', fmt(p.today_count), '건') +
         row('오늘 금액', fmt(p.today_amount), '원');
 
-      document.getElementById('card-posts').innerHTML =
-        row('전체 게시글', fmt(po.total), '개') +
-        row('오늘 신규', fmt(po.today_new), '개');
+      // card-posts가 없을 수 있으므로 체크
+      var postCard = document.getElementById('card-posts');
+      if (postCard) {
+        postCard.innerHTML =
+          row('전체 게시글', fmt(po.total), '개') +
+          row('오늘 신규', fmt(po.today_new), '개');
+      }
 
       document.getElementById('card-system').innerHTML =
         '<div class="status-row">'
@@ -193,13 +200,17 @@
       document.getElementById('dash-updated').textContent =
         '마지막 업데이트: ' + now.toLocaleTimeString('ko-KR');
     })
-    .catch(function () {
+    .catch(function (err) {
       clearTimeout(timer);
+      console.error('Dashboard fetch error:', err);
+      var errorMsg = '<span style="font-size:12px;color:#c62828;">⚠️ 데이터 로드 오류</span><div style="font-size:10px;color:#999;margin-top:4px;">' +
+        (err.message || '연결 실패') + '</div>';
       ['card-users','card-businesses','card-payments','card-posts','card-system'].forEach(function (id) {
         var el = document.getElementById(id);
-        if (el) el.innerHTML = '<span style="font-size:12px;color:#c62828;">데이터를 불러올 수 없습니다.</span>';
+        if (el) el.innerHTML = errorMsg;
       });
-      document.getElementById('dash-updated').textContent = '업데이트 실패';
+      document.getElementById('dash-updated').innerHTML =
+        '업데이트 실패 - <a href="javascript:location.reload();" style="color:#417690;">새로고침</a>';
     });
 })();
 </script>
