@@ -29,12 +29,11 @@
 
 .stat-card__icon {
   position: absolute;
-  top: 14px;
-  right: 16px;
-  width: 32px;
-  height: 32px;
-  opacity: .12;
-  color: #1e3a4f;
+  top: 10px;
+  right: 12px;
+  font-size: 42px;
+  opacity: .15;
+  line-height: 1;
 }
 .stat-card__label {
   font-size: 11px;
@@ -89,12 +88,7 @@
 
   <!-- 회원 -->
   <div class="stat-card c-blue">
-    <svg class="stat-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-      <circle cx="9" cy="7" r="4"></circle>
-      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-    </svg>
+    <span class="stat-card__icon">👤</span>
     <p class="stat-card__label">회원</p>
     <div class="stat-card__rows" id="card-users">
       <div class="skeleton"></div>
@@ -103,12 +97,7 @@
 
   <!-- 사업장 -->
   <div class="stat-card c-orange">
-    <svg class="stat-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <polyline points="12 3 20 7.5 20 19.5 12 24 4 19.5 4 7.5 12 3"></polyline>
-      <polyline points="12 12 20 7.5"></polyline>
-      <polyline points="12 24 12 12"></polyline>
-      <polyline points="4 7.5 12 12"></polyline>
-    </svg>
+    <span class="stat-card__icon">🏛</span>
     <p class="stat-card__label">사업장</p>
     <div class="stat-card__rows" id="card-businesses">
       <div class="skeleton"></div>
@@ -117,10 +106,7 @@
 
   <!-- 결제 -->
   <div class="stat-card c-green">
-    <svg class="stat-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-      <path d="M1 10h22"></path>
-    </svg>
+    <span class="stat-card__icon">💰</span>
     <p class="stat-card__label">결제 (오늘)</p>
     <div class="stat-card__rows" id="card-payments">
       <div class="skeleton"></div>
@@ -129,13 +115,7 @@
 
   <!-- 시스템 -->
   <div class="stat-card c-purple">
-    <svg class="stat-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="1"></circle>
-      <path d="M12 1v6m0 6v6"></path>
-      <path d="M4.22 4.22l4.24 4.24m2.12 2.12l4.24 4.24"></path>
-      <path d="M1 12h6m6 0h6"></path>
-      <path d="M4.22 19.78l4.24-4.24m2.12-2.12l4.24-4.24"></path>
-    </svg>
+    <span class="stat-card__icon">⚡</span>
     <p class="stat-card__label">시스템 상태</p>
     <div id="card-system">
       <div class="skeleton"></div>
