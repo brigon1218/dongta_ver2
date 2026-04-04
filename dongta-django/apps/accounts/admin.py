@@ -4,7 +4,7 @@ from .models import Member, MemberDormant
 
 
 @admin.register(Member)
-class MemberAdmin(UserAdmin):
+class MemberAdmin(admin.ModelAdmin):
     list_display = ['username', 'name', 'email', 'level', 'region', 'login_count',
                     'is_active', 'is_deleted', 'created_at']
     list_filter = ['level', 'region', 'is_active', 'is_overseas', 'is_deleted']
