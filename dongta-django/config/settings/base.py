@@ -5,6 +5,13 @@ from pathlib import Path
 from datetime import timedelta
 import environ
 
+# PyMySQL을 MySQL 백엔드 대신 사용 (mysqlclient 대체)
+try:
+    import pymysql
+    pymysql.install_as_MySQLdb()
+except ImportError:
+    pass
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # =============================================================================
