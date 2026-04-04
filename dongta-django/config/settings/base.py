@@ -368,15 +368,27 @@ EVENT_LOG_ENABLED = env('EVENT_LOG_ENABLED', default=True)
 MONITORING_ADMIN_ONLY = env('MONITORING_ADMIN_ONLY', default=True)
 
 # Legacy DB 연결 (MySQL)
-DATABASES['legacy'] = {
-    'ENGINE': 'django.db.backends.mysql',
-    'NAME': env('LEGACY_DB_NAME', default='dongta_legacy'),
-    'USER': env('LEGACY_DB_USER', default='root'),
-    'PASSWORD': env('LEGACY_DB_PASSWORD', default=''),
-    'HOST': env('LEGACY_DB_HOST', default='localhost'),
-    'PORT': env('LEGACY_DB_PORT', default='3306'),
-    'OPTIONS': {
-        'charset': 'utf8mb4',
-        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+# MYSQL_DATABASE_URL이 있으면 사용, 없으면 개별 환경변수 사용
+if env('MYSQL_DATABASE_URL', default=None):
+    # MYSQL_DATABASE_URL 형식: mysql://user:password@host:port/dbname
+    DATABASES['legacy'] = {
+        **env.db('MYSQL_DATABASE_URL'),
+        'CONN_MAX_AGE': 60,
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        }
     }
-}
+else:
+    DATABASES['legacy'] = {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': env('LEGACY_DB_NAME', default='dongta_legacy'),
+        'USER': env('LEGACY_DB_USER', default='root'),
+        'PASSWORD': env('LEGACY_DB_PASSWORD', default=''),
+        'HOST': env('LEGACY_DB_HOST', default='localhost'),
+        'PORT': env('LEGACY_DB_PORT', default='3306'),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        }
+    }
