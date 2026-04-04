@@ -116,13 +116,6 @@ DATABASES = {
     }
 }
 
-# MySQL (하이브리드 기간 레거시 동기화)
-if env('MYSQL_DATABASE_URL', default=None):
-    DATABASES['legacy'] = {
-        **env.db('MYSQL_DATABASE_URL'),
-        'CONN_MAX_AGE': env.int('DB_CONN_MAX_AGE', default=60),
-    }
-
 # 커스텀 유저 모델
 AUTH_USER_MODEL = 'accounts.Member'
 
@@ -290,7 +283,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "dongta",
     "welcome_sign": "dongta.com 관리자 페이지에 오신 것을 환영합니다",
     "copyright": "dongta.com 2024. 모든 권리 보유",
-    "search_model": ["auth.User", "accounts.Member"],
+    "search_model": ["accounts.Member"],
     "topmenu_links": [
         {"name": "홈", "url": "admin:index", "permissions": ["auth.add_user"]},
         {"name": "API 문서", "url": "/api/schema/swagger/", "permissions": ["auth.add_user"]},
@@ -310,6 +303,7 @@ JAZZMIN_SETTINGS = {
         "accounts.Member": "fas fa-user-tie",
         "accounts.MemberDormant": "fas fa-user-slash",
         "accounts.PasswordResetToken": "fas fa-key",
+        "payment.PointAccount": "fas fa-wallet",
         "business114.Business": "fas fa-store",
         "recruit.Company": "fas fa-building",
         "recruit.JobNotice": "fas fa-briefcase",

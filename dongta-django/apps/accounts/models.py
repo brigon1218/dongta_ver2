@@ -25,7 +25,7 @@ class MemberManager(BaseUserManager):
         return self.create_user(username, email, password, **extra_fields)
 
 
-class Member(AbstractBaseUser, BaseModel):
+class Member(AbstractBaseUser, PermissionsMixin, BaseModel):
     """
     회원 모델 (MySQL: TBL_MEMB 마이그레이션 대상)
     패스워드: Argon2id (PHP의 md5 대체)

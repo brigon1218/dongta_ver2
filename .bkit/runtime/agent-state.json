@@ -1,14 +1,25 @@
 {
   "version": "1.0",
-  "enabled": false,
+  "enabled": true,
   "teamName": "",
   "feature": "관리자_대시보드",
-  "pdcaPhase": "design",
+  "pdcaPhase": "archived",
   "orchestrationPattern": "leader",
   "ctoAgent": "opus",
-  "startedAt": "2026-03-31T07:08:03.209Z",
-  "lastUpdated": "2026-04-04T03:18:22.744Z",
-  "teammates": [],
+  "startedAt": "2026-04-04T04:21:42.011Z",
+  "lastUpdated": "2026-04-04T04:24:48.080Z",
+  "teammates": [
+    {
+      "name": "ad57dccc7827b0334",
+      "role": "bkit:gap-detector",
+      "model": "sonnet",
+      "status": "completed",
+      "currentTask": null,
+      "taskId": null,
+      "startedAt": "2026-04-04T04:21:42.012Z",
+      "lastActivityAt": "2026-04-04T04:24:48.075Z"
+    }
+  ],
   "progress": {
     "totalTasks": 0,
     "completedTasks": 0,
@@ -17,5 +28,5 @@
     "pendingTasks": 0
   },
   "recentMessages": [],
-  "sessionId": "5e129d4b-3035-4d73-83f6-883c16a9b6bf"
+  "sessionId": "e9aa3ce3-c84b-4de9-a7e2-20e95052b0f7"
 }
