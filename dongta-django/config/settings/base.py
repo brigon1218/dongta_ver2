@@ -282,7 +282,7 @@ JAZZMIN_SETTINGS = {
     "site_header": "dongta.com",
     "site_brand": "dongta",
     "welcome_sign": "dongta.com 관리자 페이지에 오신 것을 환영합니다",
-    "copyright": "dongta.com 2024. 모든 권리 보유",
+    "copyright": "dongta.com 2026. 모든 권리 보유",
     "search_model": ["accounts.Member"],
     "topmenu_links": [
         {"name": "홈", "url": "admin:index", "permissions": ["auth.add_user"]},
