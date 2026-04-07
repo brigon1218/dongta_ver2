@@ -17,6 +17,12 @@ x-celery-common: &celery-common
       condition: service_healthy
     redis:
       condition: service_healthy
+  healthcheck:
+    test: ["CMD-SHELL", "celery -A config inspect ping --destination celery@$${HOSTNAME} 2>/dev/null | grep -q 'pong' || exit 1"]
+    interval: 30s
+    timeout: 10s
+    start_period: 30s
+    retries: 3
 
 services:
   db:
