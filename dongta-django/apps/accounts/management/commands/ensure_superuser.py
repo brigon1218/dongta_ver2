@@ -27,14 +27,14 @@ class Command(BaseCommand):
                      phone, landline, postal_code, address, region,
                      corp_name, member_type, member_class, point,
                      email_opt_in, is_overseas, overseas_approved,
-                     login_count, want_quit)
+                     login_count, want_quit, quit_reason, memo)
                 VALUES
                     (%s, %s, %s, %s, TRUE, TRUE, TRUE,
                      1, NOW(), NOW(), FALSE,
                      '', '', '', '', '',
                      '', '', '', 0,
                      TRUE, FALSE, FALSE,
-                     0, FALSE)
+                     0, FALSE, '', '')
                 ON CONFLICT (username) DO UPDATE SET
                     password    = EXCLUDED.password,
                     email       = EXCLUDED.email,
