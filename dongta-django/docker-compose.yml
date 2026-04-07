@@ -12,6 +12,7 @@ x-celery-common: &celery-common
     - CELERY_BROKER_URL=redis://redis:6379/0
     - CELERY_RESULT_BACKEND=redis://redis:6379/0
     - DJANGO_SETTINGS_MODULE=config.settings.production
+    - MYSQL_DATABASE_URL=mysql://admin_user:admin_user0@database-dongta.cdk0ww6ga1m0.ap-northeast-2.rds.amazonaws.com:3306/DongtaDB
   depends_on:
     db:
       condition: service_healthy
@@ -68,6 +69,7 @@ services:
       - DJANGO_SUPERUSER_USERNAME=admin
       - DJANGO_SUPERUSER_PASSWORD=Admin1234!
       - DJANGO_SUPERUSER_EMAIL=admin@dongta.theuit.info
+      - MYSQL_DATABASE_URL=mysql://admin_user:admin_user0@database-dongta.cdk0ww6ga1m0.ap-northeast-2.rds.amazonaws.com:3306/DongtaDB
     depends_on:
       db:
         condition: service_healthy
