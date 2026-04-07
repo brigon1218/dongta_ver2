@@ -6,7 +6,6 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sync', '0002_alter_eventoutbox_event_type'),
         ('sync', '0002_eventsource_fields'),
     ]
 
