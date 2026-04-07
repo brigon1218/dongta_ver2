@@ -37,14 +37,15 @@ SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Lax'
 
 CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False  # True 시 일부 브라우저에서 CSRF 쿠키 전송 문제 발생
 CSRF_COOKIE_SAMESITE = 'Lax'
 
 # Cloudflare 도메인 신뢰 설정 (CSRF 토큰 검증)
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[
     'https://dongta.theuit.info',
     'https://www.dongta.theuit.info',
-    'https://api.dongta.theuit.info',
+    'https://www.dongta.com',
+    'https://dongta.com',
 ])
 
 # 세션 및 캐시 최적화 (Redis 사용)
