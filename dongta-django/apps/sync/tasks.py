@@ -65,6 +65,12 @@ def _process_member_event(payload: dict[str, Any], event_type: str) -> None:
     if not memb_idx:
         raise ValueError('payload에 memb_idx가 없습니다.')
 
+    # 슈퍼유저/스태프 계정은 MySQL 동기화로 덮어쓰지 않음
+    existing = Member.objects.filter(id=memb_idx).first()
+    if existing and (existing.is_superuser or existing.is_staff):
+        logger.info('슈퍼유저/스태프 동기화 스킵: id=%s username=%s', memb_idx, existing.username)
+        return
+
     # 전화번호 정규화: hp1+hp2+hp3 → 010-1234-5678
     phone_parts = [
         str(payload.get('memb_hp1', '')).strip(),
