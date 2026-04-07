@@ -3,6 +3,7 @@ MySQL SQL 덤프 파일에서 TBL_MEMB 데이터를 파싱하여 PostgreSQL로 �
 Usage: python manage.py restore_from_sql <sql_file_path>
 """
 import re
+import ipaddress
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password
@@ -220,6 +221,15 @@ class Command(BaseCommand):
         except ValueError:
             login_count = 0
 
+        # IP 유효성 검사
+        reg_ip = ''
+        if memb_ip:
+            try:
+                ipaddress.ip_address(memb_ip.strip())
+                reg_ip = memb_ip.strip()[:45]
+            except ValueError:
+                pass
+
         return Member(
             username=memb_id.strip()[:50],
             name=memb_name.strip()[:50],
@@ -236,7 +246,7 @@ class Command(BaseCommand):
             member_type=(memb_type or '')[:20],
             point=point,
             created_at=created_at,
-            reg_ip=(memb_ip or '')[:45],
+            reg_ip=reg_ip,
             login_count=login_count,
             email_opt_in=memb_mailflag != '0',
             want_quit=memb_wantquitflag == '1',
