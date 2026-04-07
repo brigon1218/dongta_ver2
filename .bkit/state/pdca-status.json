@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-04-04T05:41:15.318Z",
+  "lastUpdated": "2026-04-07T05:17:16.743Z",
   "activeFeatures": [
     "config",
     "settings",
@@ -87,9 +87,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.558Z",
-        "lastUpdated": "2026-04-04T05:41:15.318Z"
+        "lastUpdated": "2026-04-07T04:34:20.273Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/settings/base.py",
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/config/settings/production.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -138,9 +138,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:28:10.437Z",
-        "lastUpdated": "2026-04-04T05:41:10.965Z"
+        "lastUpdated": "2026-04-07T04:59:02.969Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/accounts/admin.py",
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/accounts/management/commands/ensure_superuser.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -348,9 +348,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-06T08:30:25.518Z",
-        "lastUpdated": "2026-03-31T10:23:29.284Z"
+        "lastUpdated": "2026-04-07T05:17:16.740Z"
       },
-      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/sync/admin.py",
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/sync/tasks.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -639,7 +639,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-04-04T05:41:15.318Z"
+    "lastActivity": "2026-04-07T05:17:16.743Z"
   },
   "history": [
     {
@@ -1839,6 +1839,60 @@
     {
       "timestamp": "2026-04-04T05:41:15.318Z",
       "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T03:21:55.010Z",
+      "feature": "sync",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T03:42:58.578Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T04:17:38.306Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T04:17:54.806Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T04:34:20.276Z",
+      "feature": "settings",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T04:52:53.427Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T04:57:45.814Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T04:59:02.973Z",
+      "feature": "accounts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T05:17:16.743Z",
+      "feature": "sync",
       "phase": "do",
       "action": "updated"
     }
