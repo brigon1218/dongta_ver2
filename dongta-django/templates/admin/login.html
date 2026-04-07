@@ -1,210 +1,211 @@
-{% extends "admin/base_site.html" %}
 {% load i18n static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>동타 관리자 로그인</title>
+  <link rel="shortcut icon" href="{% static 'vendor/adminlte/img/AdminLTELogo.png' %}" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-{% block extrastyle %}
-{{ block.super }}
-<style>
-body.login {
-  background: #f0f4f8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  margin: 0;
-}
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d6a8a 60%, #3a8daa 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-/* 기본 헤더/푸터 숨기기 */
-body.login #header,
-body.login #footer { display: none; }
+    .login-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+      width: 100%;
+      max-width: 400px;
+      padding: 48px 40px 40px;
+    }
 
-body.login #container {
-  width: 100%;
-  max-width: 420px;
-  margin: 0 auto;
-  padding: 32px 16px;
-  min-height: unset;
-}
+    /* 로고 영역 */
+    .login-logo {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .login-logo__icon {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d6a8a 100%);
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 24px rgba(45,106,138,.35);
+    }
+    .login-logo__icon img {
+      width: 36px; height: 36px;
+      filter: brightness(0) invert(1);
+    }
+    .login-logo__title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a2e40;
+      margin-bottom: 4px;
+    }
+    .login-logo__sub {
+      font-size: 13px;
+      color: #8899aa;
+    }
 
-body.login #content-main {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0,0,0,.10);
-  padding: 40px 36px 32px;
-}
+    /* 에러 메시지 */
+    .errornote {
+      background: #fff5f5;
+      border: 1px solid #fed7d7;
+      border-radius: 8px;
+      color: #c53030;
+      font-size: 13px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
 
-/* 로고/타이틀 영역 */
-.login-logo {
-  text-align: center;
-  margin-bottom: 28px;
-}
-.login-logo__icon {
-  width: 56px; height: 56px;
-  background: linear-gradient(135deg, #2d6a8a 0%, #417690 100%);
-  border-radius: 14px;
-  display: inline-flex; align-items: center; justify-content: center;
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 12px;
-  box-shadow: 0 4px 12px rgba(45,106,138,.25);
-  color: #fff;
-  line-height: 1;
-}
-.login-logo__title {
-  font-size: 22px; font-weight: 700; color: #213547;
-  margin: 0 0 4px;
-}
-.login-logo__sub {
-  font-size: 12px; color: #888;
-  margin: 0;
-}
+    /* 폼 */
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4a5568;
+      margin-bottom: 7px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 15px;
+      color: #2d3748;
+      background: #f7fafc;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+      outline: none;
+      appearance: none;
+    }
+    .form-group input[type="text"]:focus,
+    .form-group input[type="password"]:focus {
+      border-color: #2d6a8a;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(45,106,138,.15);
+    }
+    .form-group .errorlist {
+      list-style: none;
+      color: #c53030;
+      font-size: 12px;
+      margin-top: 5px;
+    }
 
-/* 폼 */
-#login-form .form-row {
-  margin-bottom: 16px;
-}
-#login-form label {
-  display: block;
-  font-size: 12px; font-weight: 600;
-  color: #555;
-  margin-bottom: 6px;
-  letter-spacing: .03em;
-}
-#login-form input[type="text"],
-#login-form input[type="password"] {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1.5px solid #dde3ea;
-  border-radius: 8px;
-  font-size: 14px;
-  color: #213547;
-  background: #fafbfc;
-  box-sizing: border-box;
-  transition: border-color .2s;
-  outline: none;
-}
-#login-form input[type="text"]:focus,
-#login-form input[type="password"]:focus {
-  border-color: #417690;
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(65,118,144,.12);
-}
+    /* 로그인 버튼 */
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d6a8a 100%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: .04em;
+      box-shadow: 0 4px 16px rgba(45,106,138,.35);
+      transition: all .2s;
+      margin-top: 8px;
+    }
+    .btn-login:hover {
+      background: linear-gradient(135deg, #152d4a 0%, #1e4f6b 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(45,106,138,.45);
+    }
+    .btn-login:active {
+      transform: translateY(0);
+    }
 
-/* 로그인 버튼 */
-#login-form .submit-row {
-  margin-top: 24px;
-  background: transparent;
-  border: none;
-  padding: 0;
-}
-#login-form input[type="submit"] {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg, #2d6a8a 0%, #417690 100%);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all .2s;
-  letter-spacing: .03em;
-  box-shadow: 0 2px 8px rgba(45,106,138,.2);
-}
-#login-form input[type="submit"]:hover {
-  background: linear-gradient(135deg, #1e4f6b 0%, #2d6a8a 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(45,106,138,.3);
-}
-#login-form input[type="submit"]:active {
-  transform: translateY(0);
-}
+    /* 비밀번호 찾기 */
+    .forgot-link {
+      text-align: right;
+      margin-top: 8px;
+    }
+    .forgot-link a {
+      font-size: 12px;
+      color: #2d6a8a;
+      text-decoration: none;
+    }
+    .forgot-link a:hover { text-decoration: underline; }
 
-/* 에러 메시지 */
-.errornote {
-  background: #fff0f0;
-  border: 1px solid #f5c2c2;
-  border-radius: 8px;
-  color: #c0392b;
-  font-size: 13px;
-  padding: 10px 14px;
-  margin-bottom: 16px;
-}
-.errorlist {
-  color: #c0392b;
-  font-size: 12px;
-  margin: 4px 0 0;
-  padding: 0;
-  list-style: none;
-}
+    /* 푸터 */
+    .login-footer {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 12px;
+      color: #a0aec0;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
 
-/* 비밀번호 찾기 링크 */
-.password-reset-link {
-  text-align: right;
-  margin-top: 6px;
-}
-.password-reset-link a {
-  font-size: 12px;
-  color: #417690;
-  text-decoration: none;
-}
-.password-reset-link a:hover { text-decoration: underline; }
-</style>
-{% endblock %}
-
-{% block bodyclass %}{{ block.super }} login{% endblock %}
-{% block usertools %}{% endblock %}
-{% block nav-global %}{% endblock %}
-{% block nav-sidebar %}{% endblock %}
-{% block content_title %}{% endblock %}
-{% block nav-breadcrumbs %}{% endblock %}
-
-{% block content %}
-{% if form.errors and not form.non_field_errors %}
-<p class="errornote">아이디 또는 비밀번호가 올바르지 않습니다.</p>
-{% endif %}
-{% if form.non_field_errors %}
-{% for error in form.non_field_errors %}
-<p class="errornote">{{ error }}</p>
-{% endfor %}
-{% endif %}
-
-<div id="content-main">
-
-  <div class="login-logo">
-    <div class="login-logo__icon">⊞</div>
-    <p class="login-logo__title">동타 관리자</p>
-    <p class="login-logo__sub">Dongta Admin Dashboard</p>
-  </div>
-
-  {% if user.is_authenticated %}
-  <p class="errornote">
-    현재 <strong>{{ username }}</strong> 계정으로 로그인되어 있으나 접근 권한이 없습니다.
-  </p>
-  {% endif %}
-
-  <form action="{{ app_path }}" method="post" id="login-form">
-    {% csrf_token %}
-    <div class="form-row">
-      {{ form.username.errors }}
-      <label for="{{ form.username.id_for_label }}">아이디</label>
-      {{ form.username }}
+    <div class="login-logo">
+      <div class="login-logo__icon">
+        <img src="{% static 'vendor/adminlte/img/AdminLTELogo.png' %}" alt="dongta">
+      </div>
+      <div class="login-logo__title">동타 관리자</div>
+      <div class="login-logo__sub">Dongta Admin Dashboard</div>
     </div>
-    <div class="form-row">
-      {{ form.password.errors }}
-      <label for="{{ form.password.id_for_label }}">비밀번호</label>
-      {{ form.password }}
-      <input type="hidden" name="next" value="{{ next }}">
-    </div>
-    {% url 'admin_password_reset' as password_reset_url %}
-    {% if password_reset_url %}
-    <div class="password-reset-link">
-      <a href="{{ password_reset_url }}">비밀번호를 잊으셨나요?</a>
+
+    {% if form.errors and not form.non_field_errors %}
+    <div class="errornote">아이디 또는 비밀번호가 올바르지 않습니다.</div>
+    {% endif %}
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <div class="errornote">{{ error }}</div>
+    {% endfor %}
+    {% endif %}
+    {% if user.is_authenticated %}
+    <div class="errornote">
+      현재 <strong>{{ username }}</strong> 계정으로 로그인되어 있으나 접근 권한이 없습니다.
     </div>
     {% endif %}
-    <div class="submit-row">
-      <input type="submit" value="로그인">
-    </div>
-  </form>
 
-</div>
-{% endblock %}
+    <form action="{{ app_path }}" method="post" id="login-form">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+
+      <div class="form-group">
+        {{ form.username.errors }}
+        <label for="{{ form.username.id_for_label }}">아이디</label>
+        {{ form.username }}
+      </div>
+      <div class="form-group">
+        {{ form.password.errors }}
+        <label for="{{ form.password.id_for_label }}">비밀번호</label>
+        {{ form.password }}
+      </div>
+
+      {% url 'admin_password_reset' as password_reset_url %}
+      {% if password_reset_url %}
+      <div class="forgot-link">
+        <a href="{{ password_reset_url }}">비밀번호를 잊으셨나요?</a>
+      </div>
+      {% endif %}
+
+      <button type="submit" class="btn-login">로그인</button>
+    </form>
+
+    <div class="login-footer">© 2026 Dongta Admin. All rights reserved.</div>
+  </div>
+</body>
+</html>
