@@ -49,7 +49,10 @@ services:
 
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py migrate --run-syncdb &&
+             python manage.py ensure_superuser &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
     ports:
@@ -62,6 +65,9 @@ services:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
       - DJANGO_SETTINGS_MODULE=config.settings.production
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_PASSWORD=Admin1234!
+      - DJANGO_SUPERUSER_EMAIL=admin@dongta.theuit.info
     depends_on:
       db:
         condition: service_healthy
