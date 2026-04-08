@@ -9,6 +9,9 @@ urlpatterns = [
     path('admin/dashboard-stats/', AdminDashboardStatsView.as_view(), name='admin-dashboard-stats'),
     path('admin/', admin.site.urls),
 
+    # API v1 - Admin
+    path('api/v1/admin/', include('apps.core.admin_urls')),
+
     # API v1
     path('api/v1/auth/', include('apps.accounts.urls')),
     path('api/v1/business/', include('apps.business114.urls')),
