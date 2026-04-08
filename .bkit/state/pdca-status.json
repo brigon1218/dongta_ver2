@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-04-07T05:17:16.743Z",
+  "lastUpdated": "2026-04-04T08:57:40.611Z",
   "activeFeatures": [
     "config",
     "settings",
@@ -87,9 +87,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:27:17.558Z",
-        "lastUpdated": "2026-04-07T04:34:20.273Z"
+        "lastUpdated": "2026-04-04T05:42:52.750Z"
       },
-      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/config/settings/production.py",
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/config/settings/base.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -138,9 +138,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-02T09:28:10.437Z",
-        "lastUpdated": "2026-04-07T04:59:02.969Z"
+        "lastUpdated": "2026-04-04T08:52:44.324Z"
       },
-      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/accounts/management/commands/ensure_superuser.py",
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/dongta-django/apps/accounts/management/commands/restore_from_sql.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -348,9 +348,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-06T08:30:25.518Z",
-        "lastUpdated": "2026-04-07T05:17:16.740Z"
+        "lastUpdated": "2026-03-31T10:23:29.284Z"
       },
-      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/sync/tasks.py",
+      "lastFile": "/mnt/c/Users/안용환/workspace/vibe_coding/work_01/dongta_ver2/dongta-django/apps/sync/admin.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -548,9 +548,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-11T13:52:55.317Z",
-        "lastUpdated": "2026-04-04T03:21:30.103Z"
+        "lastUpdated": "2026-04-04T08:57:40.611Z"
       },
-      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/admin_verification_test.sh",
+      "lastFile": "/Volumes/sk-p31/workspace/vibe_coding/work_01/restore_members_from_sql.py",
       "stateMachine": {
         "currentState": "do",
         "previousState": null,
@@ -639,7 +639,7 @@
   "session": {
     "startedAt": "2026-03-02T08:21:46.542Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-04-07T05:17:16.743Z"
+    "lastActivity": "2026-04-04T08:57:40.611Z"
   },
   "history": [
     {
@@ -1843,56 +1843,20 @@
       "action": "updated"
     },
     {
-      "timestamp": "2026-04-07T03:21:55.010Z",
-      "feature": "sync",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-04-07T03:42:58.578Z",
-      "feature": "accounts",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-04-07T04:17:38.306Z",
-      "feature": "accounts",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-04-07T04:17:54.806Z",
-      "feature": "accounts",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-04-07T04:34:20.276Z",
+      "timestamp": "2026-04-04T05:42:52.750Z",
       "feature": "settings",
       "phase": "do",
       "action": "updated"
     },
     {
-      "timestamp": "2026-04-07T04:52:53.427Z",
+      "timestamp": "2026-04-04T08:52:44.324Z",
       "feature": "accounts",
       "phase": "do",
       "action": "updated"
     },
     {
-      "timestamp": "2026-04-07T04:57:45.814Z",
-      "feature": "accounts",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-04-07T04:59:02.973Z",
-      "feature": "accounts",
-      "phase": "do",
-      "action": "updated"
-    },
-    {
-      "timestamp": "2026-04-07T05:17:16.743Z",
-      "feature": "sync",
+      "timestamp": "2026-04-04T08:57:40.611Z",
+      "feature": "work_01",
       "phase": "do",
       "action": "updated"
     }

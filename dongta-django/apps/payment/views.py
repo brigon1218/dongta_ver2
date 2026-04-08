@@ -26,6 +26,7 @@ from .services import PaymentService
 logger = logging.getLogger(__name__)
 
 
+@method_decorator(ratelimit(key='user', rate='30/m', method='GET', block=False), name='get')
 class BalanceView(generics.GenericAPIView):
     """
     GET /api/v1/payment/balance/ — 포인트 잔액 조회 (인증 필요)
@@ -33,7 +34,6 @@ class BalanceView(generics.GenericAPIView):
     """
     permission_classes = [permissions.IsAuthenticated]
 
-    @ratelimit(key='user', rate='30/m', method='GET', block=False)
     def get(self, request):
         point_account, _ = PointAccount.objects.get_or_create(member=request.user)
         serializer = PointAccountSerializer(point_account)
@@ -71,6 +71,7 @@ class PaymentHistoryListView(generics.GenericAPIView):
         )
 
 
+@method_decorator(ratelimit(key='user', rate='20/m', method='POST', block=True), name='post')
 class PointUseView(generics.GenericAPIView):
     """
     POST /api/v1/payment/use/ — 포인트 차감 (인증 필요)
@@ -79,7 +80,6 @@ class PointUseView(generics.GenericAPIView):
     """
     permission_classes = [permissions.IsAuthenticated]
 
-    @ratelimit(key='user', rate='20/m', method='POST', block=True)
     def post(self, request):
         serializer = PointUseSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -102,6 +102,7 @@ class PointUseView(generics.GenericAPIView):
             )
 
 
+@method_decorator(ratelimit(key='user', rate='5/m', method='POST', block=True), name='post')
 class PointChargeView(generics.GenericAPIView):
     """
     POST /api/v1/payment/charge/ — 포인트 충전 요청 (인증 필요)
@@ -110,7 +111,6 @@ class PointChargeView(generics.GenericAPIView):
     """
     permission_classes = [permissions.IsAuthenticated]
 
-    @ratelimit(key='user', rate='5/m', method='POST', block=True)
     def post(self, request):
         serializer = PointChargeSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -146,6 +146,7 @@ class PointChargeView(generics.GenericAPIView):
         }, http_status=status.HTTP_201_CREATED)
 
 
+@method_decorator(ratelimit(key='user', rate='10/m', method='POST', block=True), name='post')
 class DanalReadyView(generics.GenericAPIView):
     """
     POST /api/v1/payment/danal/ready/ — 다날 결제 준비 (인증 필요)
@@ -154,7 +155,6 @@ class DanalReadyView(generics.GenericAPIView):
     """
     permission_classes = [permissions.IsAuthenticated]
 
-    @ratelimit(key='user', rate='10/m', method='POST', block=True)
     def post(self, request):
         serializer = DanalReadySerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -309,6 +309,7 @@ class DanalCallbackView(generics.GenericAPIView):
             )
 
 
+@method_decorator(ratelimit(key='user', rate='10/m', method='POST', block=True), name='post')
 class DanalCancelView(generics.GenericAPIView):
     """
     POST /api/v1/payment/danal/cancel/ — 다날 결제 취소 (인증 필요)
@@ -316,7 +317,6 @@ class DanalCancelView(generics.GenericAPIView):
     """
     permission_classes = [permissions.IsAuthenticated]
 
-    @ratelimit(key='user', rate='10/m', method='POST', block=True)
     def post(self, request):
         payment_id = request.data.get('payment_id')
         reason = request.data.get('reason', '사용자 요청 취소')

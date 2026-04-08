@@ -1,25 +1,14 @@
 {
   "version": "1.0",
-  "enabled": true,
+  "enabled": false,
   "teamName": "",
   "feature": "관리자_대시보드",
   "pdcaPhase": "archived",
   "orchestrationPattern": "leader",
   "ctoAgent": "opus",
   "startedAt": "2026-04-04T04:21:42.011Z",
-  "lastUpdated": "2026-04-04T04:24:48.080Z",
-  "teammates": [
-    {
-      "name": "ad57dccc7827b0334",
-      "role": "bkit:gap-detector",
-      "model": "sonnet",
-      "status": "completed",
-      "currentTask": null,
-      "taskId": null,
-      "startedAt": "2026-04-04T04:21:42.012Z",
-      "lastActivityAt": "2026-04-04T04:24:48.075Z"
-    }
-  ],
+  "lastUpdated": "2026-04-06T09:48:28.748Z",
+  "teammates": [],
   "progress": {
     "totalTasks": 0,
     "completedTasks": 0,

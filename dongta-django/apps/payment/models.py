@@ -16,6 +16,8 @@ class PointAccount(models.Model):
     total_used = models.BigIntegerField(default=0, verbose_name='총사용포인트')      # nTotalUseDP
     last_charged_at = models.DateTimeField(null=True, blank=True, verbose_name='마지막충전일시')
     last_used_at = models.DateTimeField(null=True, blank=True, verbose_name='마지막사용일시')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='생성일시')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='수정일시')
 
     @property
     def balance(self):
