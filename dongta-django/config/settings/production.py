@@ -48,9 +48,12 @@ CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[
     'https://dongta.com',
 ])
 
-# 세션 및 캐시 최적화 (Redis 사용)
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# 세션 설정
+# cached_db: Redis 캐시 우선 조회 → 만료/미스 시 DB 폴백 (Admin 세션 안정성)
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 SESSION_CACHE_ALIAS = 'default'
+SESSION_COOKIE_AGE = 60 * 60 * 8   # 8시간 (28800초)
+SESSION_SAVE_EVERY_REQUEST = True   # 요청마다 만료 시간 갱신
 
 # S3 파일 스토리지
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
