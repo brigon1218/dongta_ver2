@@ -286,7 +286,7 @@ JAZZMIN_SETTINGS = {
     "search_model": ["accounts.Member"],
     "topmenu_links": [
         {"name": "홈", "url": "admin:index", "permissions": ["auth.add_user"]},
-        {"name": "API 문서", "url": "/api/schema/swagger/", "permissions": ["auth.add_user"]},
+        {"name": "API 문서", "url": "/api/docs/", "new_window": True, "permissions": ["auth.add_user"]},
         {"name": "사이트", "url": "/", "new_window": True},
     ],
     "usermenu_links": [
