@@ -1,0 +1,80 @@
+<?php
+/**
+ * 구직 목록 (index 중앙 - 구직/이력서)
+ *
+ * 구직자 이력서 API (/api/v1/recruit/seekers/)는 인증이 필요하므로
+ * 공개 가능한 통계 정보 + 구직 등록 유도 배너로 대체합니다.
+ *
+ * 개선 방안:
+ *   - 회원 로그인 세션이 있는 경우 /api/v1/auth/bridge/ 로 JWT 발급 후 API 호출
+ *   - 또는 별도 공개 구직 요약 API 엔드포인트 추가 (recommended)
+ */
+if (!function_exists('dongta_api_get')) {
+    include_once(dirname(dirname(__FILE__)) . '/include/api_helper.php');
+}
+
+// 로그인 세션 확인 (PHP 레거시 세션 변수)
+$is_logged_in = !empty($DONGTA_ID);
+?>
+<table width='380' border='0' cellspacing='0' cellpadding='2'>
+  <?php if ($is_logged_in): ?>
+  <tr>
+    <td colspan='4' style='font-size:11px; color:#333; padding:3px 5px;'>
+      <a href='/recruit/JobhunterList.phtml?pageflag=hunter'
+         style='color:#333;'>
+        <img src='images/jum_gray.gif' width='2' height='2' />&nbsp;
+        이력서를 등록하고 구인업체에 지원하세요.
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td colspan='4' style='padding:4px 5px;'>
+      <a href='/recruit/JobhunterList.phtml?cmd=write'
+         style='display:inline-block; padding:3px 10px; background:#4a90d9;
+                color:#fff; font-size:11px; border-radius:2px;'>
+        이력서 등록
+      </a>
+      &nbsp;
+      <a href='/recruit/JobhunterList.phtml?pageflag=hunter'
+         style='display:inline-block; padding:3px 10px; background:#f5f5f5;
+                color:#555; font-size:11px; border-radius:2px; border:1px solid #ccc;'>
+        구직자 목록 보기
+      </a>
+    </td>
+  </tr>
+  <?php else: ?>
+  <tr>
+    <td colspan='4' style='font-size:11px; color:#333; padding:4px 5px;'>
+      <a href='/recruit/JobhunterList.phtml?pageflag=hunter'
+         style='color:#333;'>
+        <img src='images/jum_gray.gif' width='2' height='2' />&nbsp;
+        구직자 이력서를 확인하려면 로그인하세요.
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td colspan='4' style='padding:4px 5px;'>
+      <a href='/member/login.phtml?returl=/recruit/JobhunterList.phtml'
+         style='display:inline-block; padding:3px 12px; background:#555;
+                color:#fff; font-size:11px; border-radius:2px;'>
+        로그인 후 보기
+      </a>
+      &nbsp;
+      <a href='/recruit/JobhunterList.phtml?cmd=write'
+         style='display:inline-block; padding:3px 10px; background:#f5f5f5;
+                color:#555; font-size:11px; border-radius:2px; border:1px solid #ccc;'>
+        이력서 등록
+      </a>
+    </td>
+  </tr>
+  <?php endif; ?>
+  <tr>
+    <td colspan='4' height='3'></td>
+  </tr>
+  <tr>
+    <td colspan='4' align='right'>
+      <a href='/recruit/JobhunterList.phtml?pageflag=hunter'
+         style='font-size:11px; color:#666;'>더보기 &raquo;</a>
+    </td>
+  </tr>
+</table>

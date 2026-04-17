@@ -1,0 +1,51 @@
+<?php
+/**
+ * 매장 목록 (index 우측 - 동타114 매장)
+ * API: GET /api/v1/business/?business_type=2&limit=8&sort=hits
+ */
+if (!function_exists('dongta_api_get')) {
+    include_once(dirname(dirname(__FILE__)) . '/include/api_helper.php');
+}
+
+$items = dongta_api_get('/business/', ['business_type' => 2, 'limit' => 8, 'sort' => 'hits'], 300);
+if (!$items) $items = [];
+?>
+<table width='260' border='0' cellspacing='0' cellpadding='1'>
+<?php if ($items): foreach ($items as $row):
+    $corp = isset($row['corp_name']) ? $row['corp_name'] : '(업체명 없음)';
+    $addr = isset($row['address'])   ? $row['address']   : '';
+?>
+  <tr>
+    <td width='3'>&nbsp;</td>
+    <td width='7'><img src='images/jum_gray.gif' width='2' height='2' /></td>
+    <td>
+      <a href='/114/114_index.phtml?cmd=read&data_idx=<?= (int)$row['id'] ?>'
+         style='font-size:11px; color:#333;'>
+        <?= htmlspecialchars(dongta_cut_str($corp, 30), ENT_QUOTES, 'UTF-8') ?>
+      </a>
+      <?php if ($addr): ?>
+        <span style='font-size:10px; color:#888;'>
+          <?= htmlspecialchars(dongta_cut_str($addr, 18), ENT_QUOTES, 'UTF-8') ?>
+        </span>
+      <?php endif; ?>
+    </td>
+    <td width='35' style='font-size:10px; color:#999; text-align:right;'>
+      <?= dongta_date_label($row['created_at']) ?>
+    </td>
+    <td width='3'>&nbsp;</td>
+  </tr>
+<?php endforeach; else: ?>
+  <tr>
+    <td colspan='5' style='font-size:11px; color:#999; padding:3px;'>
+      등록된 매장이 없습니다.
+    </td>
+  </tr>
+<?php endif; ?>
+  <tr><td colspan='5' height='3'></td></tr>
+  <tr>
+    <td colspan='5' align='right'>
+      <a href='/114/114_index.phtml?business_type=2'
+         style='font-size:11px; color:#666;'>더보기 &raquo;</a>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,631 @@
+<?php
+/********************************************************
+ *Project	: 동타 인덱스
+ *FileName	: /index.html
+ *programming	: Ahn Yong hwan
+ *design        	: Jeong JiHong
+ *Organization  : 동인
+ *Version       : 2.0
+ *Data Created  : 2007. 3. 12
+ *
+ *-------------------------------------------------------
+ *Revison History
+ *who            		when               what
+*********************************************************/
+//$host_name = $HTTP_HOST;
+//if($host_name == "www.dongta.com" || $host_name == "dongta.com") header("Location:http://dongta.co.kr");
+?>
+<?php
+include("./include/head.html");
+//exit;
+?>
+<!-- <?=$HTTP_USER_AGENT?> -->
+<link href="css/dongta.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+</script>
+<!--네이버 애널리틱스------->
+<script type="text/javascript" src="https://wcs.naver.net/wcslog.js"></script>
+<script type="text/javascript">
+if(!wcs_add) var wcs_add = {};
+wcs_add["wa"] = "689dd990de7";
+wcs_do();
+</script>
+<!---------------------------->
+<!--구글 애널리틱스---------->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-92530064-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!--------------------------->
+<iframe src='https://dongta.com/index_new/index_new.php' width='0' height='0'></iframe>
+<?php
+
+//로그인 체크
+
+ $cur_page = "$PHP_SELF";
+ $loginpage = urlencode($cur_page);
+/*
+	$home_url = "dongta.com";
+	if($HTTP_REFERER && !strstr($HTTP_REFERER,"$home_url")){
+		$que = "insert into http_referer values('','$HTTP_REFERER',curdate(),curtime(),'$HTTP_USER_AGENT','$REMOTE_ADDR')";
+		$res = mysql_query($que,$connect);
+		if(!$res) ErrorMsg("ERROR!!");
+	}
+*/
+	/*
+	$is_cubpoan = GetFetch("memb_cubcount","TBL_MEMB","memb_id='$DONGTA_ID'");
+	if($is_cubpoan == "1"){
+		echo("<script language='javascript'>
+				window.open('pop_coupon.htm','비즈니스쿠폰','width=500 height=200 left=200 top=130');
+			  </script>");
+	}
+	*/
+?>
+<!----------------------------------------------- 풋터  ----------------------------------------------------------->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" valign="top">
+      <table width="960" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><table width="960" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="280">
+                  <!---------------------------------- include - banner index top001 ---------------------------------->
+                  <?php
+include($ROOT_PATH.$SITE_DIR."/include/banner_index_top001.htm");
+?>                </td>
+                <td width="5"></td>
+                <td width="390" height="165" align="center" valign="middle" bgcolor="#343740">              <!---------------------------------- include - banner MAIN ----------------------------------><?php
+include($ROOT_PATH.$SITE_DIR."/include/banner_index_MAIN.htm");
+?></td><td width="5"></td><td width="280">
+                  <!---------------------------------- include - banner index top002 ---------------------------------->
+<?php
+include($ROOT_PATH.$SITE_DIR."/include/banner_index_top002.htm");
+?>                </td>
+              </tr>
+            </table></td>
+        </tr>
+       <!-----------------------------0000000000000000000000000--------------------------------------->
+
+
+		<tr>
+          <td><table width="960" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="280" valign="top"><table width="280" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                  <td height="5"></td>
+                </tr>
+                <tr>
+                  <td height="123" valign="top" ><a href="https://dongta.com/board/BBS.php3?cmd=read&amp;db=notice&amp;data_idx=1131424&amp;WriteID=dtmaster0&amp;page=1&amp;keyfield=&amp;key=&amp;no=4"><img src="images/index_banner_notic.jpg" width="280" height="123" /></a></td>
+                </tr>
+                  <tr>
+                  <td height="5"></td>
+                </tr>
+                <tr>
+                  <td height="119" valign="top" background="images/bg_hotissue.jpg">
+				  <!---------------------------------- 공지사항 ---------------------------------->
+				  <?php
+//include($ROOT_PATH.$SITE_DIR."/include/index_hot.htm");
+include_once($ROOT_PATH.$SITE_DIR."/include/index_notice.htm");
+?></td>
+                </tr>
+                <tr>
+                  <td height="5"></td>
+                </tr>
+                <tr>
+                  <td><img src="images/title_index_news.gif" width="280" height="21" border="0" usemap="#news" /></td>
+                </tr>
+                <tr>
+                  <td height="11"></td>
+                </tr>
+                <tr>
+                  <td height="50" valign="top">
+				   <!---------------------------------- 뉴스/공지 (Django API) ---------------------------------->
+<?php
+// API 헬퍼 로드 (한 번만)
+if (!function_exists('dongta_api_get')) {
+    include_once($ROOT_PATH.$SITE_DIR.'/include/api_helper.php');
+}
+
+// 자유게시판 최신 5건 (뉴스/공지 대체)
+$_news_items = dongta_api_get('/board/posts/', ['category' => 'FREE', 'limit' => 5], 300);
+if (!$_news_items) $_news_items = [];
+
+echo "<table width='280' border='0' cellspacing='0' cellpadding='0'>";
+if ($_news_items) {
+    foreach ($_news_items as $_news_row) {
+        $_subject = mb_strimwidth(
+            htmlspecialchars($_news_row['title'], ENT_QUOTES, 'UTF-8'),
+            0, 40, '..', 'UTF-8'
+        );
+        $_idx = (int)$_news_row['id'];
+        echo "<tr>
+    <td width='3'>&nbsp;</td>
+    <td width='7'><img src='images/jum_gray.gif' width='2' height='2' /></td>
+    <td><a href='/board/BBS.php3?cmd=read&db=free&data_idx={$_idx}' style='font-size:11px; color:#333;'>{$_subject}</a></td>
+    <td width='5'>&nbsp;</td>
+  </tr>";
+    }
+} else {
+    echo "<tr><td colspan='4' style='font-size:11px; color:#999;'>최신 게시글이 없습니다.</td></tr>";
+}
+echo "</table>";
+?>				  </td>
+                </tr>
+
+                <tr>
+                  <td height="5"></td>
+                </tr>
+                <tr>
+                  <td height="24"><img src="images/title_index_land_top.gif" width="280" border="0" usemap="#land" /></td></tr>
+                <tr>
+                  <td align="center" valign="top" background="images/title_index_land_middle.gif"><table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td height="2"></td>
+                    </tr>
+                    <tr>
+                      <td width="266" height="153" valign="top"><?php
+include($ROOT_PATH.$SITE_DIR."/index_new/index_land1.txt");
+?></td>
+                      </tr>
+                    <tr>
+                      <td height="2"></td>
+                    </tr>
+                    </table></td>
+                </tr>
+                <tr>
+                  <td><img src="images/title_index_land_bottoom.gif" width="280" height="7" /></td>
+                </tr>
+                <tr>
+                  <td height="5"></td>
+                </tr>
+                <tr>
+                  <td><img src="images/title_index_dongaemun_top.gif" width="280" height="33" border="0" usemap="#dongdaemin" /></td>
+                </tr>
+
+
+                <tr>
+                  <td height="246" align="center" valign="top" background="images/title_index_land_middle.gif"><table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td height="1"></td>
+                    </tr>
+                    <tr>
+                      <td width="266" valign="top"><!---------------------------------- 동대문 ---------------------------------->
+                        <?php
+                        include($ROOT_PATH.$SITE_DIR."/index_new/index_dongdaemun2.txt");
+                        ?>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td height="3"></td>
+                    </tr>
+                  </table></td>
+                </tr>
+
+
+
+                <tr>
+                   <td><img src="images/title_index_land_bottoom.gif" width="280" height="7" /></td>
+                </tr>
+              </table></td>
+              <td width="5"></td>
+              <td width="390" valign="top"><table background="images/bg_index_recruit_main.gif" width="390" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td height="50" background="images/bg_index_search.jpg">
+				  <!---------------------------------- 검색 ---------------------------------->
+							<?php
+include($ROOT_PATH.$SITE_DIR."/include/index_search.htm");
+?>				  </td>
+                </tr>
+                <tr>
+                  <td height="5" bgcolor="#646779"></td>
+                </tr>
+                <tr>
+                  <td height="5" bgcolor="#FFFFFF"></td>
+                </tr>
+                <tr>
+                  <td><table width="390" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td height="29"><img src="images/title_index_recruit_01.gif" width="390" height="37" border="0" usemap="#recruit01Map" /></td>
+                      </tr>
+                    <tr>
+                      <td height="30" background="images/bg_index_recruit_premium.gif">
+                        <!---------------------------------- 프리미엄구인 ---------------------------------->
+                        <?php
+include($ROOT_PATH.$SITE_DIR."/include/index_premium.htm");
+?>					  </td>
+                      </tr>
+                    <tr>
+                      <td height="6"></td>
+                      </tr>
+                    <tr>
+                      <td valign="top"><table width="390" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td valign="top" align="center"> <!---------------------------------- 구인리스트 ---------------------------------->
+                            <?php
+include($ROOT_PATH.$SITE_DIR."/index_new/index_joboffer1.txt");
+?></td></tr></table></td>
+                      </tr>
+                    <tr>
+                      <td height="5"></td>
+                      </tr>
+                    <tr>
+                      <td height="37"><img src="images/title_index_recruit_02.gif" width="390" height="37" border="0" usemap="#recruit02Map" /></td>
+                      </tr>
+
+                    <tr>
+                      <td height="7"></td>
+                      </tr>
+                    <tr>
+                      <td align="center">
+                        <!---------------------------------- 구직리스트 ---------------------------------->
+                        <?php
+include($ROOT_PATH.$SITE_DIR."/index_new/index_jobhunter1.txt");
+?>					  </td>
+                      </tr>
+                    <tr>
+                      <td height="5"></td>
+                      </tr>
+                    <tr>
+                      <td height="5"><img src="images/bg_index_recruit_bottom.gif" width="390" height="5" /></td>
+                      </tr>
+                    </table>
+                    <map name="recruit01Map" id="recruit01Map">
+                      <area shape="rect" coords="352,9,385,25" href="/recruit/JobofferList.phtml?pageflag=offer" onfocus="blur();" />
+                      </map>
+                    <map name="recruit02Map" id="recruit02Map">
+                      <area shape="rect" coords="352,10,384,27" href="/recruit/JobhunterList.phtml?pageflag=hunter" onfocus="blur();" />
+                      </map></td>
+                </tr>
+
+              <tr>
+                    <td align="center" valign="middle" bgcolor="#FFFFFF">
+                        <!---------------------------------- 피팅구인리스트 ---------------------------------->
+                        <?php
+include($ROOT_PATH.$SITE_DIR."/include/index_fiting.htm");
+?>					  </td>
+                    </tr>
+                 <tr>
+                  <td height="5" bgcolor="#FFFFFF"></td>
+                </tr>
+                <tr>
+                  <td><a href="/board/BBS.php3?db=findall"><img src="images/title_index_sewing_top.gif" width="390" height="58" border="0" usemap="#Map" /></a></td>
+                </tr>
+                <tr>
+                  <td height="7" align="center" background="images/title_index_restaurant_middle.gif"></td>
+                </tr>
+                <tr>
+                  <td height="214" align="center" valign="top" background="images/title_index_restaurant_middle.gif"><table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td height="1"></td>
+                    </tr>
+                    <tr>
+                      <td width="376" valign="top"><!---------------------------------- 동대문 맛집 ---------------------------------->
+                      <?php
+include($ROOT_PATH.$SITE_DIR."/include/index_factory_search.html");
+?>
+                        </td>
+                    </tr>
+                    <tr>
+                      <td height="1"></td>
+                    </tr>
+                  </table></td>
+                </tr>
+                <tr>
+                  <td><img src="images/title_index_restaurant_bottom.gif" width="390" height="7" /></td>
+                </tr>
+              </table></td>
+              <td width="5"></td>
+              <td width="280" valign="top"><table width="280" border="0" cellspacing="0" cellpadding="0">
+
+                 <tr>
+                  <td height="5"></td>
+                </tr>
+                <tr>
+                  <td height="123" valign="top" ><a href="https://dongta.com/customer/sysqna_reg.phtml?pageflag=sysqanda" ><img src="images/tojung2011.jpg" width="280" height="123" border="0"></a></td>
+                </tr>
+
+                      <!----------------------------------include : 동대문 납품관 프리미엄  ---------------------------------->
+                          <?php
+include($ROOT_PATH.$SITE_DIR."/include/index_delivery.html");
+?>
+
+                <tr>
+                  <td height="5"></td>
+                </tr>
+                <tr>
+                  <td height="24"><img src="images/title_index_business_top.gif" width="280" border="0" usemap="#Map3" /></td>
+                </tr>
+                <tr>
+                  <td height="244" align="center" valign="top" background="images/title_index_land_middle.gif"><table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td height="1"></td>
+                      </tr>
+                    <tr>
+                      <td width="260" valign="top"><?php
+include($ROOT_PATH.$SITE_DIR."/index_new/index_business1.txt");
+?></td>
+                      </tr>
+                    </table></td>
+                </tr>
+                <tr>
+                  <td><img src="images/title_index_land_bottoom.gif" width="280" height="7" /></td>
+                </tr>
+                <tr>
+                  <td height="5"></td>
+                </tr>
+                <tr>
+                  <td valign="top"><a href="/114/114_index.phtml"><img src="banner/dongta114.gif" width="280" height="45" border="0" /></a></td>
+                </tr>
+                <tr>
+                  <td><img src="images/title_index_factory.gif" width="280" border="0" usemap="#factory" /></td>
+                </tr>
+                <tr>
+                  <td height="5"></td>
+                </tr>
+
+                <tr>
+                  <td align="left" valign="top">
+				  <!---------------------------------- 공장 ---------------------------------->
+                  <?php
+include($ROOT_PATH.$SITE_DIR."/index_new/index_1141.txt");
+?>				  </td>
+                </tr>
+                <tr>
+                  <td height="5"></td>
+                </tr>
+                <tr>
+                  <td><img src="images/jumsun_land.gif" width="280" height="1" /></td>
+                </tr>
+                <tr>
+                  <td><img src="images/title_index_shop.gif" width="280" height="24" border="0" usemap="#shop" /></td>
+                </tr>
+                <tr>
+                  <td height="5"></td>
+                </tr>
+                <tr>
+                  <td align="left" valign="top">
+				   <!---------------------------------- 매장 ---------------------------------->
+                  <?php
+include($ROOT_PATH.$SITE_DIR."/index_new/index_1142.txt");
+?>				  </td>
+                </tr>
+                <tr>
+                  <td height="5"></td>
+                </tr>
+				 <tr>
+                  <td><img src="images/jumsun_land.gif" width="280" height="1" /></td>
+                </tr>
+                </table>
+               </td>
+            </tr>
+          </table></td>
+		</tr>
+        <tr><td>
+</td>
+        </tr>
+	    <tr>
+          <td height="5"></td>
+        </tr>
+	    <tr>
+	      <td height="20"><table width="960" border="0" cellspacing="0" cellpadding="0">
+	        <tr>
+	          <td valign="top"><table width="675" border="0" cellspacing="0" cellpadding="0">
+	            <tr>
+	              <td height="4" bgcolor="#d1cec9"></td>
+	              </tr>
+	            <tr>
+	              <td><table width="675" border="0" cellspacing="0" cellpadding="0">
+	                <tr>
+	                  <td width="4" bgcolor="#D1CEC9"></td>
+	                  <td width="347" valign="top" bgcolor="#FFFFFF"><table border="0" cellspacing="0" cellpadding="0">
+	                    <tr>
+	                      <td width="347"><img src="images/title_index_map_01.gif" width="347" height="30" border="0" usemap="#column" /></td>
+	                      </tr>
+	                    <tr>
+	                      <td height="4"></td>
+	                      </tr>
+	                    <tr>
+	                      <td height="63" valign="top"><!---------------------------------- 컬럼 ---------------------------------->
+                                    <?php
+//include($ROOT_PATH.$SITE_DIR."/include/index_column.html");
+include($ROOT_PATH.$SITE_DIR."/index_new/index_column_only.txt");
+?></td>
+	                      </tr>
+	                    <tr>
+	                      <td><img src="images/img_dongdaemun_map.jpg" width="347" height="190" border="0" usemap="#dmap" />
+	                        <map name="dmap" id="dmap2">
+	                          <area shape="rect" coords="254,117,292,156" href="https://maps.google.co.kr/maps?q=%EB%8F%99%EB%8C%80%EB%AC%B8%EC%97%AD&amp;hl=ko&amp;ie=UTF8&amp;ll=37.570654,127.009163&amp;spn=0.010204,0.023378&amp;sll=37.576441,127.036672&amp;sspn=0.005102,0.011689&amp;hnear=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EC%A2%85%EB%A1%9C%EA%B5%AC+%EC%B0%BD%EC%8B%A0%EB%8F%99+%EB%8F%99%EB%8C%80%EB%AC%B8%EC%97%AD&amp;t=m&amp;z=17" target="_blank" onfocus="blur();"/>
+	                          <area shape="rect" coords="200,116,238,155" href="http://gis.seoul.go.kr/" target="_blank" onfocus="blur();"/>
+	                          <area shape="rect" coords="150,117,188,156" href="http://local.daum.net/map/index.jsp?map_type=TYPE_MAP&amp;map_hybrid=false&amp;q=%EB%8F%99%EB%8C%80%EB%AC%B8%EC%97%AD&amp;urlX=501668&amp;urlY=1129541&amp;urlLevel=3" target="_blank" onfocus="blur();"/>
+	                          <area shape="rect" coords="94,116,132,155" href="http://map.naver.com/index.nhn?dlevel=12&amp;lat=37.5712328&amp;lng=127.0098765&amp;menu=location&amp;pinId=12303&amp;pinType=spot&amp;pinTitle=7Z2l7J247KeA66y4&amp;mapMode=0&amp;enc=b64" target="_blank" onfocus="blur();"/>
+	                          </map></td>
+	                      </tr>
+	                    </table></td>
+	                  <td width="1" bgcolor="#ededed"></td>
+	                  <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+	                    <tr>
+	                      <td><img src="images/title_index_map_02.gif" width="319" height="30" border="0" usemap="#partner" /></td>
+	                      </tr>
+	                    <tr>
+	                      <td align="center" valign="top"><!---------------------------------- 동업/해외관 ---------------------------------->
+	                        <?php
+//include($ROOT_PATH.$SITE_DIR."/include/index_partner.html");
+include($ROOT_PATH.$SITE_DIR."/index_new/index_part_over.txt");
+?></td>
+	                      </tr>
+	                    <tr>
+	                      <td height="5"></td>
+	                      </tr>
+	                    <tr>
+	                      <td height="9"></td>
+	                      </tr>
+	                    <tr>
+	                      <td height="1" bgcolor="#ededed"></td>
+	                      </tr>
+	                    <tr>
+	                      <td><img src="images/title_index_map_03.gif" width="319" height="30" border="0" usemap="#law" /></td>
+	                      </tr>
+	                    <tr>
+	                      <td align="center" valign="top"><!---------------------------------- 상표/법률  ---------------------------------->
+	                        <?php
+//include($ROOT_PATH.$SITE_DIR."/include/index_law.html");
+include($ROOT_PATH.$SITE_DIR."/index_new/index_law_tax.txt");
+?></td>
+	                      </tr>
+	                    <tr>
+	                      <td height="5"></td>
+	                      </tr>
+	                    </table></td>
+	                  <td width="4" bgcolor="#D1CEC9"></td>
+	                  </tr>
+	                </table></td>
+	              </tr>
+	            <tr>
+	              <td height="4" bgcolor="#d1cec9"></td>
+	              </tr>
+	            </table></td>
+	          <td width="5"></td>
+	          <td width="280" valign="top"> <!---------------------------------- 동대문지도 왼쪽 배너  ---------------------------------->
+                <?php
+include($ROOT_PATH.$SITE_DIR."/include/index_map_right_banner.html");
+?></td>
+	          </tr>
+          </table></td>
+        </tr>
+	    <tr>
+	      <td height="5"></td>
+        </tr>
+	    <tr>
+	      <td height="20">
+           <!---------------------------------- BOTTOM ---------------------------------->
+                <?php
+include($ROOT_PATH.$SITE_DIR."/include/index_bottom.htm");
+?>
+          </td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<!-- AceCounter(Pro)Version 6.0 START ----------------------------------------------------------------------------------------------->
+<!-- This script is for AceCounter Professional members only. -->
+<!-- Do not modify this script code for any purpose. -->
+<!-- Copyright (C)2001-2006 AmazingSoft.com All Rights Reserved. -->
+<script language='javascript'>
+function _IX(s,t){return s.indexOf(t);};
+var PU_rl='http://'+'gtp7.acecounter.com';var PU_pt='8080';var PCHKIMG=new Image();var PL_bn=navigator.appName;var PL_CODE='AB3C32033224666';
+if(document.URL.substring(0,7)=='http://'){if(PL_bn.indexOf("Netscape")> -1 || PL_bn=="Mozilla"){setTimeout("PCHKIMG.src=PU_rl+':8080/?cookie';",1);}else{PCHKIMG.src=PU_rl+':8080/?cookie';};};
+var _UD='undefined';var _UN='unknown'; if(typeof PU_rl==_UD) var PU_rl ='';
+var PL_d='',PL_tz=20,PL_ja=_UN,PL_bv='',PL_sc=_UN,PL_sv=10,PL_rf='',PL_arg='',PL_av='',PL_je='n',PL_ul=_UN,PL_ua=_UN,PL_UA=_UN,PL_rl='',PL_os=_UN,PL_vs=_UN,PL_ak='',PL_xrl='',PL_cd='',PL_cu='',PL_bz='';if( typeof PL_CODE==_UD ) PL_CODE = '' ;PL_tz = Math.floor((new Date()).getTimezoneOffset()/60) + 29 ;if( PL_tz > 24 ) PL_tz = PL_tz - 24 ;
+PL_je = (navigator.javaEnabled()==true)?'1':'0';PL_bn=navigator.appName;if(PL_bn.substring(0,9)=="Microsoft") PL_bn="MSIE";PL_bz=navigator.appName;  PL_pf=navigator.platform;  PL_av=navigator.appVersion;  PL_bv=parseFloat(PL_av) ;if(PL_bn=='MSIE'){PL_cu=navigator.cpuClass;}else{PL_cu=navigator.oscpu;};if((PL_bn=="MSIE")&&(parseInt(PL_bv)==2)) PL_bv=3.01;PL_rf=document.referrer;var PL_prl='';var PL_frm=false;
+if( typeof top.frames.length=='number' && top.frames.length > 0 ){eval("try{PL_pre_url = top.document.URL;}catch(_e){PL_pre_url='';};");if( PL_pre_url != document.URL ) PL_frm = true;};
+if(PL_frm){ eval("try{PL_prl = top.document.URL;}catch(_e){PL_prl='';};"); if(PL_prl == '') eval("try{PL_prl=parent.document.URL;}catch(_e){PL_prl='';};"); if( _IX(PL_prl,'#') > 0 ) PL_prl=PL_prl.substring(0,_IX(PL_prl,'#')); if( _IX(PL_rf,'#') > 0 ) PL_rf=PL_rf.substring(0,_IX(PL_rf,'#')); if( PL_prl.charAt(PL_prl.length-1)=='/') PL_prl = PL_prl.substring(0,PL_prl.length-1); if( PL_rf.charAt(PL_rf.length-1)=='/') PL_rf = PL_rf.substring(0,PL_rf.length-1); if( PL_rf == '' ) eval("try{PL_ref=parent.document.referrer;}catch(_e){PL_ref='';}"); if( PL_rf == PL_prl ){ eval("try{PL_rf=top.document.referrer;}catch(_e){PL_rf='';}"); if( _IX(document.cookie,'ACE_CK='+escape(PL_rf)) > -1 ){ PL_rf = PL_prl;} else{ if(_IX(PL_prl,'?') > 0) PL_ak = PL_prl.substring(_IX(PL_prl,'?')+1,PL_prl.length); if( _IX(PL_prl,'OVRAW=') > 0 ){ PL_ak = 'src=overture&kw='+PL_pre_url.substring(PL_pre_url.indexOf('OVKEY=')+6,PL_pre_url.indexOf('&',PL_pre_url.indexOf('OVKEY=')+6)); }; document.cookie='ACE_CK='+escape(PL_rf)+';path=/;'; }; if(document.URL.indexOf('?')>0 && PL_ak == '' ) PL_ak =document.URL.substring(document.URL.indexOf('?')+1,document.URL.length); }; }else{ if( _IX(PL_rf,'#') > 0 ) PL_rf=PL_rf.substring(0,_IX(PL_rf,'#')); if(_IX(document.URL,'?') > 0) PL_ak = document.URL.substring(_IX(document.URL,'?')+1,document.URL.length); };
+if(document.URL.substring(0,8)=='https://'){PU_rl='https://sslp1.acecounter.com/sslp1';}; PL_rl=document.URL;
+if(_IX(PL_rl,'#')>0) PL_rl=PL_rl.substring(0,_IX(PL_rl,'#'));if(PL_rl.charAt(PL_rl.length)=='/') PL_rl=PL_rl.substring(0,PL_rl.length-1);if(_IX(PL_rl,'://')>0) PL_rl=PL_rl.substring(_IX(PL_rl,'://')+3,PL_rl.length);if(PL_rf.charAt(PL_rf.length)=='/') PL_rf=PL_rf.substring(0,PL_rf.length-1);if(_IX(PL_rf,'://')>0) PL_rf=PL_rf.substring(_IX(PL_rf,'://')+3,PL_rf.length);if( typeof PL_rf==_UD||( PL_rf == '' )) PL_rf = 'bookmark' ;PL_cd=(PL_bn=="MSIE")?screen.colorDepth:screen.pixelDepth;PL_UA = navigator.userAgent;PL_ua = navigator.userAgent.toLowerCase();if (navigator.language) {  PL_ul = navigator.language.toLowerCase();} else if (navigator.userLanguage) {  PL_ul = navigator.userLanguage.toLowerCase();}PL_st = _IX(PL_UA,'(') + 1;PL_end = _IX(PL_UA,')');PL_str = PL_UA.substring(PL_st, PL_end);PL_if = PL_str.split('; ');PL_cmp = 'UNKNOWN' ;if (_IX(PL_ua,'msie') != -1) {  PL_cmp = navigator.appName;  PL_str = PL_if[1].substring(5, PL_if[1].length);  PL_vs = parseFloat(PL_str);} else if ( _IX(PL_ua,'opera') != -1 ){  PL_cmp = "Opera" ;} else if ((PL_st = _IX(PL_ua,"netscape6")) > 0) {  PL_cmp = "Netscape";  PL_vs = PL_ua.substring(PL_st+10, PL_ua.length);  if ((PL_st = _IX(PL_vs,"b")) > 0 ) {    PL_str = PL_vs.substring(0,_IX(PL_vs,"b"));    PL_vs = PL_str ;  };} else if ((PL_st = _IX(PL_ua,"netscape/7")) > 0) {  PL_cmp = "Netscape";  PL_vs = PL_ua.substring(PL_st+9, PL_ua.length);  if ((PL_st = _IX(PL_vs,"b")) > 0 ){ PL_str = PL_vs.substring(0,_IX(PL_vs,"b")); PL_vs = PL_str;};}else{ if (_IX(PL_ua,"gecko") > 0){ PL_cmp = navigator.vendor;  } else if (_IX(PL_ua,"nav") > 0){ PL_cmp = "Netscape Navigator";}else{ PL_cmp = navigator.appName;}; PL_av = PL_UA ;};if (parseInt(PL_vs) == parseFloat(PL_vs)) {  PL_vs = PL_vs + ".0";};PL_bz = PL_cmp; if( _IX(PL_pf,_UD) >= 0 || PL_pf ==  '' ){ PL_os = 'UNKNOWN' ;}else{ PL_os = PL_pf ; };if( _IX(PL_os,'Win32') >= 0 ){if( _IX(PL_av,'98')>=0){ PL_os = 'Windows 98';}else if( _IX(PL_av,'95')>=0 ){ PL_os = 'Windows 95';}else if( _IX(PL_av,'Me')>=0 ){ PL_os = 'Windows Me';}else if( _IX(PL_av,'NT')>=0 ){ PL_os = 'Windows NT';}else{ PL_os = 'Windows';};if( _IX(PL_av,'NT 5.0')>=0){ PL_os = 'Windows 2000';};if( _IX(PL_av,'NT 5.1')>=0){PL_os = 'Windows XP';if( _IX(PL_av,'SV1') > 0 ){PL_os = 'Windows XP SP2';};};if( _IX(PL_av,'NT 5.2')>=0){PL_os ='Windows Server 2003';};};PL_pf_s = PL_pf.substring(0,4);if( PL_pf_s == 'Wind'){if( PL_pf_s == 'Win1'){PL_os = 'Windows 3.1';}else if( PL_pf_s == 'Mac6' ){ PL_os = 'Mac';}else if( PL_pf_s == 'MacO' ){ PL_os ='Mac';}else if( PL_pf_s == 'MacP' ){PL_os='Mac';}else if(PL_pf_s == 'Linu'){PL_os='Linux';}else if( PL_pf_s == 'WebT' ){ PL_os='WebTV';}else if(  PL_pf_s =='OSF1' ){ PL_os ='Compaq Open VMS';}else if(PL_pf_s == 'HP-U' ){ PL_os='HP Unix';}else if(  PL_pf_s == 'OS/2' ){ PL_os = 'OS/2' ;}else if( PL_pf_s == 'AIX4' ){ PL_os = 'AIX';}else if( PL_pf_s == 'Free' ){ PL_os = 'FreeBSD';}else if( PL_pf_s == 'SunO' ){ PL_os = 'SunO';}else if( PL_pf_s == 'Drea' ){ PL_os = 'Drea'; }else if( PL_pf_s == 'Plan' ){ PL_os = 'Plan'; }else{ PL_os = 'UNKNOWN'; };};if( PL_cu == 'x86' ){ PL_cu = 'Intel x86';}else if( PL_cu == 'PPC' ){ PL_cu = 'Power PC';}else if( PL_cu == '68k' ){ PL_cu = 'Motorola 680x';}else if( PL_cu == 'Alpha' ){ PL_cu = 'Compaq Alpa';}else if( PL_cu == 'Arm' ){ PL_cu = 'ARM';}else{ PL_cu = 'UNKNOWN';};if( PL_d == '' || typeof PL_d==_UD ){ PL_d = '0*0';}
+</script>
+<script language='javascript1.1' id='_PL_hdc'> PL_sv=11;</script>
+<script language='javascript1.1'>
+if(typeof _PL_hdki == 'undefined'){ var _PL_hdki = new Image() ; if( typeof window.screen == 'object'){PL_sv=12;PL_d=window.screen.width+'*'+window.screen.height;};if(PL_bn=="MSIE"){if(PL_bv>=4){ PL_sv=12;};if( PL_bv >= 5){ PL_sv = 13;};};if(_IX(PL_bn,"Netscape") > -1 ||PL_bn=="Mozilla"||PL_bn=="Opera"){if(PL_bv>=3){ PL_sv = 11 ;};if(PL_bv>=4){ PL_sv = 12 ;};if(PL_bv>=4.06){ PL_sv=13 ; };if(PL_d==_UD){ PL_d='UNKNOWN'; };}; if(document.URL.substring(0,8)=='https://'){PL_arg=PU_rl;}else{PL_arg=PU_rl+':'+PU_pt+'/';}; if( typeof PL_ERR !=_UD && PL_ERR == 'err'){PL_arg += "?euid="+PL_CODE;}else{PL_arg += "?uid="+PL_CODE;}; PL_arg += "&cpu="+PL_cu+"&bz="+PL_bz+"&bv="+PL_vs+"&os="+PL_os;PL_arg += "&dim="+PL_d+"&cd="+PL_cd+"&je="+PL_je+"&ref="+escape(PL_rf)+"&url="+escape(PL_rl);PL_arg += "&jv="+PL_sv+"&tz="+PL_tz+"&ul="+PL_ul+"&ad_key="+escape(PL_ak)+"&" ; if( _IX(PL_bn,"Netscape") > -1 ||PL_bn=="Mozilla"){ setTimeout("_PL_hdki.src = PL_arg;",1);}else{   _PL_hdki.src = PL_arg;};};
+</script>
+<script language='javascript'>
+if(PL_sv==10){ if(typeof PL_rf == _UD ||PL_rf=='')PL_rf='bookmark';PL_arg = "<img src='" + PU_rl + ":"+PU_pt+"/?uid=" + PL_CODE;PL_arg += "&cpu="+PL_cu+"&bz="+PL_bz+"&bv=4.0&os="+PL_os;PL_arg += "&dim=640*480&cd=8&je=0&ck=0&ref="+escape(PL_rf)+"&url="+escape(PL_rl);PL_arg += "&jv=10&tz="+PL_tz+"&ul="+PL_ul+"&ad_key="+escape(PL_ak)+"&' border=0>" ;document.write(PL_arg);};
+</script>
+<!-- AceCounter(Pro)Version 6.0 END ----------------------------------------------------------------------------------------------->
+
+<!-----------------------------------------------  풋터 ----------------------------------------------------------->
+<?php
+include($ROOT_PATH.$SITE_DIR."/include/footer.html");
+?>
+<map name="recruit01" id="recruit01"><area shape="rect" coords="348,9,384,27" href="/recruit/JobofferList.phtml?pageflag=offer" onfocus="blur();">
+</map>
+<map name="recruit02" id="recruit02"><area shape="rect" coords="346,16,385,34" href="/recruit/JobhunterList.phtml?pageflag=hunter" onfocus="blur();">
+</map>
+<map name="news" id="news">
+<area shape="rect" coords="240,1,278,18" href="/board/BBS.php3?db=my_news" onfocus="blur();"></map>
+<map name="gallery" id="gallery">
+  <area shape="rect" coords="267,1,315,18" href="/board/BBS.php3?db=D_gallery" onfocus="blur();">
+</map>
+<map name="com01" id="com01">
+<area shape="rect" coords="267,4,306,16" href="/board/BBS.php3?db=dongdaemun" onfocus="blur();">
+</map>
+<map name="com02" id="com02">
+<area shape="rect" coords="268,5,305,16" href="/board/BBS.php3?db=shinmungo" onfocus="blur();">
+</map>
+<map name="d001" id="d001">
+<area shape="rect" coords="242,6,275,20" href="/114/114_index.phtml" onfocus="blur();">
+</map>
+<map name="Map3" id="Map3">
+  <area shape="rect" coords="236,6,271,21" href="/business/BizMain.phtml" onfocus="blur();" />
+</map>
+<map name="land" id="land">
+                      <area shape="rect" coords="236,5,271,22" href="/land/land_list.phtml?pageflag=land" onfocus="blur();" />
+</map> <map name="business" id="business2">
+    <area shape="rect" coords="234,4,273,21" href="/business/BizMain.phtml" onfocus="blur();" />
+                </map>
+                <map name="Map2" id="Map2">
+                  <area shape="rect" coords="241,4,274,18" href="delivery/delivery_list.phtml" onfocus="blur();" />
+                </map>
+                <map name="business" id="business">
+                  <area shape="rect" coords="234,4,273,21" href="/business/BizMain.phtml" onfocus="blur();">
+                </map>
+                <map name="com01Map" id="com01Map">
+                  <area shape="rect" coords="267,4,306,16" href="/board/BBS.php3?db=dongdaemun" onfocus="blur();" />
+                </map>
+                <map name="com02Map" id="com02Map">
+                  <area shape="rect" coords="268,5,305,16" href="/board/BBS.php3?db=shinmungo" onfocus="blur();" />
+                </map>
+
+<map name="dmap" id="dmap"><area shape="rect" coords="254,117,292,156" href="https://maps.google.co.kr/maps?q=%EB%8F%99%EB%8C%80%EB%AC%B8%EC%97%AD&amp;hl=ko&amp;ie=UTF8&amp;ll=37.570654,127.009163&amp;spn=0.010204,0.023378&amp;sll=37.576441,127.036672&amp;sspn=0.005102,0.011689&amp;hnear=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EC%A2%85%EB%A1%9C%EA%B5%AC+%EC%B0%BD%EC%8B%A0%EB%8F%99+%EB%8F%99%EB%8C%80%EB%AC%B8%EC%97%AD&amp;t=m&amp;z=17" target="_blank" onfocus="blur();"/><area shape="rect" coords="150,117,188,156" href="http://local.daum.net/map/index.jsp?map_type=TYPE_MAP&amp;map_hybrid=false&amp;q=%EB%8F%99%EB%8C%80%EB%AC%B8%EC%97%AD&amp;urlX=501668&amp;urlY=1129541&amp;urlLevel=3" target="_blank" onfocus="blur();"/>
+  <area shape="rect" coords="94,116,132,155" href="http://map.naver.com/index.nhn?dlevel=12&amp;lat=37.5712328&amp;lng=127.0098765&amp;menu=location&amp;pinId=12303&amp;pinType=spot&amp;pinTitle=7Z2l7J247KeA66y4&amp;mapMode=0&amp;enc=b64" target="_blank" onfocus="blur();"/>
+</map>
+
+<map name="column" id="column">
+  <area shape="rect" coords="326,9,341,21" href="/board/BBS.php3?db=column" onfocus="blur();" />
+</map>
+
+<map name="partner" id="partner">
+  <area shape="rect" coords="297,9,310,22" href="/partner/partner.htm" onfocus="blur();" />
+</map>
+
+<map name="law" id="law">
+  <area shape="rect" coords="298,11,311,23" href="/board/BBS.php3?db=law" onfocus="blur();" />
+</map>
+
+<map name="dongdaemin" id="dongdaemin">
+  <area shape="rect" coords="233,5,271,23" href="/board/BBS.php3?db=dongdaemun" onfocus="blur();" />
+</map>
+
+<map name="factory" id="factory">
+  <area shape="rect" coords="237,5,271,22" href="/114/114_list.phtml?keyfield=yellow_corpname&amp;classflag=1" onfocus="blur();" />
+</map>
+
+<map name="simmungo" id="simmungo">
+  <area shape="rect" coords="235,6,273,23" href="#" onfocus="blur();" />
+</map>
+
+<map name="shop" id="shop">
+  <area shape="rect" coords="233,4,272,21" href="/114/114_list.phtml?keyfield=yellow_corpname&amp;classflag=2" onfocus="blur();" />
+</map>
+
+<map name="Map" id="Map">
+  <area shape="rect" coords="360,16,385,43" href="/board/BBS.php3?db=findall" onfocus="blur();" />
+</map>
+
+<script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
+<script type="text/javascript">
+if(!wcs_add) var wcs_add = {};
+wcs_add["wa"] = "593c8fb0570954";
+wcs_do();
+</script>
+
+<?php
+mysqli_close($connect);
+?>

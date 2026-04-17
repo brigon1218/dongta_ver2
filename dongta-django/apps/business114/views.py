@@ -52,6 +52,14 @@ class BusinessViewSet(viewsets.ModelViewSet):
             if region:
                 queryset = queryset.filter(address__icontains=region)
 
+            # 필터: 업체유형 (1=공장, 2=매장)
+            business_type = self.request.query_params.get('business_type')
+            if business_type:
+                try:
+                    queryset = queryset.filter(business_type=int(business_type))
+                except ValueError:
+                    pass
+
             # 필터: 업종
             industry_type = self.request.query_params.get('industry_type')
             if industry_type:
