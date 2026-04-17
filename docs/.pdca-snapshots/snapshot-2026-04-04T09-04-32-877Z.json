@@ -5,12 +5,16 @@
   "primaryFeature": null,
   "features": {
     "마이그레이션": {
-      "phase": "archived",
-      "matchRate": 92,
-      "iterationCount": 1,
-      "startedAt": "2026-03-02T00:00:00.000Z",
-      "archivedAt": "2026-04-08T00:00:00.000Z",
-      "archivedTo": "docs/archive/2026-04/마이그레이션/"
+      "phase": "report",
+      "status": "archived",
+      "matchRate": 100,
+      "lastUpdated": "2026-03-07T00:00:00.000Z",
+      "documents": {
+        "plan": "docs/01-plan/features/마이그레이션.plan.md",
+        "design": "docs/02-design/features/마이그레이션.design.md",
+        "analysis": "docs/03-analysis/features/마이그레이션.analysis.md",
+        "report": "docs/04-report/features/마이그레이션.report.md"
+      }
     },
     "다날_결제_통합": {
       "phase": "report",
@@ -109,5 +113,7 @@
     "startedAt": "2026-04-04T09:03:40.284Z",
     "onboardingCompleted": false,
     "lastActivity": "2026-04-04T09:03:40.284Z"
-  }
+  },
+  "_snapshotTimestamp": "2026-04-04T09:04:32.877Z",
+  "_reason": "pre-compress"
 }
