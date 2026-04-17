@@ -7,7 +7,7 @@ if (!function_exists('dongta_api_get')) {
     include_once(dirname(__FILE__) . '/api_helper.php');
 }
 
-$items = dongta_api_get('/recruit/notices/premium/', [], 300);
+$items = dongta_api_get('/recruit/notices/premium_list/', [], 300);
 if (!$items) $items = [];
 // 최대 3건 표시
 $items = array_slice($items, 0, 3);
